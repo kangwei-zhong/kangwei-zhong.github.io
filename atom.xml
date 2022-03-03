@@ -106,9 +106,9 @@
     <category term="课程笔记及实验" scheme="http://example.com/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0%E5%8F%8A%E5%AE%9E%E9%AA%8C/"/>
     
     
-    <category term="信息安全环境与工具" scheme="http://example.com/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%B7%A5%E5%85%B7/"/>
-    
     <category term="共识算法" scheme="http://example.com/tags/%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/"/>
+    
+    <category term="信息安全环境与工具" scheme="http://example.com/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
@@ -129,9 +129,9 @@
     <category term="课程笔记及实现" scheme="http://example.com/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0%E5%8F%8A%E5%AE%9E%E7%8E%B0/"/>
     
     
-    <category term="数字水印" scheme="http://example.com/tags/%E6%95%B0%E5%AD%97%E6%B0%B4%E5%8D%B0/"/>
-    
     <category term="信息安全环境与工具" scheme="http://example.com/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%B7%A5%E5%85%B7/"/>
+    
+    <category term="数字水印" scheme="http://example.com/tags/%E6%95%B0%E5%AD%97%E6%B0%B4%E5%8D%B0/"/>
     
   </entry>
   
@@ -250,9 +250,9 @@
     <category term="Linux" scheme="http://example.com/categories/Linux/"/>
     
     
-    <category term="Tools" scheme="http://example.com/tags/Tools/"/>
-    
     <category term="Linux" scheme="http://example.com/tags/Linux/"/>
+    
+    <category term="Tools" scheme="http://example.com/tags/Tools/"/>
     
   </entry>
   
@@ -417,9 +417,9 @@
     <category term="渗透测试" scheme="http://example.com/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
     
-    <category term="Web" scheme="http://example.com/tags/Web/"/>
-    
     <category term="渗透测试" scheme="http://example.com/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+    <category term="Web" scheme="http://example.com/tags/Web/"/>
     
     <category term="tools" scheme="http://example.com/tags/tools/"/>
     
