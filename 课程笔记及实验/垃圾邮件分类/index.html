@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="通过概率论中学的贝叶斯公式来推断一封新收到的邮件是否为垃圾邮件。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="垃圾邮件分类">
+<meta property="og:url" content="http://example.com/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0%E5%8F%8A%E5%AE%9E%E9%AA%8C/%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB/">
+<meta property="og:site_name" content="Zhong Kangwei&#39;s Blog">
+<meta property="og:description" content="通过概率论中学的贝叶斯公式来推断一封新收到的邮件是否为垃圾邮件。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20211124141327426.png">
+<meta property="og:image" content="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20211124141251659.png">
+<meta property="article:published_time" content="2022-03-03T11:40:44.000Z">
+<meta property="article:modified_time" content="2022-03-03T11:44:43.643Z">
+<meta property="article:author" content="Zhong Kangwei">
+<meta property="article:tag" content="信息安全环境与工具">
+<meta property="article:tag" content="Socket">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20211124141327426.png">
+
+<link rel="canonical" href="http://example.com/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0%E5%8F%8A%E5%AE%9E%E9%AA%8C/%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>垃圾邮件分类 | Zhong Kangwei's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Zhong Kangwei's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zhong Kangwei's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Learn and Live.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">25</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">27</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0%E5%8F%8A%E5%AE%9E%E9%AA%8C/%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhong Kangwei">
+      <meta itemprop="description" content="Learn and Live.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhong Kangwei's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          垃圾邮件分类
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-03 19:40:44 / 修改时间：19:44:43" itemprop="dateCreated datePublished" datetime="2022-03-03T19:40:44+08:00">2022-03-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0%E5%8F%8A%E5%AE%9E%E9%AA%8C/" itemprop="url" rel="index"><span itemprop="name">课程笔记及实验</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0%E5%8F%8A%E5%AE%9E%E9%AA%8C/%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0%E5%8F%8A%E5%AE%9E%E9%AA%8C/%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>通过概率论中学的贝叶斯公式来推断一封新收到的邮件是否为垃圾邮件。</p>
+<span id="more"></span>
+
+<h1 id="垃圾邮件分类"><a href="#垃圾邮件分类" class="headerlink" title="垃圾邮件分类"></a>垃圾邮件分类</h1><h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><ul>
+<li>了解垃圾邮件分类的基本技术路线与方法。</li>
+<li>了解如何提取邮件中的关键字，并运用统计学中的贝叶斯公式来推断一封新收到的邮件是否为垃圾邮件。</li>
+</ul>
+<h2 id="实验内容"><a href="#实验内容" class="headerlink" title="实验内容"></a>实验内容</h2><h3 id="邮件解析"><a href="#邮件解析" class="headerlink" title="邮件解析"></a>邮件解析</h3><p>我在网上找到了一个8000封正常邮件和8000封垃圾邮件的邮件史料，同时也通过网上邮件下载的python文件，即<code>mailDownload.py</code>添加了邮箱的一些邮件，作为训练集，然后提取邮件中的中文词汇。</p>
+<p>这里使用的提取中文词汇的方法是：先将中文文本切成最小的单位汉字，然后再&#x3D;从词典里找词，将字按照最左最长原则，合并成以词为单位的集合。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">init_wordslist</span>(<span class="params">self, fn=<span class="string">r&quot;./words.txt&quot;</span></span>):</span><br><span class="line">    f = <span class="built_in">open</span>(fn)</span><br><span class="line">    lines = <span class="built_in">sorted</span>(f.readlines())</span><br><span class="line">    f.close()</span><br><span class="line">    <span class="keyword">return</span> lines</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">words_2_trie</span>(<span class="params">self, wordslist</span>):</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    将单词表存入字典树</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    d = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> wordslist:</span><br><span class="line">        ref = d</span><br><span class="line">        chars = self.regex.findall(word)</span><br><span class="line">        <span class="keyword">for</span> char <span class="keyword">in</span> chars:</span><br><span class="line">            ref[char] = ref.has_key(char) <span class="keyword">and</span> ref[char] <span class="keyword">or</span> &#123;&#125;</span><br><span class="line">            ref = ref[char]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> d</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">search_in_trie</span>(<span class="params">self, chars, trie, res</span>):</span><br><span class="line">    ref = trie</span><br><span class="line">    index = <span class="number">0</span></span><br><span class="line">    temp = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> char <span class="keyword">in</span> chars:</span><br><span class="line">        <span class="keyword">if</span> ref.has_key(char):</span><br><span class="line">            temp += char</span><br><span class="line">            count += <span class="number">1</span></span><br><span class="line">            ref = ref[char]</span><br><span class="line">            index += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> temp != <span class="number">0</span>:                                <span class="comment">#表示上一个单词已经分离出</span></span><br><span class="line">                res.append(temp)</span><br><span class="line">                temp = <span class="string">&#x27;&#x27;</span></span><br><span class="line">                count = <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> index == <span class="number">0</span>:                               <span class="comment">#字典中没有以上一个char结尾的单词</span></span><br><span class="line">                index = <span class="number">1</span></span><br><span class="line">                res.append(char)</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                chars = chars[index:]</span><br><span class="line">                self.search_in_trie(chars, trie, res)</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> count != <span class="number">0</span>:                                       <span class="comment">#最后一个词</span></span><br><span class="line">        res.append(temp);</span><br></pre></td></tr></table></figure>
+
+<p>做完以后发现，python有结巴分词这个第三方扩展库来实现中文分词，好像直接调用那个库可以更加方便，但是我已经写完了就没有再使用了。</p>
+<h3 id="邮件分析"><a href="#邮件分析" class="headerlink" title="邮件分析"></a>邮件分析</h3><p>做完这些后就要对信息进行汇总了，即统计邮件中每个词汇分别在垃圾邮件和正常邮件中出现的频率，</p>
+<ol>
+<li><p>当收到一封未知邮件时，在不知道的前提下，我们假定它是垃圾邮件和正常邮件的概率各 为50%，p(s) &#x3D; p(n) &#x3D; 50%</p>
+</li>
+<li><p>解析该邮件，提取每个词，计算该词的p(s|w)，也就是受该词影响，该邮件是垃圾邮件的概率</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">			p(sw)             p(w|s)p(s)</span><br><span class="line">p(s|w) = -----------  =   ----------------------</span><br><span class="line">			p(w)        p(s)p(w|s) + p(n)p(w|n)</span><br></pre></td></tr></table></figure>
+
+<p>此处的解析邮件还是类似于前面的邮件分词，对应实现是splitsingle()</p>
+</li>
+<li><p>提取该邮件中p(s|w)最高的15个词，计算联合概率。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">			p(s|w1)p(s|w2)...p(s|w15)</span><br><span class="line">p = ---------------------------------------------------------------</span><br><span class="line">	p(s|w1)p(s|w2)...p(s|w15) + (1-p(s|w1))(1-p(s|w2)...(1-p(s|w15)))			</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设定阈值 p &gt; 0.9 :垃圾邮件<br>p &lt; 0.9 :正常邮件</p>
+</li>
+</ol>
+<p>整个过程的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">JudgeMail</span>:</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    判断接收到的邮件是否为垃圾邮件</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">judge</span>(<span class="params">self, init, trie, email</span>):</span><br><span class="line">        res = init.splitsingle(trie, email)                  </span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> [<span class="string">&#x27;;&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27; &#x27;</span>, <span class="string">&#x27;:&#x27;</span>, <span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;。&#x27;</span>, <span class="string">&#x27;：&#x27;</span>, <span class="string">&#x27;，&#x27;</span>, <span class="string">&#x27; &#x27;</span>, <span class="string">&#x27;!&#x27;</span>, <span class="string">&#x27;（&#x27;</span>, <span class="string">&#x27;）&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;)&#x27;</span>,<span class="string">&#x27;！&#x27;</span>,<span class="string">&#x27;、&#x27;</span>]:</span><br><span class="line">            <span class="keyword">if</span> i <span class="keyword">in</span> res:</span><br><span class="line">                res.remove(i)                                <span class="comment">#剔除标点字符</span></span><br><span class="line">        ratio_of_words = []									 <span class="comment">#记录邮件中每个词在垃圾邮件史料库(init.ratio[key][1])中出现的概率	</span></span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> res:</span><br><span class="line">            <span class="keyword">if</span> word <span class="keyword">in</span> init.ratio:</span><br><span class="line">                ratio_of_words.append((word, init.ratio[word][<span class="number">1</span>]))					</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                init.ratio[word] = [<span class="number">0.6</span>, <span class="number">0.4</span>]				 <span class="comment">#如果邮件中的词是第一次出现，那么就假定</span></span><br><span class="line">                                                             <span class="comment">#p(s|w)=0.4	</span></span><br><span class="line">            ratio_of_words.append((word, <span class="number">0.4</span>))</span><br><span class="line">        ratio_of_words = <span class="built_in">sorted</span>(ratio_of_words, key = <span class="keyword">lambda</span> x:x[<span class="number">1</span>], reverse=<span class="literal">True</span>)[:<span class="number">15</span>]</span><br><span class="line">        P = <span class="number">1.0</span> </span><br><span class="line">        rest_P = <span class="number">1.0</span></span><br><span class="line">        <span class="keyword">for</span> word <span class="keyword">in</span> ratio_of_words:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                <span class="built_in">print</span> word[<span class="number">0</span>].decode(<span class="string">&#x27;utf-8&#x27;</span>), word[<span class="number">1</span>]</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                <span class="built_in">print</span> word[<span class="number">0</span>], word[<span class="number">1</span>]</span><br><span class="line">            P *= word[<span class="number">1</span>]</span><br><span class="line">            rest_P = rest_P * (<span class="number">1.0</span> - word[<span class="number">1</span>])</span><br><span class="line">         </span><br><span class="line">        trash_p = P / (P + rest_P)</span><br><span class="line">        typ = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> trash_p &gt; <span class="number">0.9</span>:</span><br><span class="line">            typ = <span class="string">&#x27;trash&#x27;</span> </span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            typ = <span class="string">&#x27;normal&#x27;</span></span><br><span class="line">        init.flush(typ, res)</span><br><span class="line">        <span class="keyword">return</span> trash_p</span><br></pre></td></tr></table></figure>
+
+<h3 id="建立通信"><a href="#建立通信" class="headerlink" title="建立通信"></a>建立通信</h3><p>这学期的计算机网络学习socket通信，这里拿来实践一下，过简单地socket通信模拟邮件收发。</p>
+<ul>
+<li><p>server端：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> analysisEmail</span><br><span class="line"><span class="keyword">import</span> splitEmail</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment">#加载历史邮件资料库，即建立判断条件</span></span><br><span class="line">    init = splitEmail.SplitEmail()</span><br><span class="line">    words = init.init_wordslist()</span><br><span class="line">    trie = init.words_2_trie(words)</span><br><span class="line">    init.split(trie, [<span class="string">&#x27;./data/&#x27;</span>])</span><br><span class="line">    init.ratio = init.getRatio()</span><br><span class="line">    <span class="comment">#for key in dic_of_ratio:</span></span><br><span class="line">    <span class="comment">#    print key, dic_of_ratio[key]</span></span><br><span class="line">    <span class="comment">####################################################################</span></span><br><span class="line"></span><br><span class="line">    host = <span class="string">&#x27;&#x27;</span>   		</span><br><span class="line">    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">    s.bind((host, port))</span><br><span class="line">    s.listen(<span class="number">5</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&quot;Waiting for clients...&quot;</span></span><br><span class="line">        conn, addr = s.accept()</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&#x27;Connected by&#x27;</span>, addr</span><br><span class="line">        msg = <span class="string">&quot;&quot;</span></span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            data = conn.recv(<span class="number">1024</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> <span class="built_in">len</span>(data):</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            msg += data</span><br><span class="line">        conn.close()</span><br><span class="line">        P = analysisEmail.JudgeMail().judge(init, trie, msg)</span><br><span class="line">        <span class="built_in">print</span> <span class="string">&quot;P(spam) = &quot;</span>, P</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>client端：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">	host = <span class="string">&#x27;localhost&#x27;</span></span><br><span class="line">	port = <span class="number">8888</span></span><br><span class="line">	<span class="keyword">try</span>:</span><br><span class="line">		fi = <span class="built_in">str</span>(sys.argv[<span class="number">1</span>])</span><br><span class="line">		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">		msg = <span class="built_in">open</span>(fi).read()</span><br><span class="line">		s.connect((host, port))</span><br><span class="line">		s.sendall(msg)</span><br><span class="line">		s.close()		</span><br><span class="line">	<span class="keyword">except</span>:</span><br><span class="line">		<span class="built_in">print</span> <span class="string">&quot;error: Input the email location&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>整个过程：server端运行，首先建立splitemail对象，然后调用init_wordlist()加载字典，之后调用words_2_trie()将<br>字典转换为字典树，再之后将史料库中的邮件分词，统计各个单词在正常和垃圾邮件中出现的概率。</p>
+<p> client发来邮件，server接收后调用<code>analysisEmail.py</code>中的<code>judge()</code>函数来判断其是否为垃圾邮件。</p>
+</li>
+</ul>
+<h2 id="实验中出现的问题"><a href="#实验中出现的问题" class="headerlink" title="实验中出现的问题"></a>实验中出现的问题</h2><ul>
+<li>实验过程当中开始遇到的问题是训练数据集的搜集问题，开始找不到对应的邮件史料库，后来通过CSDN下载到了一个比较大的数据集（虽然邮件比较老旧）</li>
+<li>提取中文分词时遇到了一些问题，后来找到了字典树与最左最长匹配的方法实现了简单的分词功能，结果做完后发现python有第三方扩展库可以完美实现中文分词。</li>
+</ul>
+<h2 id="实验结果展示及分析"><a href="#实验结果展示及分析" class="headerlink" title="实验结果展示及分析"></a>实验结果展示及分析</h2><h4 id="结果展示"><a href="#结果展示" class="headerlink" title="结果展示"></a>结果展示</h4><p>我从邮件库中选取了一封典型的垃圾邮件：</p>
+<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20211124141327426.png" alt="image-20211124141327426"></p>
+<p>通过分析后我们得到为垃圾邮件的概率为0.9538…</p>
+<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20211124141251659.png" alt="image-20211124141251659"></p>
+<h4 id="实验分析"><a href="#实验分析" class="headerlink" title="实验分析"></a>实验分析</h4><p>测试邮件集合中部分邮件，正常邮件中正确识别的为Nc，错误识别的为Ne，垃圾邮件中正确识别的为Mc，错误识别的为Me。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>准确度</th>
+<th>召回率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>贝叶斯</td>
+<td>88.8%</td>
+<td>89.5%</td>
+</tr>
+</tbody></table>
+<p>（召回率&#x3D;$Nc&#x2F;(Nc+Ne) *100%$）</p>
+<p>通过数据我们可以看到使用贝叶斯的分类算法准确度和召回率处于中游水平，应该还有更好的分类方法比如支持向量机等可以提高准确度和召回率。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%B7%A5%E5%85%B7/" rel="tag"># 信息安全环境与工具</a>
+              <a href="/tags/Socket/" rel="tag"># Socket</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0%E5%8F%8A%E5%AE%9E%E9%AA%8C/PAXOS%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/" rel="prev" title="PAXOS共识算法">
+      <i class="fa fa-chevron-left"></i> PAXOS共识算法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" rel="next" title="联邦学习概述">
+      联邦学习概述 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">垃圾邮件分类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="nav-number">1.1.</span> <span class="nav-text">实验目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E5%86%85%E5%AE%B9"><span class="nav-number">1.2.</span> <span class="nav-text">实验内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%82%AE%E4%BB%B6%E8%A7%A3%E6%9E%90"><span class="nav-number">1.2.1.</span> <span class="nav-text">邮件解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%82%AE%E4%BB%B6%E5%88%86%E6%9E%90"><span class="nav-number">1.2.2.</span> <span class="nav-text">邮件分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E9%80%9A%E4%BF%A1"><span class="nav-number">1.2.3.</span> <span class="nav-text">建立通信</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%AD%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.</span> <span class="nav-text">实验中出现的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C%E5%B1%95%E7%A4%BA%E5%8F%8A%E5%88%86%E6%9E%90"><span class="nav-number">1.4.</span> <span class="nav-text">实验结果展示及分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C%E5%B1%95%E7%A4%BA"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">结果展示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E5%88%86%E6%9E%90"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">实验分析</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zhong Kangwei</p>
+  <div class="site-description" itemprop="description">Learn and Live.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kangwei-zhong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kangwei-zhong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhong_kangwei@163.com" title="E-Mail → mailto:zhong_kangwei@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/turboxx?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;turboxx?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa fa-tag fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhong Kangwei</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'uUbaEPqsk3EzJp15JKhizV27-gzGzoHsz',
+      appKey     : 'L5DP8MpKld5UaGiP2JDN3s2d',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

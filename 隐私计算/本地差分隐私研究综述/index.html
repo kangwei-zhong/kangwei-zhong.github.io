@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="对2018年软件学报论文的翻译。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="本地差分隐私研究综述">
+<meta property="og:url" content="http://example.com/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/%E6%9C%AC%E5%9C%B0%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81%E7%A0%94%E7%A9%B6%E7%BB%BC%E8%BF%B0/">
+<meta property="og:site_name" content="Zhong Kangwei&#39;s Blog">
+<meta property="og:description" content="对2018年软件学报论文的翻译。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-03T11:32:32.000Z">
+<meta property="article:modified_time" content="2022-03-03T11:33:29.569Z">
+<meta property="article:author" content="Zhong Kangwei">
+<meta property="article:tag" content="隐私计算">
+<meta property="article:tag" content="翻译">
+<meta property="article:tag" content="差分隐私">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/%E6%9C%AC%E5%9C%B0%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81%E7%A0%94%E7%A9%B6%E7%BB%BC%E8%BF%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>本地差分隐私研究综述 | Zhong Kangwei's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Zhong Kangwei's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zhong Kangwei's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Learn and Live.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">25</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">27</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/%E6%9C%AC%E5%9C%B0%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81%E7%A0%94%E7%A9%B6%E7%BB%BC%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhong Kangwei">
+      <meta itemprop="description" content="Learn and Live.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhong Kangwei's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          本地差分隐私研究综述
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-03 19:32:32 / 修改时间：19:33:29" itemprop="dateCreated datePublished" datetime="2022-03-03T19:32:32+08:00">2022-03-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/" itemprop="url" rel="index"><span itemprop="name">隐私计算</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/%E6%9C%AC%E5%9C%B0%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81%E7%A0%94%E7%A9%B6%E7%BB%BC%E8%BF%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/%E6%9C%AC%E5%9C%B0%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81%E7%A0%94%E7%A9%B6%E7%BB%BC%E8%BF%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>对2018年软件学报论文的翻译。</p>
+<span id="more"></span>
+
+<h1 id="本地化差分隐私研究综述"><a href="#本地化差分隐私研究综述" class="headerlink" title="本地化差分隐私研究综述"></a>本地化差分隐私研究综述</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>本地化差分隐私技术应用场景：</p>
+<ul>
+<li><p>众包数据采集</p>
+<p>数据收集者将数据采集任务分配给不同用户进行。当用户参与众包数据采集时，不可避免存在泄露个人敏感信息的风险，这时就需要隐私保护技术为其保驾护航。</p>
+</li>
+<li><p>敏感图像特征提取</p>
+<p>很多来自个人的形象蕴含很多敏感信息，如人脸、指纹等，对此类图像的存储和分析过程进行相应的隐私保护。本地化差分隐私技术在用户端完成对图像的扰动处理，保证无论是数据收集者或者数据传输过程中的攻击者均无法窃取图像中的隐私信息。（可以改？</p>
+</li>
+</ul>
+<p>研究时考虑的问题：</p>
+<ul>
+<li>如何设计满足ε-本地化差分隐私的数据扰动算法，以保护其中敏感信息</li>
+<li>数据收集者如何对查询结果进行求精处理，以提高统计结果的可用性</li>
+</ul>
+<p>本文内容：</p>
+<ul>
+<li>最新进展，研究背景，基本定义，实现机制，与中心化差分隐私技术区别</li>
+<li>研究方向分析，着重介绍数据扰动机制以及两种基本数据发布形式：频数统计，均值统计</li>
+<li>提出未来研究方向并分析</li>
+</ul>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>对数据进行隐私化处理–&gt;将处理后的数据发给数据收集者–&gt;收集者对采集到的数据进行统计并得到分析结果</p>
+<p>即在对数据进行统计分析的同时，保证个体的隐私信息不被泄露</p>
+<blockquote>
+<p>定义1：</p>
+</blockquote>
+<p>控制任意两条记录输出结果的相似性，确保算法M满足ε-本地化差分隐私。</p>
+<p>根据M的输出结果，几乎无法推理出输入数据为哪一条记录。</p>
+<h3 id="扰动机制"><a href="#扰动机制" class="headerlink" title="扰动机制"></a>扰动机制</h3><p>随机相应技术(W-RR)是本地化差分隐私的主流扰动机制。</p>
+<p>W-RR是利用对敏感问题响应的不确定性对原始数据进行隐私保护，主要包括两个步骤：扰动性统计和校正。</p>
+<ul>
+<li><p>扰动性统计</p>
+<p>举例（艾滋病患者的例子）按想法求比例-&gt;构造似然函数-&gt;得到极大似然估计（保证其无偏）-&gt;根据定义计算ε</p>
+</li>
+<li><p>离散型数据的W-RR</p>
+<p>W-RR仅对包含两种取值的离散型数据进行响应，对具有超过两种取值的数据并不适用，因此有两种思路</p>
+<ul>
+<li><p>对变量的不同取值进行编码转化，使其满足W-RR对二值变量的要求。k个候选值，将每一个都编码成logk取上界的0&#x2F;1串，然后对每一位上的0&#x2F;1进行随机响应。</p>
+<p>缺点：logk并非刚好取整，因此存在某些0&#x2F;1串未能匹配到相应候选值，由此造成匹配误差以及随机相应技术本身的扰动误差，使得数据发布的可用性降低。因此技术难点在属性候选值的编码和匹配策略上。</p>
+</li>
+<li><p>改进W-RR技术，使其能够直接适用于超过两种取值的变量。具体来说，就是保证概率的分布能够覆盖到k种取值中的任意一种。（k-RR和O-RR）</p>
+</li>
+</ul>
+</li>
+<li><p>连续型数据的W-RR</p>
+<p>将连续型数据离散化，然后用离散型数据下的随机响应方法对其进行扰动。</p>
+<p>难点：合理设置离散化的两个数值，如何保证统计结果无偏性</p>
+</li>
+</ul>
+<h3 id="本地化与中心化差分隐私的异同点"><a href="#本地化与中心化差分隐私的异同点" class="headerlink" title="本地化与中心化差分隐私的异同点"></a>本地化与中心化差分隐私的异同点</h3><p>本地化继承中心化的组合特性，同时又对其进行了扩展，利用W-RR的扰动机制抵抗不可信第三方数据收集者带来的隐私攻击。</p>
+<ul>
+<li><p>组合特性</p>
+<ul>
+<li><p>序列组合性</p>
+<p>隐私预算ε可以在方法的不同步骤进行分配，n个隐私算法{$M_1…M_n$}满足$ε_i$-本地化差分隐私，则在数据集合D上的序列组合满足ε-本地化差分隐私，ε为$ε_i$的和</p>
+</li>
+<li><p>并行组合性</p>
+<p>保证满足差分隐私的算法在数据集的不相交子集上的隐私性。M在{$D_1,…,D_n$}都满足ε本地化差分隐私</p>
+</li>
+</ul>
+</li>
+<li><p>可信与不可信第三方</p>
+<p>中心化：有可信第三方数据收集者，每个用户将真实数据记录发送给数据收集者，并假定其可信，不会泄露个人敏感信息。数据收集者用隐私算法对数据分析者的查询进行响应。</p>
+<p>本地化：第三方数据收集者不可信，将数据扰动功能从数据收集方转移到了客户端，即每个用户处。每个用户按照隐私算法对数据进行扰动，然后把数据上传数据收集者，数据收集者接受数据分析者的查询请求，并进行响应。</p>
+</li>
+<li><p>噪声机制</p>
+<p>中心化：有全局敏感性，需要噪声机制介入。</p>
+<p>本地化：任意两个用户之间并不知晓对方数据记录，没有全局敏感性，用W-RR技术。</p>
+</li>
+<li><p>应用场景</p>
+<p>中心化：对统计数据量不作特别要求。</p>
+<p>本地化：噪声随机，要保证统计结果的无偏性，需要海量数据集来实现满足数据可用性的统计精度。</p>
+</li>
+</ul>
+<h2 id="数据保护框架"><a href="#数据保护框架" class="headerlink" title="数据保护框架"></a>数据保护框架</h2><ul>
+<li><p>交互式</p>
+<p>第$i$个输出$Z_i$依赖于第i个输入$X_i$，以及前i个输出$Z_{1:i-1}$，但与前i个输入$X_{1：i-1}$无依赖关系</p>
+<p>交互式通常应用于家族遗传病，性状等</p>
+</li>
+<li><p>非交互式</p>
+<p>第$i$个输出$Z_i$仅依赖于第$i$个输入$X_i$</p>
+<p>非交互式通常应用于商场购物数量等</p>
+</li>
+</ul>
+<p>这两者最大区别在于输出结果之间的关联性。</p>
+<h2 id="研究方向"><a href="#研究方向" class="headerlink" title="研究方向"></a>研究方向</h2><ul>
+<li><p>本地化差分隐私的扰动机制研究</p>
+<p>主要包括随机响应、信息压缩和扭曲</p>
+</li>
+<li><p>基于本地化差分隐私的单值频数发布</p>
+</li>
+<li><p>基于本地化差分隐私的多值频数发布</p>
+</li>
+<li><p>基于本地化差分隐私的均值发布</p>
+</li>
+</ul>
+<h2 id="方法对比与分析"><a href="#方法对比与分析" class="headerlink" title="方法对比与分析"></a>方法对比与分析</h2><h3 id="基于本地化差分隐私的频数统计"><a href="#基于本地化差分隐私的频数统计" class="headerlink" title="基于本地化差分隐私的频数统计"></a>基于本地化差分隐私的频数统计</h3><ul>
+<li><p>单值频数统计</p>
+<p>单值频数统计是指每个用户只发送一个变量取值的情形。用户把数据发送给收集者，收集者根据已有的或统计得到的候选值列表，统计其中每个候选值的频数并发布。</p>
+<p>代表方法：RAPPOR</p>
+<p>其中变量以字符串的形式表示（Bloom Filter）</p>
+<p>第一次扰动，用W-RR对向量B的每一个位进行扰动，得到PRR（永久性随机响应）结果B’</p>
+<p>然后对B’的每一个位进行第二次扰动，得到IRR（瞬时性随机响应）结果S</p>
+<p>将S发送给第三方数据收集者，数据收集者统计每一位上1出现的次数并进行校正，然后结合映射矩阵通过Lasso回归方法完成每个年龄值对应的频数统计</p>
+<p>误差：1）Bloom Filter进行编码，在解码过程中可能存在属性候选值冲突问题——–&gt;RAPPOR调整相应参数降低候选值冲突带来的误差；2）W-RR对数据扰动产生的误差问题，数据扰动带来的渐进误差边界为$O(k&#x2F;ε\sqrt{n})$，这是算法本身固有误差。</p>
+<p>缺陷：<strong>1）传输代价较高，每个用户都要传输长度为h的向量给数据收集者；</strong></p>
+<p>解决方案：S-Hist中每个用户对字符串进行编码后，随机选择其中一个比特位，利用W-RR扰动，将其发送给数据收集者。</p>
+<p>同时，假设列表中字符串候选值个数k超过了用户数量n，利用随机投影技术将每个字符串表示成m&#x3D;O(n)维二值变量，生成一个随机投影矩阵，其中每个元素的取值集合为{$1&#x2F;\sqrt{m},-1&#x2F;\sqrt{m}$}，以使得矩阵中每个列向量的内积为1，而任意不同两个列向量的内积为0。渐进误差边界：$O(\sqrt{logk}&#x2F;ε\sqrt{n})$</p>
+<p>优点：极大降低通信代价</p>
+<p><strong>2）数据收集者需预先采集候选字符串列表以进行频数统计；</strong></p>
+<p>解决方案：O-RAPPOR</p>
+<p>在RAPPOR的基础上引入哈希映射和分组操作。对于每个字符串，先用哈希函数进行一次值的映射，后续的扰动步骤直接对哈希值进行处理，这样就不需要预知候选字符串的列表</p>
+</li>
+<li><p>多值频数统计</p>
+<p>每个用户发送多个变量取值的情形，用户将数据发送给数据收集者后，数据收集者根据已有的或统计得到的候选值列表，统计其中每一个候选值的频数并进行发布。</p>
+<p>需要考虑隐私预算的分割问题。可以将单值频数统计方法重复地用在多值情形中的每一个变量上，但是如此可能导致两个问题：</p>
+<p>1）根据变量的数量分割隐私预算，当变量较多时，数据可用性急剧降低</p>
+<p>2）忽略了变量之间的关联关系，损失部分信息——-&gt;&gt;预先采集候选字符串列表</p>
+<p>针对2）有一个方法，</p>
+<ul>
+<li><p>RAPPOR-unknown。</p>
+<p>它基于n-gram（字符串长度为n的子串）的思想，得到扰动结果后，从字符串中抽取r个长度相同的子串，然后将扰动结果和子串相关信息一起发给第三方数据收集者。</p>
+<p>RAPPOR-unknown是将隐私预算ε进行（r+1)等分，分别分配给扰动结果和r个子串的计算过程。</p>
+<p>采集数据后，数据收集者通过共现技术还原字符串，以得到字符串列表。针对多值的情形，RAPPOR-unknown利用期望最大化算法，估计多个变量的联合概率分布，以进行列联表的查询。</p>
+<p>该方法要将子串及其位置信息一起传输给数据收集者用于统计候选值列表，比RAPPOR方法多出O(r)的传输代价，不适合字串较多的情形。</p>
+</li>
+<li><p>Harmony-frequency</p>
+<p>S-Hist方法虽然极大降低了通信代价，但在实际应用中稳定性不确定，因为随机投影矩阵中每个元素的正负取值具有随机性，要使任意两个列向量的内积为0，前提是字符串的候选值k足够大。</p>
+<p>针对关系型数据，又提出了Harmony方法，可用于连续型数据的均值统计和离散型数据的频数统计两种查询。</p>
+<p>其运用于频数统计的方法叫做Harmony-frequency，该方法改进了随机投影矩阵，用迭代的方式生成一个k×k的随机投影矩阵，其中保证了矩阵任意两个列向量正交（内积为0），渐进误差边界：$O(\sqrt{dlogk}&#x2F;ε\sqrt{n})$，<strong>有更高的发布精度</strong>。</p>
+</li>
+<li><p>LDPMiner</p>
+<p>是集值数据下的频数发布方法，针对Heavy hitter查询。1）数据收集者采集数据，确定Heavy hitter集合并将其返回给用户；2）用户发送集合中k’个项所对应的数据。</p>
+<p>LDPMiner是基于RAPPOR和S-Hist方法实现的一个组合方法。因为每个用户需要发送多个数据项，通信代价较高，因此用随机采样技术令每个用户只发送其中一个数据项，然后用RAPPOR和S-Hist方法来进行数据扰动。</p>
+<p>采样+RAPPOR–&gt;sampling RAPPOR</p>
+<p>采样+S-Hist–&gt;sampling SH</p>
+<p>LDPMiner的两个阶段：</p>
+<p>阶段1：sampling SH：用户通过sampling SH将扰动后的数据发送给数据收集者，数据收集者统计每个数据项的频数，确定频数最高的k’个项的集合，并将该集合返回给用户</p>
+<p>阶段2：sampling RAPPOR：用户通过sampling RAPPOR将阶段一返回的数据项所对应的数据再次发送给数据收集者，数据收集者统计每个数据项的频数，得到k’个数据项的频数</p>
+<p>从两个方面的数据处理提高数据可用性：</p>
+<p>1）通过采样技术避免了隐私预算在不同数据项上的分割；</p>
+<p>2）频繁项集合的确定和频数统计两个操作分离，缩小了需要扰动的数据项集合，增大了k‘个数据项所分配到的隐私预算</p>
+</li>
+<li><p>Lopub</p>
+<p>结合RAPPOR和概率图模型的多值频数统计方法。</p>
+<p>思路：</p>
+<p>1）用户的数据扰动；&#x3D;&#x3D;&gt;RAPPOR</p>
+<p>2）数据收集者估计联合概率分布并进行数据降维；&#x3D;&#x3D;&gt;构建马尔科夫网络，利用属性之间的关联性得到极大团，并将属性的联合概率分布以极大团的形式来表示，以达到数据降维的目的。</p>
+<p>3）合成数据集。&#x3D;&#x3D;&gt;通过联合概率分布重新合成一个数据集进行数据发布</p>
+</li>
+<li><p>多值频数统计方法对比分析</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="基于本地化差分隐私的均值统计"><a href="#基于本地化差分隐私的均值统计" class="headerlink" title="基于本地化差分隐私的均值统计"></a>基于本地化差分隐私的均值统计</h3><p>  主要思想：对个体值添加正向和负向的噪声，最终通过聚合大量扰动结果将其抵消，从而使统计结果满足一定的可用性要求。</p>
+<p>  代表方法：MeanEst，Harmony-mean</p>
+<ul>
+<li><p>MeanEst</p>
+<p>将包含n个元组的d维数据集中的第i个元组按照一定概率分布，并结合随机响应技术，转变成一个仅含二值变量的元组，同时保证最终的统计结果是一个无偏估计量，其中B的计算仅与隐私预算ε和数据维度d有关。</p>
+<p>该方法的值与数据集的维度d呈指数关系，当数据集的维度比较高时，所需的时间和空间代价都比较高，使得B值的计算受到限制。因此，<strong>不适用于维度d较高的数据集</strong>。</p>
+</li>
+<li><p>Harmony-mean</p>
+<p>简化了MeanEst方法，从d个数据维度中随机抽取一个维度j，最终输出的元组中仅一个维度上的变量有相应的取值，而其他维度上变量的取值为0。通信代价为MeanEst的1&#x2F;d，渐进误差边界与其相同，有相近的发布精度。</p>
+</li>
+<li><p>均值统计方法对比分析</p>
+</li>
+</ul>
+<h3 id="基于信息压缩和扭曲的扰动机制"><a href="#基于信息压缩和扭曲的扰动机制" class="headerlink" title="基于信息压缩和扭曲的扰动机制"></a>基于信息压缩和扭曲的扰动机制</h3><ul>
+<li><p>Compression</p>
+<p>每个用户对应一个d维的元组X，对输入域进行压缩，得到X’，压缩过程保证元组X与X‘的对应关系满足本地化差分隐私保护。</p>
+<p>进行压缩会产生偏差，引入扭曲度对偏差的期望进行约束</p>
+<p>&#x3D;&#x3D;&gt;把问题转化为给定扭曲度δ和压缩率ρ，求最小ε的凸优化 =&#x3D;&gt; 二分法求解</p>
+<p>其中ε表示隐私的保护程度，δ表示数据统计结果的可用性，通过压缩率将两者直接联系起来。</p>
+</li>
+<li><p>Distortion</p>
+<p>通过扰动函数对X进行扰动得到X’，然后定义信息扭曲度约束其偏差，保证数据具有一定的可用性。</p>
+</li>
+</ul>
+<h3 id="本地化差分隐私技术的实验特性分析"><a href="#本地化差分隐私技术的实验特性分析" class="headerlink" title="本地化差分隐私技术的实验特性分析"></a>本地化差分隐私技术的实验特性分析</h3><p>  本地化差分隐私技术主要依赖于ε的设定，ε的取值决定了隐私化处理后数据的可用性高低。但同时，对数据集的数据量有一定的要求，数据量也是影响数据可用性的一个重要因素。</p>
+<ul>
+<li><p>隐私预算对数据可用性的影响</p>
+<p>隐私保护程度与数据可用性呈负相关。当给定较多的隐私预算时，统计结果比较接近真实值。</p>
+</li>
+<li><p>数据量对数据可用性的影响</p>
+<p>同样的隐私预算的情况下，统计的数据量小时，偏差较大；统计的数据量大时，偏差较小。</p>
+</li>
+</ul>
+<h2 id="研究挑战"><a href="#研究挑战" class="headerlink" title="研究挑战"></a>研究挑战</h2><p>目前的研究主要集中在两个方面：</p>
+<p>1）理论上，设计满足本地化差分隐私的保护机制；</p>
+<p>2）方法上，对频数和均值两种统计结果进行保护</p>
+<p>现在还有很多挑战性的问题未解决：</p>
+<h3 id="复杂数据类型的本地化差分隐私保护"><a href="#复杂数据类型的本地化差分隐私保护" class="headerlink" title="复杂数据类型的本地化差分隐私保护"></a>复杂数据类型的本地化差分隐私保护</h3><p>e.g.</p>
+<p>键值对：需要对键和值都进行隐私化处理，且仍需保证“键”和“值”之间的对应性</p>
+<p>图数据：全局敏感性极高，本地化差分隐私技术虽然不存在敏感性过大的问题，但每个用户对数据扰动过程相互独立，数据收集者如何根据扰动后的数据构建可用性高的图结构，即如何保证原始数据之间的关联性是一大挑战。</p>
+<h3 id="不同查询和分析任务的本地化差分隐私保护"><a href="#不同查询和分析任务的本地化差分隐私保护" class="headerlink" title="不同查询和分析任务的本地化差分隐私保护"></a>不同查询和分析任务的本地化差分隐私保护</h3><p>本地化差分隐私下，不仅要求能够支持不同的查询类型，还要求扰动后的数据能够同时支持多种不同的查询。本地化差分隐私通过抵消添加在数据中的正向和负向噪声来得到比较准确的统计结果，就单条数据而言通常扰动前后数据偏差较大，加大了查询难度。</p>
+<p>因此主要考虑以下三种实现方法：</p>
+<p>1）提供对除计数查询和均值查询外的多种查询方式的支持；</p>
+<p>2）数据扰动方式与查询类型的解绑，使得扰动后的数据给、能够同时支持多种查询；</p>
+<p>3）提高数据分析结果的可用性。</p>
+<h3 id="基于本地化差分隐私的高维数据发布"><a href="#基于本地化差分隐私的高维数据发布" class="headerlink" title="基于本地化差分隐私的高维数据发布"></a>基于本地化差分隐私的高维数据发布</h3><p>属性个数较多&#x3D;&#x3D;&gt;数据维度较高=&#x3D;&gt;数据规模变大，信噪比降低，增加通信代价（线性&#x2F;指数增长）</p>
+<p>目前的解决方案：属性划分</p>
+<p>在满足本地化差分隐私的基础上，将高维数据的联合概率分布分解为多个低维的边缘概率分布形式，然后将其通过某种推理机制近似估计联合概率分布。</p>
+<p>但是该方法在高维数据的情况下会带来很大噪声，使得推理结果准确性大大降低。</p>
+<p>因此考虑三个问题：</p>
+<p>1）如何在一定隐私预算内衡量属性之间的关联性，从而进行降维处理；</p>
+<p>2）如何设计推理模型，最小化边缘分布到联合分布的近似误差，提高数据可用性；</p>
+<p>3）如何控制高维数据在用户和数据收集者之间的通信代价</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/" rel="tag"># 隐私计算</a>
+              <a href="/tags/%E7%BF%BB%E8%AF%91/" rel="tag"># 翻译</a>
+              <a href="/tags/%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81/" rel="tag"># 差分隐私</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E6%81%B6%E6%84%8F%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98/%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80/" rel="prev" title="静态分析基础">
+      <i class="fa fa-chevron-left"></i> 静态分析基础
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0%E5%8F%8A%E5%AE%9E%E7%8E%B0/%E5%9F%BA%E4%BA%8EQR%E7%A0%81%E7%9A%84%E9%98%B2%E4%BC%AA%E7%94%B5%E5%AD%90%E7%A5%A8%E6%95%B0%E5%AD%97%E6%B0%B4%E5%8D%B0%E6%96%B9%E6%B3%95/" rel="next" title="基于QR码的防伪电子票数字水印方法">
+      基于QR码的防伪电子票数字水印方法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81%E7%A0%94%E7%A9%B6%E7%BB%BC%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">本地化差分隐私研究综述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.2.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B0%E5%8A%A8%E6%9C%BA%E5%88%B6"><span class="nav-number">1.2.2.</span> <span class="nav-text">扰动机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E5%8C%96%E4%B8%8E%E4%B8%AD%E5%BF%83%E5%8C%96%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81%E7%9A%84%E5%BC%82%E5%90%8C%E7%82%B9"><span class="nav-number">1.2.3.</span> <span class="nav-text">本地化与中心化差分隐私的异同点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%BF%9D%E6%8A%A4%E6%A1%86%E6%9E%B6"><span class="nav-number">1.3.</span> <span class="nav-text">数据保护框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91"><span class="nav-number">1.4.</span> <span class="nav-text">研究方向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%AF%B9%E6%AF%94%E4%B8%8E%E5%88%86%E6%9E%90"><span class="nav-number">1.5.</span> <span class="nav-text">方法对比与分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81%E7%9A%84%E9%A2%91%E6%95%B0%E7%BB%9F%E8%AE%A1"><span class="nav-number">1.5.1.</span> <span class="nav-text">基于本地化差分隐私的频数统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81%E7%9A%84%E5%9D%87%E5%80%BC%E7%BB%9F%E8%AE%A1"><span class="nav-number">1.5.2.</span> <span class="nav-text">基于本地化差分隐私的均值统计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BF%A1%E6%81%AF%E5%8E%8B%E7%BC%A9%E5%92%8C%E6%89%AD%E6%9B%B2%E7%9A%84%E6%89%B0%E5%8A%A8%E6%9C%BA%E5%88%B6"><span class="nav-number">1.5.3.</span> <span class="nav-text">基于信息压缩和扭曲的扰动机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81%E6%8A%80%E6%9C%AF%E7%9A%84%E5%AE%9E%E9%AA%8C%E7%89%B9%E6%80%A7%E5%88%86%E6%9E%90"><span class="nav-number">1.5.4.</span> <span class="nav-text">本地化差分隐私技术的实验特性分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A0%94%E7%A9%B6%E6%8C%91%E6%88%98"><span class="nav-number">1.6.</span> <span class="nav-text">研究挑战</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4"><span class="nav-number">1.6.1.</span> <span class="nav-text">复杂数据类型的本地化差分隐私保护</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E6%9F%A5%E8%AF%A2%E5%92%8C%E5%88%86%E6%9E%90%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4"><span class="nav-number">1.6.2.</span> <span class="nav-text">不同查询和分析任务的本地化差分隐私保护</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%9C%AC%E5%9C%B0%E5%8C%96%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81%E7%9A%84%E9%AB%98%E7%BB%B4%E6%95%B0%E6%8D%AE%E5%8F%91%E5%B8%83"><span class="nav-number">1.6.3.</span> <span class="nav-text">基于本地化差分隐私的高维数据发布</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zhong Kangwei</p>
+  <div class="site-description" itemprop="description">Learn and Live.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kangwei-zhong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kangwei-zhong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhong_kangwei@163.com" title="E-Mail → mailto:zhong_kangwei@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/turboxx?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;turboxx?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa fa-tag fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhong Kangwei</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'uUbaEPqsk3EzJp15JKhizV27-gzGzoHsz',
+      appKey     : 'L5DP8MpKld5UaGiP2JDN3s2d',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

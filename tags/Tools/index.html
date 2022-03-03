@@ -34,7 +34,7 @@
   <meta name="description" content="Learn and Live.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Zhong Kangwei&#39;s Blog">
-<meta property="og:url" content="http://example.com/tags/Tools/">
+<meta property="og:url" content="http://example.com/tags/tools/">
 <meta property="og:site_name" content="Zhong Kangwei&#39;s Blog">
 <meta property="og:description" content="Learn and Live.">
 <meta property="og:locale" content="zh_CN">
@@ -42,7 +42,7 @@
 <meta property="article:tag" content="Information Security">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/tags/Tools/">
+<link rel="canonical" href="http://example.com/tags/tools/">
 
 
 <script id="page-configurations">
@@ -55,7 +55,7 @@
   };
 </script>
 
-  <title>标签: Tools | Zhong Kangwei's Blog</title>
+  <title>标签: tools | Zhong Kangwei's Blog</title>
   
 
 
@@ -137,17 +137,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">5</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">25</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">5</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">27</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -204,7 +204,7 @@
   <div class="post-block">
     <div class="posts-collapse">
       <div class="collection-title">
-        <h2 class="collection-header">Tools
+        <h2 class="collection-header">tools
           <small>标签</small>
         </h2>
       </div>
@@ -219,15 +219,15 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2022-03-03T10:50:05+08:00"
+              datetime="2022-03-03T18:54:07+08:00"
               content="2022-03-03">
           03-03
         </time>
       </div>
 
       <div class="post-title">
-          <a class="post-title-link" href="/Tools/Git%E4%BD%BF%E7%94%A8-%E5%A4%9A%E4%BA%BA%E5%BC%80%E5%8F%91/" itemprop="url">
-            <span itemprop="name">Git使用&多人开发</span>
+          <a class="post-title-link" href="/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" itemprop="url">
+            <span itemprop="name">信息搜集</span>
           </a>
       </div>
 
@@ -305,20 +305,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -407,6 +407,78 @@
 		//Find the last canonical URL
 		if(x.length > 0){
 			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'uUbaEPqsk3EzJp15JKhizV27-gzGzoHsz',
+      appKey     : 'L5DP8MpKld5UaGiP2JDN3s2d',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
+.length;i++){
 				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
 					canonicalURL=x[i].href;
 				}

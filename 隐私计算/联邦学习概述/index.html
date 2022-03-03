@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="联邦学习基础的行业背景、基本特点、分类等。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="联邦学习概述">
+<meta property="og:url" content="http://example.com/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/">
+<meta property="og:site_name" content="Zhong Kangwei&#39;s Blog">
+<meta property="og:description" content="联邦学习基础的行业背景、基本特点、分类等。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/03/03/65zDKWXnUvaHtBk.png">
+<meta property="og:image" content="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220302114504380.png">
+<meta property="og:image" content="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220302114615724.png">
+<meta property="og:image" content="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220302103142501.png">
+<meta property="og:image" content="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220302113755110.png">
+<meta property="article:published_time" content="2022-03-03T11:45:02.000Z">
+<meta property="article:modified_time" content="2022-03-03T11:47:05.115Z">
+<meta property="article:author" content="Zhong Kangwei">
+<meta property="article:tag" content="隐私计算">
+<meta property="article:tag" content="联邦学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2022/03/03/65zDKWXnUvaHtBk.png">
+
+<link rel="canonical" href="http://example.com/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>联邦学习概述 | Zhong Kangwei's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Zhong Kangwei's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Zhong Kangwei's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Learn and Live.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">25</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">27</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Zhong Kangwei">
+      <meta itemprop="description" content="Learn and Live.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhong Kangwei's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          联邦学习概述
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-03-03 19:45:02 / 修改时间：19:47:05" itemprop="dateCreated datePublished" datetime="2022-03-03T19:45:02+08:00">2022-03-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/" itemprop="url" rel="index"><span itemprop="name">隐私计算</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>联邦学习基础的行业背景、基本特点、分类等。</p>
+<span id="more"></span>
+
+<h2 id="联邦学习概述"><a href="#联邦学习概述" class="headerlink" title="联邦学习概述"></a>联邦学习概述</h2><h3 id="行业背景"><a href="#行业背景" class="headerlink" title="行业背景"></a>行业背景</h3><p>数据分布不均衡，对数据使用监管趋于严格&#x3D;&#x3D;&gt;<strong>数据孤岛</strong></p>
+<p>联邦学习就可以来解决数据孤岛问题。</p>
+<h3 id="技术特点"><a href="#技术特点" class="headerlink" title="技术特点"></a>技术特点</h3><ul>
+<li>数据隔离：数据不泄露到外部</li>
+<li>无损：联邦模型效率等同或接近全量数据模型</li>
+<li>对等：参与者的地位对等</li>
+<li>共同获益：参与者能够共同获益</li>
+</ul>
+<h3 id="联邦学习分类"><a href="#联邦学习分类" class="headerlink" title="联邦学习分类"></a>联邦学习分类</h3><h4 id="横向联邦学习"><a href="#横向联邦学习" class="headerlink" title="横向联邦学习"></a>横向联邦学习</h4><p>数据方：特征维度相同，通过联邦学习有更多的数据样本</p>
+<h5 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h5><p>A与B联合建模，双方都有X，Y，但样本不够多</p>
+<p><img src="https://s2.loli.net/2022/03/03/65zDKWXnUvaHtBk.png" alt="image-20220302114121917"></p>
+<p><strong>假设</strong>：双方都有X,Y；双方不暴露自己的X,Y</p>
+<p><strong>传统建模</strong>：各自样本不够多</p>
+<p><strong>期望</strong>：保护隐私的条件下，建立联合模型，且效果超过单边数据建模</p>
+<h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><p>常用方法：<strong>FedAvg</strong>【是<strong>无损</strong>的，也可以跟差分隐私结合一起用】</p>
+<h5 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h5><p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220302114504380.png" alt="image-20220302114504380"></p>
+<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220302114615724.png" alt="image-20220302114615724"></p>
+<h4 id="纵向联邦学习"><a href="#纵向联邦学习" class="headerlink" title="纵向联邦学习"></a>纵向联邦学习</h4><p>数据方：样本ID相同，通过联邦学习丰富样本特征，更精准地刻画样本</p>
+<h5 id="举例-1"><a href="#举例-1" class="headerlink" title="举例"></a>举例</h5><p>A与B联合建模，B有Y（表现），期望优化Y的预测模型</p>
+<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220302103142501.png" alt="image-20220302103142501"></p>
+<p><strong>假设</strong>：只有B拥有“Y”，合作的A无法暴露含有隐私的“X”</p>
+<p><strong>传统建模方法</strong>：B的隐私数据“X”不能全量传到“Y”，A缺乏“Y”，无法独立建模</p>
+<p><strong>期望</strong>：保护隐私的条件下，建立联合模型，且效果超过单边数据建模</p>
+<h5 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h5><ul>
+<li><p><strong>数据对齐</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Party A: </span><br><span class="line">ID set X:[u1, u2, u3, u4]</span><br><span class="line">Party B: </span><br><span class="line">ID set Y:[u1, u2, u3, u5]</span><br><span class="line">要求寻找X∩Y = [u1, u2, u3]</span><br><span class="line">且PartyA不知道PartyB有u5</span><br><span class="line">PartyB不知道PartyA有u4</span><br></pre></td></tr></table></figure>
+
+<p>解决方案：<strong>RSA+哈希的安全求交</strong></p>
+<ol>
+<li>PartyB通过RSA产生n,e,d并将公钥(n,e)发送给Party A</li>
+<li>PartyA对于每条样本产生随机数$r_i$并将id哈希得到<code>H(u)</code>，将$Y_A&#x3D;{r_1^eH(u1),r_2^eH(u2),r_3^eH(u3),r_4^eH(u4)}$发送给PartyB【$r_i$相当于PartyA给自己上的锁，RSA相当于PartyB给自己上的锁，因此双方都未泄露数据】</li>
+<li>PartyB对每一个$r_i^eH(u_i)$求$d$次幂，并mod n，相当于对其进行二次加密，即$r_i*(H(u_i))^d$，其集合定义为$Z_A$；同时PartyB对自己的数据求$H((H(u_i))^d)$，其集合定义为$Z_B$，将$Z_A,Z_B$发给PartyA</li>
+<li>PartyA对$r_i*(H(u_i))^d$进行处理，$r_i$在PartyA手中，所以直接求$H(r_i*(H(u_i))^d&#x2F;r_i) &#x3D; H((H(u_i))^d)$，将该集合定义为$D_A$</li>
+<li><strong>求交</strong>：$I &#x3D; D_A ∩ Z_B&#x3D;{H((H(u_1))^d), H((H(u_2))^d), H((H(u_3))^d)}$，并将I发送给B</li>
+</ol>
+<p>通过这5步，PartyA和PartyB没有泄露其他ID，并且找到了相同的ID</p>
+</li>
+<li><p><strong>联邦特征工程</strong></p>
+<p> 求WoE(Weight of Evidence)和IV(Information Value)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">问题：在保护双方隐私的前提下，A(含X)，B（含X，Y）特征，如何计算Woe和IV？</span><br><span class="line">难点：</span><br><span class="line">1.A只有特征X，没有Y；计算Woe和IV依靠X和Y（B侧特征Woe&amp;IV可以本地计算）</span><br><span class="line">2.A不能对B暴露X，B不能对A暴露Y</span><br><span class="line">最终只能让B获得所有特征Woe&amp;IV</span><br></pre></td></tr></table></figure>
+
+<p>解决方案：<strong>加法同态加密</strong></p>
+<p><code>Encry(x)</code>：x的加法同态加密</p>
+<p><code>Encode(x)</code>：本地编码</p>
+<ol>
+<li><p>PartyB对每个ID的$y_i，1-y_i$进行加密，发送给PartyA，即{$ID_i, Encry(y_i),Encry(1-y_i)$}</p>
+</li>
+<li><p>PartyA统计每个数据集中$Encry(y_i)$的和以及$Encry(1-y_i)$的和，并发送给PartyB，即{$Encode(id_set_i), sum(Encry(y_i)),sum(Encry(1-y_i))$}</p>
+</li>
+<li><p>B方即可本地计算Woe和IV<br>$$<br>npos_i&#x3D;Decry(sum(Encry(yi)))<br>$$</p>
+<p>$$<br>nneg_i&#x3D;Decry(sum(Encry(1 - yi)))<br>$$</p>
+<p>$$<br>distpos_i &#x3D; npos_i &#x2F; pos_total<br>$$</p>
+<p>$$<br>distneg_i &#x3D; nneg_i &#x2F; neg_total<br>$$</p>
+<p>$$<br>Woe_i &#x3D; 100 * log(distpos_i &#x2F; distneg_i)<br>$$</p>
+<p>$$<br>IV &#x3D;\sum_{i&#x3D;1}^k(dispos_i - disneg_i)*log(dispos_i&#x2F;disneg_i)<br>$$</p>
+</li>
+</ol>
+<ul>
+<li><p><strong>逻辑回归</strong></p>
+<p>纵向逻辑回归用加法同态，因为加法同态没有逆，因此在公式里不能有<code>exp</code>，采用的解决方法是在零点附近进行泰勒展开，使其<strong>只有加法和乘法</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h5><p>  <img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220302113755110.png" alt="image-20220302113755110"></p>
+<h3 id="联邦学习关键技术–加解密"><a href="#联邦学习关键技术–加解密" class="headerlink" title="联邦学习关键技术–加解密"></a>联邦学习关键技术–加解密</h3><h4 id="保护隐私和安全方法"><a href="#保护隐私和安全方法" class="headerlink" title="保护隐私和安全方法"></a>保护隐私和安全方法</h4><ul>
+<li><p><strong>同态加密</strong></p>
+<p>加密情况下的运算结果和在明文情况下的运算结果完全一致，而且每一次加密的结果是不一样的</p>
+</li>
+<li><p>多方安全计算</p>
+</li>
+<li><p>姚式混淆电路</p>
+</li>
+<li><p>差分隐私</p>
+</li>
+</ul>
+<p>Fate库中主要用的是<strong>加法同态加密</strong>。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/" rel="tag"># 隐私计算</a>
+              <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/" rel="tag"># 联邦学习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0%E5%8F%8A%E5%AE%9E%E9%AA%8C/%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB/" rel="prev" title="垃圾邮件分类">
+      <i class="fa fa-chevron-left"></i> 垃圾邮件分类
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E9%9A%90%E7%A7%81%E8%AE%A1%E7%AE%97/%E7%94%A8Docker%E9%83%A8%E7%BD%B2KubeFate/" rel="next" title="用Docker部署KubeFate">
+      用Docker部署KubeFate <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">联邦学习概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E4%B8%9A%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">行业背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">技术特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.</span> <span class="nav-text">联邦学习分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%AA%E5%90%91%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.3.1.</span> <span class="nav-text">横向联邦学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">举例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%B5%E5%90%91%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.3.2.</span> <span class="nav-text">纵向联邦学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B-1"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">举例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E6%B3%95-1"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">实际应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E6%8A%80%E6%9C%AF%E2%80%93%E5%8A%A0%E8%A7%A3%E5%AF%86"><span class="nav-number">1.4.</span> <span class="nav-text">联邦学习关键技术–加解密</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E9%9A%90%E7%A7%81%E5%92%8C%E5%AE%89%E5%85%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.1.</span> <span class="nav-text">保护隐私和安全方法</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Zhong Kangwei</p>
+  <div class="site-description" itemprop="description">Learn and Live.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kangwei-zhong" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kangwei-zhong" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhong_kangwei@163.com" title="E-Mail → mailto:zhong_kangwei@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/turboxx?spm=1000.2115.3001.5343" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;turboxx?spm&#x3D;1000.2115.3001.5343" rel="noopener" target="_blank"><i class="fa fa-tag fa-fw"></i>CSDN</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhong Kangwei</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'uUbaEPqsk3EzJp15JKhizV27-gzGzoHsz',
+      appKey     : 'L5DP8MpKld5UaGiP2JDN3s2d',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
