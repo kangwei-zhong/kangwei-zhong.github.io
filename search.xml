@@ -345,13 +345,9 @@
     <title>PAXOS共识算法</title>
     <url>/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0%E5%8F%8A%E5%AE%9E%E9%AA%8C/PAXOS%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<p>实现共识算法中比较古老且复杂的共识算法PAXOS，几乎没有应用于区块链了。</p>
-<h1 id="PAXOS共识算法"><a href="#PAXOS共识算法" class="headerlink" title="PAXOS共识算法"></a>PAXOS共识算法</h1><hr>
-<p>姓名：钟康维</p>
-<p>班级：1619202</p>
-<p>学号：151910125</p>
-<hr>
-<p>[toc]</p>
-<h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><ul>
+<span id="more"></span>
+
+<h1 id="PAXOS共识算法"><a href="#PAXOS共识算法" class="headerlink" title="PAXOS共识算法"></a>PAXOS共识算法</h1><h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><ul>
 <li>了解区块链的基本共识算法，体会PAXOS共识算法与其他共识算法的异同。</li>
 <li>了解PAXOS算法的基本过程，并实现PAXOS算法。</li>
 <li>体会分析Basic-PAXOS算法的缺陷，并提出改进方案。</li>
