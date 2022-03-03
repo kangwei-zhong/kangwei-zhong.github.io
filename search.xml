@@ -273,4 +273,326 @@
         <tag>Tools</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Web服务器通信原理</title>
+    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/Web%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<p>Web服务器通信原理初探，基本概念和知识介绍。</p>
+<span id="more"></span>
+
+<h1 id="Web服务器通信原理"><a href="#Web服务器通信原理" class="headerlink" title="Web服务器通信原理"></a>Web服务器通信原理</h1><h2 id="基本知识介绍"><a href="#基本知识介绍" class="headerlink" title="基本知识介绍"></a>基本知识介绍</h2><h3 id="常见服务器系统"><a href="#常见服务器系统" class="headerlink" title="常见服务器系统"></a>常见服务器系统</h3><p>服务器？24小时不关机的，性能还不错的电脑</p>
+<p>服务器：应对你的请求做出回应的东西</p>
+<p>客户端：我们的电脑去访问别人</p>
+<p>常见服务器：</p>
+<ul>
+<li><p>Windows server</p>
+</li>
+<li><p>Linux （Antroid是属于Linux的）是一个开源的系统，以命令行为主，只要512MB就可以运行得非常流畅.</p>
+<p>Linux有很多版本，底下有很多分支（Centos Redhat等）</p>
+</li>
+<li><p>Mac，苹果服务器</p>
+</li>
+</ul>
+<p>区分Windows和Linux：</p>
+<ul>
+<li>文件路径.Windows以盘开头，Linux以&#x2F;开头</li>
+<li>Windows不区分大小写，Linux区分大小写（但不一定，某些Linux也可以不区分）</li>
+</ul>
+<h3 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h3><p>绝对路径：从最外面访问到最里面，当看到盘符为绝对路径（Windows），当看到&#x2F;开头为绝对路径（Linux）</p>
+<p>相对路径：要有<strong>参照物</strong>（e.g. 1.jpg (..&#x2F; .&#x2F;)等)</p>
+<h3 id="CMD命令"><a href="#CMD命令" class="headerlink" title="CMD命令"></a>CMD命令</h3><p>以前叫Dos系统，Windows系统为了兼容，设置了CMD</p>
+<p>打开方式：<code>Win + r</code>  -&gt; cmd</p>
+<p>常见命令：</p>
+<ul>
+<li><p><code>dir</code> 查看当前文件</p>
+</li>
+<li><p><code>cd</code> 跳转 （<code>../</code>跳到上级目录，<code>./</code>跳到本级目录）</p>
+</li>
+<li><p><code>netstat -ano</code>  查看本机端口</p>
+</li>
+<li><p><code>whoami</code> 查看我的权限</p>
+</li>
+<li><p><code>net user</code> 查看本机用户</p>
+</li>
+<li><p><code>systeminfo</code> 查看系统信息</p>
+</li>
+</ul>
+<p>以管理员身份运行cmd可以提高权限，这个时候可以添加账户</p>
+<ul>
+<li><code>net user account password  /add</code>    添加一个账户</li>
+<li><code>net user account /del</code> 删除账户</li>
+</ul>
+<h3 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h3><p>定义：互联网协议地址，缩写为IP地址，是分配给用户上网使用的网际协议的设备的数字标签</p>
+<p>理解：就是收快递的地址</p>
+<p>内网和公网：</p>
+<p>​    内网：在局限的环境中（理解：住酒店，105号房间和205号房间），由路由器&#x2F;交换机分配（所有连同一个wifi的人都在同一个内网）</p>
+<p>​    公网：所有人都可以通过公网ip找到本机，由运营商分配，需要money </p>
+<p>电脑只要联网一定有公网ip，但是不是只有你在用，是很多人在用，路由器为“中间人”（公交车不是我的，但是我可以花钱坐）</p>
+<p>拥有一个公网ip，则全世界都能对你进行攻击，但是内网ip不能直接攻击，只能访问上级的路由</p>
+<p>常见ip：0-255.0-255.0-255.0-255</p>
+<p>cmd中输入<code>ipconfig</code> 可以查ip</p>
+<blockquote>
+<p>10.0.0.0<del>10.255.255.255  | 172.16.0.0</del>172.31.255.255 | 192.168.0.0~192.168.255.255</p>
+</blockquote>
+<p>这些区段的地址为内网地址</p>
+<p>对自己而言，若是本机访问本机则用127.0.0.1</p>
+<h3 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h3><p>为了方便记忆所产生的一套机制</p>
+<p><code>ping</code> 访问某一个域名的地址 <code>ping www.baidu.com</code>  得到<code>112.80.248.76</code> 这是百度的ip地址（不方便记忆）</p>
+<p>本质：把ip地址转化为容易记忆的东西</p>
+<p>DNS协议：可以看成一个巨大的数据库，**存放域名和ip的对应 **（DNS服务器） 根服务器有13台 </p>
+<p>询问流程：</p>
+<p>​    a.com &#x3D;&gt;浏览器缓存 &#x3D;&gt;计算机的缓存（host文件） &#x3D;&gt; 路由器 &#x3D;&gt;运营商 &#x3D;&gt;根服务器</p>
+<p>域名分类：顶级域名（可以被购买的，每年续费）&#x2F;二级域名&#x2F;多级域名</p>
+<blockquote>
+<p>a.baidu.com 二级域名</p>
+</blockquote>
+<blockquote>
+<p>b.a.baidu.com 三级域名</p>
+</blockquote>
+<p>一个 . 的为顶级域名，两个.为二级域名……</p>
+<p>顶级域名：.com(商) .edu(教) .gov(政) .mil（军）</p>
+<h3 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h3><p>计算机和外界通信的渠道，不同的软件会走不同的端口（80端口访问网站，445端口SMB服务，3389远程桌面服务，1433 MSSQL服务）</p>
+<p><code>netstat -ano</code> 查看本机端口</p>
+<p>端口也是可以改的 范围0~65535</p>
+<h3 id="HTTP协议"><a href="#HTTP协议" class="headerlink" title="HTTP协议"></a>HTTP协议</h3><p><code>https://www.baidu.com/?tn=40020637_5_oem_dg</code></p>
+<p>这是 URL（统一资源定位符）</p>
+<p><code>http://</code> 协议</p>
+<p><code>https://</code> 协议（相对于http加了密，更安全） 可以防止一些中间人攻击</p>
+<blockquote>
+<p>超文本传输协议（HTTP，HyperText Transfer Protocol)是互联网上应用最为广泛的一种网络协议。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法，基本上访问网站都是使用HTTP协议</p>
+</blockquote>
+<p>HTTP的一个通信数据包：</p>
+<blockquote>
+<p>GET &#x2F;?tn&#x3D;62095104_26_oem_dg HTTP&#x2F;1.1</p>
+<p>Host: baidu.com</p>
+<p>User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; WOW64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;69.0.3497.100 Safari&#x2F;537.36</p>
+</blockquote>
+<p>GET为请求方式  HTTP&#x2F;1.1是协议版本 Host是访问的域名 User-Agent传参是传参告诉别人我是什么浏览器，什么系统（我是谁）</p>
+<h2 id="网页浏览流程"><a href="#网页浏览流程" class="headerlink" title="网页浏览流程"></a>网页浏览流程</h2><ol>
+<li>用户在浏览器输入协议:&#x2F;&#x2F;域名 </li>
+<li>用户浏览器通过系统 &#x3D;&gt; 向DNS服务器查询域名对应的IP地址</li>
+<li>用户浏览器向查询到的IP地址（Web服务器）发起HTTP请求</li>
+<li>服务器分析用户请求，从中提取数据，处理后返回一个HTTP回应</li>
+<li>浏览器收到响应后提取状态、协议编码、正文的有效信息，然后翻译成人类能够直观理解的图形界面并显示</li>
+</ol>
+<h2 id="Web容器（中间件）"><a href="#Web容器（中间件）" class="headerlink" title="Web容器（中间件）"></a>Web容器（中间件）</h2><p>被动程序，必须主动发起请求访问它</p>
+<p>理解：根据请求内容分发给不同的模块处理（你要什么东西告诉它，它帮你去找相应模块处理，处理完包装好返回给你）</p>
+<p>存在意义？</p>
+<p>动态语言：asp php jsp（网站的功能性源码）</p>
+<p>访问1.jpg &#x3D;&gt;交给专门负责处理.jpg的模块</p>
+<p>​       1.php &#x3D;&gt;交给专门处理.php的模块</p>
+<p>常见的Web容器：</p>
+<ul>
+<li><p>全平台</p>
+<ul>
+<li>Nginx</li>
+<li>Apache</li>
+</ul>
+</li>
+<li><p>Windows</p>
+<ul>
+<li>IIS</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>渗透测试</category>
+      </categories>
+      <tags>
+        <tag>Web</tag>
+        <tag>渗透测试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>搭建Web安全测试环境</title>
+    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/Web%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<p>通过phpstudy快速搭建Web安全测试环境，在本地安全地模拟实战。</p>
+<span id="more"></span>
+
+<h1 id="Web安全测试环境的简单搭建"><a href="#Web安全测试环境的简单搭建" class="headerlink" title="Web安全测试环境的简单搭建"></a>Web安全测试环境的简单搭建</h1><p>目的：</p>
+<ul>
+<li>在本地尝试搭建站点来记录内容</li>
+<li>在本地锻炼自己的模拟实战（有一个新的漏洞，我们要去尝试）</li>
+</ul>
+<h2 id="动态语言"><a href="#动态语言" class="headerlink" title="动态语言"></a>动态语言</h2><p>定义：对服务器行为的编程，被称为服务器端脚本（操控服务器），是后端语言</p>
+<p>常见服务器脚本：Asp、Aspx（Windows）PHP（全平台）JSP（全平台）（java）python（全平台）</p>
+<p>能做什么？</p>
+<p>1.动态地向 web 页面编辑、改变或添加任何的内容</p>
+<p>2.对由 HTML 表单提交的用户请求或数据进行响应</p>
+<p>3.访问数据或数据库，并向浏览器返回结果</p>
+<p>4.为不同的用户定制页面</p>
+<p>5.提高网页安全性，使您的网页代码不会通过浏览器被查看到</p>
+<p> web容器解析：</p>
+<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220303160121964.png" alt="image-20220303160121964"></p>
+<h2 id="服务器环境的快速搭建"><a href="#服务器环境的快速搭建" class="headerlink" title="服务器环境的快速搭建"></a>服务器环境的快速搭建</h2><p>搭建一个网站三要素：Web容器、数据库、动态语言</p>
+<p>常见搭建软件：</p>
+<p>​    JSP(Tomcat)</p>
+<p>​    PHP(PHPStudy) windows</p>
+<p>​    PHP(lnmp) linux</p>
+<p>​    宝塔、Lamp、upupw (宝塔、upupw)</p>
+<p>此处介绍phpstudy</p>
+<h3 id="搭建方法"><a href="#搭建方法" class="headerlink" title="搭建方法"></a>搭建方法</h3><p>远程连接：</p>
+<p><strong>虚拟机</strong>：在cmd命令行输入<code>ipconfig</code>查询本机的ip地址&#x3D;&gt;计算机&#x3D;&gt;右键属性&#x3D;&gt;远程设置&#x3D;&gt;允许运行任何版本远程桌面的计算机连接（同一个内网的都可以连接）</p>
+<blockquote>
+<p>注意，如果没有账户，则用命令<code>net user account password /add</code>添加，然后给用户提升权限<code>net localgroup administrators account /add</code></p>
+</blockquote>
+<p><strong>本机</strong>：搜索&#x3D;&gt;远程桌面连接&#x3D;&gt;输入虚拟机ip地址</p>
+<p>把phpstudy的安装在虚拟机中，并且必须安装vc9</p>
+<blockquote>
+<p>网络分为两种：</p>
+<p>​    桥接模式：把虚拟机加入当前内网，同一个内网的人都能访问</p>
+<p>​    nat：只有自己能访问（虚拟机不加入内网）</p>
+</blockquote>
+<h2 id="phpstudy功能介绍"><a href="#phpstudy功能介绍" class="headerlink" title="phpstudy功能介绍"></a>phpstudy功能介绍</h2><p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220303160214713.png" alt="image-20220303160214713"></p>
+<p>检验安装成功：浏览器打开<code>127.0.0.1</code>，是phpstudy探针则安装成功</p>
+<p>启动失败：</p>
+<ol>
+<li>vc9没安装</li>
+<li>用管理员身份运行试试</li>
+<li>端口冲突（其他选项菜单&#x3D;&gt;环境端口检测，如果有问题则在phpstudy设置&#x3D;&gt;端口常规设置里改端口）</li>
+</ol>
+<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220303160228609.png" alt="image-20220303160228609"></p>
+<p>！！！一定要先把WWW中的东西全部删除，否则别人可以直接把虚拟机黑掉</p>
+<p>任何一个网站都有根目录，我们访问网站实际上是访问这个网站下面某一台电脑上的一个文件夹</p>
+<p>本机访问虚拟机访问不到：有防火墙</p>
+<p>解决方法：</p>
+<p>​    1.关闭防火墙（简单粗暴）</p>
+<p>​    2.修改防火墙策略（开始&#x3D;&gt;所有程序&#x3D;&gt;管理工具&#x3D;&gt;高级安全&#x3D;&gt;Windows防火墙&#x3D;&gt;入站规则&#x3D;&gt;新建规则&#x3D;&gt;端口&#x3D;&gt;下一步&#x3D;&gt;TCP&#x2F;特定本地端口&#x3D;&gt;填入80&#x3D;&gt;下一步下一步下一步&#x3D;&gt;填入名称）</p>
+<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220303160240387.png" alt="image-20220303160240387"></p>
+<p>服务模式：每次开机都自动开启Apache和MySQL(也有可能权限不同，大多数情况下高于非服务模式)</p>
+<p>非服务模式则需手动开启</p>
+<p>退出方法：&#x3D;&gt;停止&#x3D;&gt;右下角图标退出</p>
+<p>如果不能启动，则以管理员模式运行</p>
+<p>cmd功能可以直接进入数据库</p>
+<p>站点域名管理可以搭若干个网站（但要电脑能承受住）</p>
+<p>一般情况下一个端口搭一个站</p>
+<p>数据库账号密码一般都是root</p>
+<p><code>mysqul -u root -p</code> 登录</p>
+<h2 id="快速搭建一个网站（CMS）"><a href="#快速搭建一个网站（CMS）" class="headerlink" title="快速搭建一个网站（CMS）"></a>快速搭建一个网站（CMS）</h2><p>CMS“内容管理系统”，实际上是一个快速建站的模板</p>
+<p>一般在a5源码交流平台找源码，然后把upload复制到放入WWW的文件夹</p>
+]]></content>
+      <categories>
+        <category>渗透测试</category>
+      </categories>
+      <tags>
+        <tag>Web</tag>
+        <tag>渗透测试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>前端基本概念</title>
+    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E5%89%8D%E7%AB%AF%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
+    <content><![CDATA[<p>前端的基本概念，HTML的基本语法等。</p>
+<span id="more"></span>
+
+<h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h1><h2 id="前端是什么？"><a href="#前端是什么？" class="headerlink" title="前端是什么？"></a>前端是什么？</h2><p>前端负责展示，后端负责处理请求</p>
+<p>HTML+CSS+JS等</p>
+<p>HTML是骨架（按钮、框）</p>
+<p>CSS是前端页面化妆师</p>
+<p>JS是丰富网页功能的脚本（前端动画渲染等）</p>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><p>tag：由尖括号包围的关键词，一般成对出现(也有自闭合标签)</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span>		//声明h5</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span>		//开始标签</span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span>		//头部开始标签</span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span>	//规定编码格式</span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>xxx<span class="tag">&lt;/<span class="name">title</span>&gt;</span>		//规定title内容</span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">h1</span>&gt;</span>				//标题标签</span><br><span class="line">           我的第一个标题</span><br><span class="line">        <span class="tag">&lt;/<span class="name">h1</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>				//段落标签</span><br><span class="line">            我的第一个段落</span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span>			//内容结束标签</span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span>				//html代码结束标签</span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;h1 id=&#39;first&#39;&gt; </code>可以给它加属性，可以给它取名字，加载图片等</p>
+<p>前端有很强大的容错机制</p>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><p>可以大大扩展与用户的交互功能，可以操纵浏览器，安全性不强，如果执行了恶意js代码会影响电脑的安全性。</p>
+<blockquote>
+<p>e.g.</p>
+<p>弹框:<code>alert()</code></p>
+<p>读取自动填充的密码：<code>document.getElementByld(&#39;pwd&#39;).value</code></p>
+<p>截屏</p>
+<p>记录键盘</p>
+<p>访问内网页面</p>
+<p>偷偷发数据包出去访问其他页面</p>
+</blockquote>
+<p>GOOGLE浏览器&#x3D;&gt;设置&#x3D;&gt;内容&#x3D;&gt;网站设置&#x3D;&gt;JavaScript&#x3D;&gt;关闭</p>
+<p>可能可以绕过登录直接进入后台</p>
+]]></content>
+      <categories>
+        <category>渗透测试</category>
+      </categories>
+      <tags>
+        <tag>Web</tag>
+        <tag>渗透测试</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PHP基础</title>
+    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/PHP%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<p>PHP是渗透测试中比较常用的语言，简单入个门……</p>
+<span id="more"></span>
+
+
+
+<h1 id="PHP基础"><a href="#PHP基础" class="headerlink" title="PHP基础"></a>PHP基础</h1><h2 id="了解PHP"><a href="#了解PHP" class="headerlink" title="了解PHP"></a>了解PHP</h2><p>PHP能做什么？–开发网站</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;Hello World&#x27;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>&lt;?php  ?&gt;</code> 标识，告诉你是php代码</p>
+<p>echo ‘Hello World’;        代码</p>
+<p>echo[指令] 输出</p>
+<h2 id="进阶PHP"><a href="#进阶PHP" class="headerlink" title="进阶PHP"></a>进阶PHP</h2><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$sex</span> = <span class="string">&#x27;男&#x27;</span>;   <span class="comment">//变量 </span></span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$sex</span> == <span class="string">&#x27;男&#x27;</span>)&#123;   <span class="comment">//如果</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;帅哥，进店里来看看把，有XXXX&#x27;</span>;&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;<span class="keyword">echo</span> <span class="string">&quot;妹妹我们店有XXXX化妆品&quot;</span>;&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>$开头的是变量</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$a</span> = <span class="string">&#x27;Ak&#x27;</span>;</span><br><span class="line"><span class="variable">$b</span> = <span class="string">&#x27;47&#x27;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$a</span>.<span class="variable">$b</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里的<code>.</code>是连接符</p>
+<p><code>“&lt;br/&gt;”</code>是html语言中的换行</p>
+<h3 id="字符串处理"><a href="#字符串处理" class="headerlink" title="字符串处理"></a>字符串处理</h3><p>单引号和双引号的区别：对<code>$</code>有不同的处理方法。<strong>双引号会去解析内部是否为变量，如果为变量则输出变量的值，而单引号不会</strong></p>
+<p>在安全中，很多时候黑客会输入一些恶意传参，要利用到字符串的处理函数</p>
+<p><code>strstr(&#39;a&#39;,&#39;b&#39;)</code>，查找a中是否存在b，若存在输出b，若不存在则输出空</p>
+<p><code>str_replace(&quot;before&quot;,&quot;after&quot;,&quot;destination&quot;)</code>，将destination中的before替换为after</p>
+<p>转义<code>\</code> </p>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="variable">$a</span> = <span class="keyword">array</span>(<span class="string">&#x27;001&#x27;</span> =&gt; <span class="string">&#x27;xx&#x27;</span>,<span class="string">&#x27;002&#x27;</span> =&gt;<span class="string">&#x27;xxx&#x27;</span>);</span><br><span class="line">    <span class="title function_ invoke__">print_r</span>(<span class="variable">$a</span>);</span><br><span class="line">	<span class="title function_ invoke__">var_dump</span>(<span class="variable">$a</span>);</span><br><span class="line">	<span class="keyword">echo</span> <span class="variable">$a</span>[<span class="string">&#x27;001&#x27;</span>];	<span class="comment">//输出单个内容</span></span><br><span class="line"> <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>array</code>创建数组，<code>print_r</code>输出数组，<code>var_dump();</code>是查找变量的类型和内容</p>
+<h3 id="接受传参数据"><a href="#接受传参数据" class="headerlink" title="接受传参数据"></a>接受传参数据</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="variable">$_GET</span> 	<span class="comment">//预定义全局变量</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>var_dump($_GET)</code>发现，<code>$_GET</code>实际上是一个数组</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$_GET</span>&lt;<span class="number">60</span>)&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;同学你考试不及格&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;同学你及格了&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其实$_GET是一个数组，这个数组是无法比较的，所以要用<code>$_GET[&#39;fenshu&#39;]</code></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;fenshu&#x27;</span>]&lt;<span class="number">60</span>)&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;同学你考试不及格&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;同学你及格了&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>$_GET</code>,<code>$_POST</code>,<code>$_REQUEST</code>,<code>$_COOKIE</code>都是超全局变量&#x3D;&gt;不用事先定义，可以直接用</p>
+<h3 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>表单在网页中主要负责数据采集功能。</p>
+<p>一个表单有三个基本组成部分：</p>
+<p>表单标签：这里面包含了处理表单数据所用动态脚本的URL以及数据提交到服务器的方法。</p>
+<p>表单域：包含了文本框、密码框、隐藏域、多行文本框、复选框、单选框、下拉选择框和文件上传框等。</p>
+<p>表单按钮：包括提交按钮、复位按钮和一般按钮；用于将数据传送到服务器上的动态脚本或者取消输入，还可以用表单按钮来控制其他定义了处理脚本的处理工作。</p>
+<p>使用场景：登录框、搜索框、留言框、上传框……（各种框）</p>
+<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220303164221949.png" alt="image-20220303164221949"></p>
+<h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><p>创建一个html文件</p>
+<p><strong>表单标签</strong>：<code>&lt;form action= &quot;URL&quot; method=&quot;GET/POST&quot; &gt;</code></p>
+<p>最后要闭合<code>&lt;/form&gt;</code></p>
+<p>表示提交后跳转到“URL”</p>
+<p>GET是看到问号的，出现在URL栏的</p>
+<p>POST注入没有字数限制，不会显示在URL栏（登陆时的账号密码等）</p>
+<p><strong>表单域</strong></p>
+<p>就是填入信息的各种框框</p>
+<p><code>&lt;input type=&#39;txt&#39;/&gt;</code></p>
+<p><code>&lt;input type=&#39;submit&#39; value=&quot;submit&quot;/&gt;</code></p>
+<p>密码不显示的时候&#x3D;&gt;检查源码&#x3D;&gt;找到<code>type=“password”</code>改成<code>type=“txt ”</code>即会显示出来</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&#x27;18.php&#x27;</span> <span class="attr">method</span>=<span class="string">&#x27;POST&#x27;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;txt&#x27;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;submit&#x27;</span> <span class="attr">value</span>=<span class="string">&quot;submit&quot;</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用<code>var_dump($_POST)</code>查看，发现我明明提交了东西，为什么不显示？</p>
+<p>因为没有给表单取名</p>
+<p>修改：<code>&lt;input type=&#39;txt&#39; name=&#39;scores&#39;/&gt;</code></p>
+<p>在18.php中写如下代码，即可显示</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	<span class="variable">$score</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;scores&#x27;</span>];</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&#x27;your information is&#x27;</span>.<span class="variable">$score</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220303164239607.png" alt="image-20220303164239607"></p>
+<p><strong>POST和GET一定要大写</strong></p>
+<p>如果既要能接受POST传参又要能接受GET传参，则选择预定义全局变量<code>$_REQUEST</code> （大部分时候写这个）</p>
+<p>cookie&#x3D;&gt;相当于登陆后证明身份的凭证</p>
+]]></content>
+      <categories>
+        <category>渗透测试</category>
+      </categories>
+      <tags>
+        <tag>Web</tag>
+        <tag>渗透测试</tag>
+        <tag>PHP</tag>
+      </tags>
+  </entry>
 </search>
