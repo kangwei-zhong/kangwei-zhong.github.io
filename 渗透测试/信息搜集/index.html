@@ -271,10 +271,9 @@
       
         <p>信息搜集的意义以及常用的一些信息搜集工具。</p>
 <span id="more"></span>
-
-<h1 id="信息搜集的意义"><a href="#信息搜集的意义" class="headerlink" title="信息搜集的意义"></a>信息搜集的意义</h1><h2 id="为什么要信息搜集"><a href="#为什么要信息搜集" class="headerlink" title="为什么要信息搜集"></a>为什么要信息搜集</h2><p>找到新的域名&#x2F;找到新的资产（子域名）&#x2F;找到新的突破点（端口）</p>
+<h1 id="信息搜集的意义"><a href="#信息搜集的意义" class="headerlink" title="信息搜集的意义"></a>信息搜集的意义</h1><h2 id="为什么要信息搜集"><a href="#为什么要信息搜集" class="headerlink" title="为什么要信息搜集"></a>为什么要信息搜集</h2><p>找到新的域名/找到新的资产（子域名）/找到新的突破点（端口）</p>
 <p>渗透测试：寻找安全问题</p>
-<p>渗透测试&#x3D;&gt;信息搜集&#x3D;&gt;搜集薄弱资产</p>
+<p>渗透测试=&gt;信息搜集=&gt;搜集薄弱资产</p>
 <h2 id="信息搜集的方向"><a href="#信息搜集的方向" class="headerlink" title="信息搜集的方向"></a>信息搜集的方向</h2><ol>
 <li><p><strong>whois</strong> </p>
 <p>注册域名时留下的信息（直接百度whois就可以查,在里面的whois反查可以找到他注册的其他域名) <a target="_blank" rel="noopener" href="https://www.whois.com/">whois</a>（这个网站是最权威的，是国外的网站，可以看到完整的信息，邮箱，姓名等），当搜到一个公司的时候，还可以用<a target="_blank" rel="noopener" href="https://www.tianyancha.com/">天眼查</a>查一查这个公司的详细信息</p>
@@ -287,7 +286,7 @@
 <p>探测子域名：爆破DNS(用layer软件)</p>
 </li>
 <li><p><strong>旁站</strong></p>
-<p>同IP的站点 <code>www.a.com</code> &#x3D;&gt;1.1.1.1 <code>www.b.com</code> &#x3D;&gt;1.1.1.1(旁站) 但同ip不代表同服务器（分两种情况：1.同ip同服务器;2.同ip不同服务器但同一个内网)<a target="_blank" rel="noopener" href="http://stool.chinaz.com/same">站长工具</a>可以查，现在有种技术叫CDN加速，如果网站通过CDN加速，则不是真实的ip，可以通过指令<code>ping</code> 来看，如果不断变化则使用了CDN</p>
+<p>同IP的站点 <code>www.a.com</code> =&gt;1.1.1.1 <code>www.b.com</code> =&gt;1.1.1.1(旁站) 但同ip不代表同服务器（分两种情况：1.同ip同服务器;2.同ip不同服务器但同一个内网)<a target="_blank" rel="noopener" href="http://stool.chinaz.com/same">站长工具</a>可以查，现在有种技术叫CDN加速，如果网站通过CDN加速，则不是真实的ip，可以通过指令<code>ping</code> 来看，如果不断变化则使用了CDN</p>
 <p><strong>如何绕过CDN?</strong></p>
 <ul>
 <li>内部邮箱源。一般邮件都在系统内部，没通过CDN，通过注册或者RSS订阅收到的邮箱查找</li>
@@ -308,49 +307,14 @@
 <p>有些危险端口开放了我们就可以尝试入侵，例如445|3306|22|1433|6379 可以尝试爆破或者是使用某些端口存在漏洞的服务。（产生问题的不是端口，是端口所对应的服务）而且有可能一台服务器上面不同端口代表着不同的Web网站</p>
 <p>有域名的防护一般比没域名的强，80或者443默认端口的一般防护比其他端口强，所以说，我们找没有域名的非80 443 端口的站攻击可能更容易</p>
 <p>高危端口：</p>
-<table>
-<thead>
-<tr>
-<th align="center">21</th>
-<th align="center">FTP</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">22</td>
-<td align="center">ssh</td>
-</tr>
-<tr>
-<td align="center">3306</td>
-<td align="center">mysql</td>
-</tr>
-<tr>
-<td align="center">8080</td>
-<td align="center">其他WEB站</td>
-</tr>
-<tr>
-<td align="center">6379</td>
-<td align="center">redis未授权访问</td>
-</tr>
-<tr>
-<td align="center">1433</td>
-<td align="center">MSSQL(爆破)</td>
-</tr>
-<tr>
-<td align="center">3389</td>
-<td align="center">RDP（0708）</td>
-</tr>
-<tr>
-<td align="center">445</td>
-<td align="center">smb（永恒之蓝）</td>
-</tr>
-</tbody></table>
+<p>|  21  |       FTP       |<br>| :—: | :——————-: |<br>|  22  |       ssh       |<br>| 3306 |      mysql      |<br>| 8080 |    其他WEB站    |<br>| 6379 | redis未授权访问 |<br>| 1433 |   MSSQL(爆破)   |<br>| 3389 |   RDP（0708）   |<br>| 445  | smb（永恒之蓝） |</p>
 <p>这些是默认端口，是可以改的</p>
 <p><strong>how</strong></p>
 <p>用nmap</p>
 <p>先用<a target="_blank" rel="noopener" href="https://tool.chinaz.com/">站长工具</a>里的<a target="_blank" rel="noopener" href="https://ping.chinaz.com/">ping检测</a>找到域名的ip，它会从各个地方访问，如果都是同一个ip则是真实ip</p>
 <p>然后在cmd用<code>nmap ip地址</code> 扫描，会得到一些信息</p>
 <p><img src="https://s2.loli.net/2022/03/03/r8d4qThXlPajIR9.png" alt="image-20220303185630311"></p>
-<p>扫出来后可以去尝试是否是web端口&#x2F;远程桌面端口等</p>
+<p>扫出来后可以去尝试是否是web端口/远程桌面端口等</p>
 <p><code>nmap -p 80,443</code> 只扫描80,443的端口</p>
 <p><code>nmap -o ip地址</code> 可以探测目标的操作环境（什么系统）</p>
 <p><code>nmap -Pn</code> 跳过主机发现过程直接端口扫描 [目标禁ping时]</p>
@@ -365,55 +329,16 @@
 <p>175.21.55.6和175.21.55.7就是同一c段，即<strong>只有最后一个点后的数字不同</strong>，赌他们是同一内网，但是很容易误伤，不建议使用</p>
 </li>
 <li><p><strong>谷歌语法</strong> <a target="_blank" rel="noopener" href="https://www.lovec.ltd/">谷歌镜像站</a> </p>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>site:xxx</code></td>
-<td>指定域名</td>
-</tr>
-<tr>
-<td><code>inurl:xxx</code></td>
-<td>指定URL栏</td>
-</tr>
-<tr>
-<td><code>filetype:xxx</code></td>
-<td>数据类型(doc&#x2F;xls&#x2F;conf&#x2F;inc…)</td>
-</tr>
-<tr>
-<td><code>“xxx”</code></td>
-<td>双引号里内容不能拆分</td>
-</tr>
-<tr>
-<td><code>intitle:xxx</code></td>
-<td>网页标题中的关键字</td>
-</tr>
-<tr>
-<td><code>link:xxx</code></td>
-<td>xxx的友情链接</td>
-</tr>
-<tr>
-<td><code>Info</code></td>
-<td>查找指定站点的一些基本信息</td>
-</tr>
-<tr>
-<td><code>intext:xxx</code></td>
-<td>指定内容</td>
-</tr>
-</tbody></table>
+<p>| 命令           | 作用                          |<br>| ——————— | ——————————————- |<br>| <code>site:xxx</code>     | 指定域名                      |<br>| <code>inurl:xxx</code>    | 指定URL栏                     |<br>| <code>filetype:xxx</code> | 数据类型(doc/xls/conf/inc…) |<br>| <code>“xxx”</code>        | 双引号里内容不能拆分          |<br>| <code>intitle:xxx</code>  | 网页标题中的关键字            |<br>| <code>link:xxx</code>     | xxx的友情链接                 |<br>| <code>Info</code>         | 查找指定站点的一些基本信息    |<br>| <code>intext:xxx</code>   | 指定内容                      |</p>
+<p>比如<code>site:xxx 后台/管理/admin/login</code> ，可能可以找到后台(域名写顶级域名访问的范围更广)</p>
 </li>
 </ol>
-<p> 比如<code>site:xxx 后台/管理/admin/login</code> ，可能可以找到后台(域名写顶级域名访问的范围更广)</p>
 <p><code>inurl:id/php/aspx/do/action/admin</code> （靠平时积累）</p>
 <p>伪静态（假的静态）：<br>        <a target="_blank" rel="noopener" href="http://job.neu.edu.cn/job/view/id/884132">http://job.neu.edu.cn/job/view/id/884132</a><br>        本身是个动态</p>
 <p>尝试Google语法，找到某些敏感内容，比如包含身份证号码的表格、包含服务器账号密码的文件、某些敏感文件、备份数据库</p>
 <p>更多语法搜索google hackingz</p>
-<ol start="8">
-<li><p><strong>指纹识别</strong>（<a target="_blank" rel="noopener" href="https://s.threatbook.cn/%EF%BC%89">https://s.threatbook.cn/）</a></p>
+<ol>
+<li><p><strong>指纹识别</strong>（<a target="_blank" rel="noopener" href="https://s.threatbook.cn/）">https://s.threatbook.cn/）</a></p>
 <p>什么是Web指纹？应用程序的特征码</p>
 <p>就是识别别人用模板建站</p>
 <p>为什么要指纹识别？识别出相应的cms或web容器。 cms可能存在通杀漏洞，如果使用了CMS建站我们可以用通杀漏洞直接攻击</p>
@@ -425,7 +350,7 @@
 </li>
 </ol>
 <h2 id="巧用网络空间搜索引擎"><a href="#巧用网络空间搜索引擎" class="headerlink" title="巧用网络空间搜索引擎"></a>巧用网络空间搜索引擎</h2><p><strong>fofa</strong> (<a target="_blank" rel="noopener" href="https://fofa.so/">fofa</a>)</p>
-<p>网络空间搜索引擎，类似的还有<a target="_blank" rel="noopener" href="http://www.zoomeye.org/">钟馗之眼</a>,<a target="_blank" rel="noopener" href="https://www.shodan.io/">Shodan</a>,这是基于物联网的搜索，可以搜索联网的网络设备</p>
+<p>网络空间搜索引擎，类似的还有<a target="_blank" rel="noopener" href="http://www.zoomeye.org">钟馗之眼</a>,<a target="_blank" rel="noopener" href="https://www.shodan.io">Shodan</a>,这是基于物联网的搜索，可以搜索联网的网络设备</p>
 <p>在线的暴露的网络设备：路由器、主机、智能电视、联网设备</p>
 <p>通过网络空间搜索引擎，我们能够找到开放的服务以及在线的网络设备</p>
 <p>案例：越权靶场CMS：BWSsoft</p>
@@ -666,6 +591,8 @@
 
 
 
+
+  
 
   
 

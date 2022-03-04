@@ -274,8 +274,7 @@
       
         <p>联邦学习基础的行业背景、基本特点、分类等。</p>
 <span id="more"></span>
-
-<h2 id="联邦学习概述"><a href="#联邦学习概述" class="headerlink" title="联邦学习概述"></a>联邦学习概述</h2><h3 id="行业背景"><a href="#行业背景" class="headerlink" title="行业背景"></a>行业背景</h3><p>数据分布不均衡，对数据使用监管趋于严格&#x3D;&#x3D;&gt;<strong>数据孤岛</strong></p>
+<h2 id="联邦学习概述"><a href="#联邦学习概述" class="headerlink" title="联邦学习概述"></a>联邦学习概述</h2><h3 id="行业背景"><a href="#行业背景" class="headerlink" title="行业背景"></a>行业背景</h3><p>数据分布不均衡，对数据使用监管趋于严格==&gt;<strong>数据孤岛</strong></p>
 <p>联邦学习就可以来解决数据孤岛问题。</p>
 <h3 id="技术特点"><a href="#技术特点" class="headerlink" title="技术特点"></a>技术特点</h3><ul>
 <li>数据隔离：数据不泄露到外部</li>
@@ -300,22 +299,20 @@
 <p><strong>期望</strong>：保护隐私的条件下，建立联合模型，且效果超过单边数据建模</p>
 <h5 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h5><ul>
 <li><p><strong>数据对齐</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Party A: </span><br><span class="line">ID set X:[u1, u2, u3, u4]</span><br><span class="line">Party B: </span><br><span class="line">ID set Y:[u1, u2, u3, u5]</span><br><span class="line">要求寻找X∩Y = [u1, u2, u3]</span><br><span class="line">且PartyA不知道PartyB有u5</span><br><span class="line">PartyB不知道PartyA有u4</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Party A: </span><br><span class="line">ID <span class="keyword">set</span> X:[u1, u2, u3, u4]</span><br><span class="line">Party <span class="comment">B:</span> </span><br><span class="line">ID <span class="comment">set Y:[u1, u2, u3, u5]</span></span><br><span class="line">要求寻找X∩Y <span class="comment">= [u1, u2, u3]</span></span><br><span class="line">且PartyA不知道PartyB有u5</span><br><span class="line">PartyB不知道PartyA有u4</span><br></pre></td></tr></table></figure>
 <p>解决方案：<strong>RSA+哈希的安全求交</strong></p>
 <ol>
 <li>PartyB通过RSA产生n,e,d并将公钥(n,e)发送给Party A</li>
-<li>PartyA对于每条样本产生随机数$r_i$并将id哈希得到<code>H(u)</code>，将$Y_A&#x3D;{r_1^eH(u1),r_2^eH(u2),r_3^eH(u3),r_4^eH(u4)}$发送给PartyB【$r_i$相当于PartyA给自己上的锁，RSA相当于PartyB给自己上的锁，因此双方都未泄露数据】</li>
+<li>PartyA对于每条样本产生随机数$r_i$并将id哈希得到<code>H(u)</code>，将$Y_A={r_1^eH(u1),r_2^eH(u2),r_3^eH(u3),r_4^eH(u4)}$发送给PartyB【$r_i$相当于PartyA给自己上的锁，RSA相当于PartyB给自己上的锁，因此双方都未泄露数据】</li>
 <li>PartyB对每一个$r_i^eH(u_i)$求$d$次幂，并mod n，相当于对其进行二次加密，即$r_i*(H(u_i))^d$，其集合定义为$Z_A$；同时PartyB对自己的数据求$H((H(u_i))^d)$，其集合定义为$Z_B$，将$Z_A,Z_B$发给PartyA</li>
-<li>PartyA对$r_i*(H(u_i))^d$进行处理，$r_i$在PartyA手中，所以直接求$H(r_i*(H(u_i))^d&#x2F;r_i) &#x3D; H((H(u_i))^d)$，将该集合定义为$D_A$</li>
-<li><strong>求交</strong>：$I &#x3D; D_A ∩ Z_B&#x3D;{H((H(u_1))^d), H((H(u_2))^d), H((H(u_3))^d)}$，并将I发送给B</li>
+<li>PartyA对$r_i<em>(H(u_i))^d$进行处理，$r_i$在PartyA手中，所以直接求$H(r_i</em>(H(u_i))^d/r_i) = H((H(u_i))^d)$，将该集合定义为$D_A$</li>
+<li><strong>求交</strong>：$I = D_A ∩ Z_B={H((H(u_1))^d), H((H(u_2))^d), H((H(u_3))^d)}$，并将I发送给B</li>
 </ol>
 <p>通过这5步，PartyA和PartyB没有泄露其他ID，并且找到了相同的ID</p>
 </li>
 <li><p><strong>联邦特征工程</strong></p>
 <p> 求WoE(Weight of Evidence)和IV(Information Value)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">问题：在保护双方隐私的前提下，A(含X)，B（含X，Y）特征，如何计算Woe和IV？</span><br><span class="line">难点：</span><br><span class="line">1.A只有特征X，没有Y；计算Woe和IV依靠X和Y（B侧特征Woe&amp;IV可以本地计算）</span><br><span class="line">2.A不能对B暴露X，B不能对A暴露Y</span><br><span class="line">最终只能让B获得所有特征Woe&amp;IV</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight tp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">问题：在保护双方隐私的前提下，A(含<span class="keyword">X</span>)，B（含<span class="keyword">X</span>，<span class="keyword">Y</span>）特征，如何计算Woe和IV？</span><br><span class="line">难点：</span><br><span class="line"><span class="number">1</span>.A只有特征<span class="keyword">X</span>，没有<span class="keyword">Y</span>；计算Woe和IV依靠<span class="keyword">X</span>和<span class="keyword">Y</span>（B侧特征Woe&amp;IV可以本地计算）</span><br><span class="line"><span class="number">2</span>.A不能对B暴露<span class="keyword">X</span>，B不能对A暴露<span class="keyword">Y</span></span><br><span class="line">最终只能让B获得所有特征Woe&amp;IV</span><br></pre></td></tr></table></figure>
 <p>解决方案：<strong>加法同态加密</strong></p>
 <p><code>Encry(x)</code>：x的加法同态加密</p>
 <p><code>Encode(x)</code>：本地编码</p>
@@ -324,23 +321,24 @@
 </li>
 <li><p>PartyA统计每个数据集中$Encry(y_i)$的和以及$Encry(1-y_i)$的和，并发送给PartyB，即{$Encode(id_set_i), sum(Encry(y_i)),sum(Encry(1-y_i))$}</p>
 </li>
-<li><p>B方即可本地计算Woe和IV<br>$$<br>npos_i&#x3D;Decry(sum(Encry(yi)))<br>$$</p>
-<p>$$<br>nneg_i&#x3D;Decry(sum(Encry(1 - yi)))<br>$$</p>
-<p>$$<br>distpos_i &#x3D; npos_i &#x2F; pos_total<br>$$</p>
-<p>$$<br>distneg_i &#x3D; nneg_i &#x2F; neg_total<br>$$</p>
-<p>$$<br>Woe_i &#x3D; 100 * log(distpos_i &#x2F; distneg_i)<br>$$</p>
-<p>$$<br>IV &#x3D;\sum_{i&#x3D;1}^k(dispos_i - disneg_i)*log(dispos_i&#x2F;disneg_i)<br>$$</p>
-</li>
+<li><p>B方即可本地计算Woe和IV</p>
+<script type="math/tex; mode=display">
+npos_i=Decry(sum(Encry(yi)))</script><script type="math/tex; mode=display">
+nneg_i=Decry(sum(Encry(1 - yi)))</script><script type="math/tex; mode=display">
+distpos_i = npos_i / pos_total</script><script type="math/tex; mode=display">
+distneg_i = nneg_i / neg_total</script><script type="math/tex; mode=display">
+Woe_i = 100 * log(distpos_i / distneg_i)</script><script type="math/tex; mode=display">
+IV =\sum_{i=1}^k(dispos_i - disneg_i)*log(dispos_i/disneg_i)</script></li>
 </ol>
+</li>
+</ul>
 <ul>
 <li><p><strong>逻辑回归</strong></p>
 <p>纵向逻辑回归用加法同态，因为加法同态没有逆，因此在公式里不能有<code>exp</code>，采用的解决方法是在零点附近进行泰勒展开，使其<strong>只有加法和乘法</strong></p>
 </li>
 </ul>
-</li>
-</ul>
 <h5 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h5><p>  <img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220302113755110.png" alt="image-20220302113755110"></p>
-<h3 id="联邦学习关键技术–加解密"><a href="#联邦学习关键技术–加解密" class="headerlink" title="联邦学习关键技术–加解密"></a>联邦学习关键技术–加解密</h3><h4 id="保护隐私和安全方法"><a href="#保护隐私和安全方法" class="headerlink" title="保护隐私和安全方法"></a>保护隐私和安全方法</h4><ul>
+<h3 id="联邦学习关键技术—加解密"><a href="#联邦学习关键技术—加解密" class="headerlink" title="联邦学习关键技术—加解密"></a>联邦学习关键技术—加解密</h3><h4 id="保护隐私和安全方法"><a href="#保护隐私和安全方法" class="headerlink" title="保护隐私和安全方法"></a>保护隐私和安全方法</h4><ul>
 <li><p><strong>同态加密</strong></p>
 <p>加密情况下的运算结果和在明文情况下的运算结果完全一致，而且每一次加密的结果是不一样的</p>
 </li>
@@ -437,7 +435,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">联邦学习概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E4%B8%9A%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">行业背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">技术特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.</span> <span class="nav-text">联邦学习分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%AA%E5%90%91%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.3.1.</span> <span class="nav-text">横向联邦学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">举例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%B5%E5%90%91%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.3.2.</span> <span class="nav-text">纵向联邦学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B-1"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">举例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E6%B3%95-1"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">实际应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E6%8A%80%E6%9C%AF%E2%80%93%E5%8A%A0%E8%A7%A3%E5%AF%86"><span class="nav-number">1.4.</span> <span class="nav-text">联邦学习关键技术–加解密</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E9%9A%90%E7%A7%81%E5%92%8C%E5%AE%89%E5%85%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.1.</span> <span class="nav-text">保护隐私和安全方法</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">联邦学习概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E4%B8%9A%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">行业背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">技术特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.</span> <span class="nav-text">联邦学习分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%AA%E5%90%91%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.3.1.</span> <span class="nav-text">横向联邦学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">举例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%B5%E5%90%91%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.3.2.</span> <span class="nav-text">纵向联邦学习</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B-1"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">举例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E6%B3%95-1"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">实际应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E6%8A%80%E6%9C%AF%E2%80%94%E5%8A%A0%E8%A7%A3%E5%AF%86"><span class="nav-number">1.4.</span> <span class="nav-text">联邦学习关键技术—加解密</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E6%8A%A4%E9%9A%90%E7%A7%81%E5%92%8C%E5%AE%89%E5%85%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.1.</span> <span class="nav-text">保护隐私和安全方法</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -588,6 +586,8 @@
 
 
 
+
+  
 
   
 

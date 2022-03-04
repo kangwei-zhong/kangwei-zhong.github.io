@@ -269,7 +269,6 @@
       
         <p>PHP与数据库的交互，后端基础。</p>
 <span id="more"></span>
-
 <h1 id="PHP与数据库交互"><a href="#PHP与数据库交互" class="headerlink" title="PHP与数据库交互"></a>PHP与数据库交互</h1><p>正常网站的步骤：</p>
 <blockquote>
 <p> 传参-&gt;PHP处理-&gt;去数据库存取东西-&gt;显示数据</p>
@@ -281,11 +280,7 @@
 <p><code>mysqli_select_db(连接，库名)</code></p>
 <p><code>mysqli_query(连接，执行SQL语句)</code></p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="variable">$conn</span>=<span class="title function_ invoke__">mysqli_connect</span>(<span class="string">&#x27;localhost&#x27;</span>,<span class="string">&#x27;4root&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">	<span class="title function_ invoke__">mysqli_select_db</span>(<span class="variable">$conn</span>,<span class="string">&#x27;a&#x27;</span>);	<span class="comment">//写一个不存在的域名也不会报错</span></span><br><span class="line">	<span class="variable">$sql</span>=<span class="string">&#x27;insert into b value(666,\&#x27;PHP\&#x27;)&#x27;</span> <span class="comment">//单引号容易产生冲突，要转义</span></span><br><span class="line">     <span class="title function_ invoke__">mysqli_query</span>(<span class="variable">$conn</span>,<span class="variable">$sql</span>);	<span class="comment">//执行sql语句</span></span><br><span class="line">	<span class="title function_ invoke__">mysqli_close</span>(<span class="variable">$conn</span>);		<span class="comment">//关闭数据库连接</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$row</span> = <span class="title function_ invoke__">mysqli_fetch_row</span>();	<span class="comment">//返回一行</span></span><br><span class="line"><span class="variable">$table</span> = <span class="title function_ invoke__">mysqli_fetch_all</span>();	<span class="comment">//返回全部内容（一个表）</span></span><br><span class="line"><span class="variable">$row</span> = <span class="title function_ invoke__">mysqli_fetch_array</span>(); 	<span class="comment">//以数组返回</span></span><br></pre></td></tr></table></figure>
-
-
-
 <p><code>mysqli_fetch_array()</code> 将对象转化为数组</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$result</span> =<span class="title function_ invoke__">mysqli_query</span>(<span class="variable">$conn</span>,<span class="variable">$sql</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">mysqli_fetch_array</span>(<span class="variable">$result</span>)[<span class="string">&#x27;id&#x27;</span>];</span><br></pre></td></tr></table></figure>
 
@@ -525,6 +520,8 @@
 
 
 
+
+  
 
   
 

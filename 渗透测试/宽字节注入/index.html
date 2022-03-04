@@ -269,17 +269,16 @@
       
         <p>本文主要介绍魔术引号，宽字节及其注入。</p>
 <span id="more"></span>
-
 <h1 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h1><h2 id="魔术引号"><a href="#魔术引号" class="headerlink" title="魔术引号"></a>魔术引号</h2><p><code>magic_quotes_gpc（魔术引号开关）</code></p>
 <p>magic_quotes_gpc函数在php中的作用是判断解析用户提交的数据，如包括有：post、get、cookie过来的数据增加转义字符“\”，以确保这些数据不会引起程序，特别是数据库语句因为特殊字符引起的污染而出现致命的错误。</p>
 <p>单引号（’）、双引号（”）、反斜线（\）等字符都会被自动加上反斜线</p>
 <p>SQL的第一步是闭合</p>
-<p>魔术引号&#x3D;&gt;防止闭合</p>
+<p>魔术引号=&gt;防止闭合</p>
 <p>在PHP5.4以下 存在<br>PHP5.4及其以上魔术引号是被删除了<br>高版本加上<code>addslashes()</code>函数，就相当与魔术引号</p>
 <p>基本上所有网站都会用魔术引号</p>
 <p>绕过魔术引号：</p>
-<p>1.找不需要闭合的地方<br>    select*from news where id&#x3D;1</p>
-<p>​    库名 &#x3D;&gt; table_schema&#x3D;’error’</p>
+<p>1.找不需要闭合的地方<br>    select*from news where id=1</p>
+<p>​    库名 =&gt; table_schema=’error’</p>
 <p>2.仔细研究作用域（Head）</p>
 <p>通过head传参可以绕过</p>
 <p>3.宽字节</p>
@@ -287,19 +286,19 @@
 <p>尽管现在呼吁所有的程序都使用unicode编码，所有的网站都使用utf-8编码，来一个统一的国际规范。但仍然有很多，包括国内及国外（特别是非英语国家）的一些cms，仍然使用着自己国家的一套编码，比如我国的gbk、gb2312，作为自己默认的编码类型。也有一些cms为了考虑老用户，推出了gbk和utf-8两个版本（例如:dedecms）。</p>
 <p>GBK全称《汉字内码扩展规范》,gbk是一种多字符编码。他使用了双字节编码方案，因为双字节编码所以gbk编码汉字，占用2个字节（2个16进制）。一个utf-8编码的汉字，占用3个字节。我们可以通过输出来验证这句话。</p>
 <h2 id="宽字节"><a href="#宽字节" class="headerlink" title="宽字节"></a>宽字节</h2><p>多字节编码的东西</p>
-<p>魔术引号： <code>\</code>&#x3D;&gt;一个字符</p>
-<p>x+<code>\</code>&#x3D;&gt; 让其构成汉字，使魔术引号失效</p>
+<p>魔术引号： <code>\</code>=&gt;一个字符</p>
+<p>x+<code>\</code>=&gt; 让其构成汉字，使魔术引号失效</p>
 <p>GBK可以宽字节，但是UTF-8不可以</p>
 <p>确定是什么编码？直接加宽字节去测试，看能不能用</p>
 <p>旧网站cms存在gbk的可能性更大</p>
 <p><code>%df</code> 与魔术引号自动添加的<code>\</code>就能组成汉字</p>
 <p>也可以用sqlmap来跑宽字节，但是效果不是太好,最好不用（可以帮助其闭合，跑得更准确）</p>
-<p>%df &#x3D;&gt; URL编码 &#x3D;&gt; POST是不接受URL解码<br>    1、抓包改Hex<br>    2、<strong>传汉字</strong></p>
-<p>汉 &#x3D;&gt; UTF-8 &#x3D;&gt; 3个字符<br>    3个字符+ \ &#x3D;&gt; 4个字符 &#x3D;&gt; 2个汉字</p>
+<p>%df =&gt; URL编码 =&gt; POST是不接受URL解码<br>    1、抓包改Hex<br>    2、<strong>传汉字</strong></p>
+<p>汉 =&gt; UTF-8 =&gt; 3个字符<br>    3个字符+ \ =&gt; 4个字符 =&gt; 2个汉字</p>
 <p>使用GBK的是数据库，当前页面的编码不重要</p>
 <p>GBK不是唯一一个宽字节（非万国，非英文都可能存在宽字节）</p>
 <blockquote>
-<p>参数：–technique</p>
+<p>参数：—technique</p>
 <p>这个参数可以指定sqlmap使用的探测技术，默认情况下会测试所有的方式。</p>
 <p>支持的探测方式如下：</p>
 <p>B: Boolean-based blind SQL injection（布尔型注入）<br>E: Error-based SQL injection（报错型注入）<br>U: UNION query SQL injection（可联合查询注入）<br>S: Stacked queries SQL injection（可多语句查询注入）<br>T: Time-based blind SQL injection（基于时间延迟注入）</p>
@@ -542,6 +541,8 @@
 
 
 
+
+  
 
   
 

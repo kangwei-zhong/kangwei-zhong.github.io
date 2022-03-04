@@ -269,7 +269,6 @@
       
         <p>正则表达式应用非常广泛，但在各种编程语言中有所不同，此处为PHP的正则表达式。</p>
 <span id="more"></span>
-
 <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><h2 id="初识SQL注入"><a href="#初识SQL注入" class="headerlink" title="初识SQL注入"></a>初识SQL注入</h2><p>SQL注入本质：用户输入的数据被当作SQL代码执行</p>
 <p>这里有两个关键条件：</p>
 <p>第一个是用户能够控制输入</p>
@@ -298,7 +297,7 @@
 <p>正则表达式用途：</p>
 <p>判断字符串是否符合某一规则（判断是否符合手机号、邮箱规则）。</p>
 <p>从一个字符串中找出符合规则的所有子字符串（取HTML标签名）。</p>
-<h2 id="正则表达式常用函数in-PHP"><a href="#正则表达式常用函数in-PHP" class="headerlink" title="正则表达式常用函数in PHP"></a>正则表达式常用函数in PHP</h2><p>**PHP中使用正则规则一定要加代表正则的标识&#x2F; &#x2F; **</p>
+<h2 id="正则表达式常用函数in-PHP"><a href="#正则表达式常用函数in-PHP" class="headerlink" title="正则表达式常用函数in PHP"></a>正则表达式常用函数in PHP</h2><p><strong>PHP中使用正则规则一定要加代表正则的标识/ / </strong></p>
 <p><code>preg_match_all(正则表达式,匹配字符串,匹配到的东西放入数组)</code></p>
 <p>返回匹配到的次数</p>
 <p><code>preg_replace(正则表达式,替换成什么,匹配字符串)</code></p>
@@ -322,22 +321,22 @@
 <p>  如：</p>
 <p><code>[^0-9]</code>表示匹配所有非数字字符。</p>
 <p><code>[^a-zA-Z]</code>表示匹配所以非字母字符。</p>
-<h3 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h3><p><code>()</code>   &#x3D;&gt; 和数学一样很像，代表这是一个整体</p>
-<p><code>^</code>    &#x3D;&gt;  匹配输入字符串的开始位置     <code>/^a/</code> 限制a开头</p>
-<p><code>$</code>    &#x3D;&gt; 匹配输入字符串的结尾位置     <code>/a$/</code> 限制a结尾</p>
-<p><code>.</code>    &#x3D;&gt; 通配符[代表任意字符][不匹配换行]  <strong>但是只能匹配一个字符</strong>    </p>
-<p><code>* </code>   &#x3D;&gt; 匹配0次或者多次  （注<strong>是次数</strong>) </p>
-<p><code>+</code>    &#x3D;&gt; 匹配1次或者多次 （注<strong>是次数</strong>) </p>
-<p><code>\</code>    &#x3D;&gt; 转义字符</p>
-<p><code>|</code>    &#x3D;&gt;  两项之间的一个选择</p>
-<h3 id="限定符和修饰符"><a href="#限定符和修饰符" class="headerlink" title="限定符和修饰符"></a>限定符和修饰符</h3><h4 id="限定符"><a href="#限定符" class="headerlink" title="限定符"></a>限定符</h4><p>{n}   &#x3D;&gt;  e.g. 0{8}  意思是指 只有连起来8个0才会被匹配  </p>
-<p> {n,}  &#x3D;&gt; e.g. 0{2,}  意思是 只要有2个0及其以上的就会被匹配</p>
-<p> {n,m}  &#x3D;&gt; e.g. 0{2,4} 意思是最少匹配2个0，最多匹配4个0</p>
+<h3 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h3><p><code>()</code>   =&gt; 和数学一样很像，代表这是一个整体</p>
+<p><code>^</code>    =&gt;  匹配输入字符串的开始位置     <code>/^a/</code> 限制a开头</p>
+<p><code>$</code>    =&gt; 匹配输入字符串的结尾位置     <code>/a$/</code> 限制a结尾</p>
+<p><code>.</code>    =&gt; 通配符[代表任意字符][不匹配换行]  <strong>但是只能匹配一个字符</strong>    </p>
+<p><code>*</code>   =&gt; 匹配0次或者多次  （注<strong>是次数</strong>) </p>
+<p><code>+</code>    =&gt; 匹配1次或者多次 （注<strong>是次数</strong>) </p>
+<p><code>\</code>    =&gt; 转义字符</p>
+<p><code>|</code>    =&gt;  两项之间的一个选择</p>
+<h3 id="限定符和修饰符"><a href="#限定符和修饰符" class="headerlink" title="限定符和修饰符"></a>限定符和修饰符</h3><h4 id="限定符"><a href="#限定符" class="headerlink" title="限定符"></a>限定符</h4><p>{n}   =&gt;  e.g. 0{8}  意思是指 只有连起来8个0才会被匹配  </p>
+<p> {n,}  =&gt; e.g. 0{2,}  意思是 只要有2个0及其以上的就会被匹配</p>
+<p> {n,m}  =&gt; e.g. 0{2,4} 意思是最少匹配2个0，最多匹配4个0</p>
 <p> 注：被匹配时，默认匹配最多的次数</p>
-<h4 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h4><p> &#x2F;i  &#x3D;&gt; 不区分大小写</p>
-<p> &#x2F;A  &#x3D;&gt; 匹配规则必须从头开始匹配</p>
-<p> &#x2F;s   &#x3D;&gt; .将匹配一切字符</p>
-<p> &#x2F;x   &#x3D;&gt; 正则表达式中的空白字符会被忽略</p>
+<h4 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h4><p> /i  =&gt; 不区分大小写</p>
+<p> /A  =&gt; 匹配规则必须从头开始匹配</p>
+<p> /s   =&gt; .将匹配一切字符</p>
+<p> /x   =&gt; 正则表达式中的空白字符会被忽略</p>
 <p><strong>注：修饰符写在<code>/</code>外面</strong> 如：<code>“/a/i”</code> 也可以混合使用，如<code>/a/iA</code></p>
 
     </div>
@@ -576,6 +575,8 @@
 
 
 
+
+  
 
   
 

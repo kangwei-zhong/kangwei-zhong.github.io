@@ -266,14 +266,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>盲注对应的是SQL注入中的显错注入&#x2F;报错注入，有布尔型盲注和时间型盲注。</p>
+        <p>盲注对应的是SQL注入中的显错注入/报错注入，有布尔型盲注和时间型盲注。</p>
 <span id="more"></span>
-
-<h1 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h1><p>盲注对应的是显错注入&#x2F;报错注入。</p>
+<h1 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h1><p>盲注对应的是显错注入/报错注入。</p>
 <p>盲注：页面毫无回显，但是我们可以判断出我们想要的数据。</p>
 <p>如果没有回显点，并且报错注入不能使用就要用盲注。</p>
-<p>分为两种：布尔型盲注&#x2F;时间型盲注</p>
-<p>布尔型盲注：返回0&#x2F;1（有结果或没有结果）</p>
+<p>分为两种：布尔型盲注/时间型盲注</p>
+<p>布尔型盲注：返回0/1（有结果或没有结果）</p>
 <p>时间型盲注：无论<code>1=1</code> <code>1=2</code> 都返回正常，藏得很深，依靠时间差<code>sleep()</code> </p>
 <h2 id="盲注所需函数"><a href="#盲注所需函数" class="headerlink" title="盲注所需函数"></a>盲注所需函数</h2><h3 id="布尔型盲注"><a href="#布尔型盲注" class="headerlink" title="布尔型盲注"></a>布尔型盲注</h3><p><code>length()</code> 返回字符串长度内容</p>
 <p><code>substr()</code> 截取字符串,即把字符串分开 （语法:<code>SUBSTR(str,pos,len)</code>）pos:从哪里开始截,len:截取的长度</p>
@@ -283,14 +282,14 @@
 <p>太慢了怎么办？</p>
 <ul>
 <li>数字是可以进行比较的（可以用二分法来进行判断）</li>
-<li>字母无法比较&#x3D;&gt;转化成ascii码<code>ascii(substr(database(),3,1))&gt;110</code> 然后用二分法判断</li>
+<li>字母无法比较=&gt;转化成ascii码<code>ascii(substr(database(),3,1))&gt;110</code> 然后用二分法判断</li>
 <li>用burp直接跑数据（如果要更快则跑双包等）</li>
 </ul>
 <p>查表：</p>
 <p><code>length((select table_name from information_schema.tables where table_schema=database() limit 0,1))&gt;1</code></p>
 <p>sql也可以跑盲注</p>
 <h3 id="时间型盲注"><a href="#时间型盲注" class="headerlink" title="时间型盲注"></a>时间型盲注</h3><p><code>A条件 and b条件(sleep())</code> 要保证A条件成立，如果不成立则不会执行b条件</p>
-<p>select*from news where id&#x3D;1 or sleep(10);<br>1   不延时<br>2    10秒<br>3    10秒<br>4    10秒 &#x3D;&gt; 30秒<br>延时说明：他有注入 &#x3D;&gt;（库名、表名、字段名）?</p>
+<p>select*from news where id=1 or sleep(10);<br>1   不延时<br>2    10秒<br>3    10秒<br>4    10秒 =&gt; 30秒<br>延时说明：他有注入 =&gt;（库名、表名、字段名）?</p>
 <p>if(expr1,expr2,expr3) 判断语句 如果第一个语句正确就执行第二个语句如果错误执行第三个语句</p>
 <p><code>select if(length(database())&gt;3,sleep(3),1)</code> </p>
 <p>也可用sqlmap来跑</p>
@@ -530,6 +529,8 @@
 
 
 
+
+  
 
   
 

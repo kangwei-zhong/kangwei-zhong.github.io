@@ -272,7 +272,6 @@
       
         <p>使用FATE开源库，通过Docker部署KubeFate集群。</p>
 <span id="more"></span>
-
 <h1 id="用Docker部署KubeFate"><a href="#用Docker部署KubeFate" class="headerlink" title="用Docker部署KubeFate"></a>用Docker部署KubeFate</h1><hr>
 <p>工具：CentOS7 虚拟机或物理机</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/FederatedAI/KubeFATE/blob/master/docker-deploy/README_zh.md">官方中文文档</a></p>
@@ -284,7 +283,6 @@
 </li>
 <li><p>yum的配置管理，添加docker的软件源地址</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
-
 <p>(通过阿里云镜像)</p>
 </li>
 <li><p>更新yum缓存</p>
@@ -308,7 +306,6 @@
 </li>
 <li><p>测试docker</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
 <p><img src="https://s2.loli.net/2022/03/03/EGCOzy7LjwFvB8M.png" alt="image-20220226100155056"></p>
 <p>测试成功！</p>
 </li>
@@ -318,7 +315,6 @@
 <li>安装指定版本Docker-Compose</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L <span class="string">&quot;https://github.com/docker/compose/releases/download/1.24.0/docker-compose-<span class="subst">$(uname -s)</span>-<span class="subst">$(uname -m)</span>&quot;</span> -o /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
-
 <p>github访问太慢，可以用daocloud安装</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.1/docker-compose-`<span class="built_in">uname</span> -s`-`<span class="built_in">uname</span> -m` -o /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
 <ul>
@@ -327,12 +323,10 @@
 </li>
 <li><p>查看版本</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose --version</span><br></pre></td></tr></table></figure>
-
 <p><img src="https://s2.loli.net/2022/03/03/OD5usTZPvGWi8xX.png" alt="image-20220226101152561"></p>
 </li>
 <li><p>检查端口是否被占用</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -apln|grep 8080                                                                               </span><br><span class="line">netstat -apln|grep 9360                                                                    </span><br><span class="line">netstat -apln|grep 9380</span><br></pre></td></tr></table></figure>
-
 <p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220226101331899.png" alt="image-20220226101331899"></p>
 <p>这表示都没有占用，若有占用则要先kill占用端口的进程</p>
 </li>
@@ -344,25 +338,23 @@
 <ul>
 <li><p>在文件夹中下载fate镜像(只有1.4.0)</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://webank-ai-1251170195.cos.ap-guangzhou.myqcloud.com/fate_1.4.0-images.tar.gz</span><br></pre></td></tr></table></figure>
-
 <p>国内用户从此处下载速度较快</p>
 </li>
 <li><p>加载镜像</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker load -i fate_1.4.0-images.tar.gz</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>验证镜像</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <hr>
 <p>  或者直接根据官方文档手动下载镜像</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">version=1.7.2          </span><br><span class="line">version_server=2.1.5   </span><br><span class="line">docker pull federatedai/eggroll:<span class="variable">$version</span>-release</span><br><span class="line">docker pull federatedai/fateboard:<span class="variable">$version</span>-release</span><br><span class="line">docker pull federatedai/python:<span class="variable">$version</span>-release</span><br><span class="line">docker pull federatedai/client:<span class="variable">$version</span>-release</span><br><span class="line">docker pull federatedai/serving-server:<span class="variable">$version_server</span>-release</span><br><span class="line">docker pull federatedai/serving-proxy:<span class="variable">$version_server</span>-release</span><br><span class="line">docker pull redis:5</span><br><span class="line">docker pull mysql:8</span><br></pre></td></tr></table></figure>
-
 <p>版本号从<code>release</code>里查看最新的版本号</p>
 <hr>
 <ul>
 <li><p>下载KubeFate</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/FederatedAI/KubeFATE/releases/download/v1.7.0-a/kubefate-docker-compose.tar.gz</span><br></pre></td></tr></table></figure>
-
 <p>版本号可在官方文档中查看</p>
 </li>
 <li><p>将KubeFate放入<code>/home</code>目录进行解压</p>
@@ -370,7 +362,6 @@
 </li>
 <li><p>准备两台主机，修改配置文件</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">user=root                                  # 运行FATE容器的用户</span><br><span class="line">dir=/data/projects/fate                     # docker-compose部署目录</span><br><span class="line">partylist=(10000 9999)                      # 组织id</span><br><span class="line">partyiplist=(192.168.126.166 192.168.126.167)       # id对应训练集群ip</span><br><span class="line">servingiplist=(192.168.126.166 192.168.126.167)     # id对应在线预测集群ip</span><br><span class="line"><span class="meta"># </span><span class="language-bash">computing_backend could be eggroll or spark.</span></span><br><span class="line">computing_backend=eggroll</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash"><span class="literal">true</span> <span class="keyword">if</span> you need python-nn <span class="keyword">else</span> <span class="literal">false</span>, the default value will be <span class="literal">false</span></span></span><br><span class="line">enabled_nn=false</span><br><span class="line"></span><br><span class="line">fateboard_username=admin                    # 访问fateboard的用户名</span><br><span class="line">fateboard_password=admin                    # 访问fateboard的密码</span><br></pre></td></tr></table></figure>
-
 <p>user一般要用root，如果不是root则要有<code>/data/projects/fate</code>文件夹权限和docker权限。</p>
 <p><code>party 10000</code>的集群将部署在<em>192.168.126.166</em>上，而<code>party 9999</code>的集群将部署在<em>192.168.126.167</em>上。为了减少所需拉取镜像的大小，KubeFATE在默认情况下，会使用不带神经网络的“python”容器，若需要跑神经网络的算法则需把“parties.conf”中的<code>enabled_nn</code>设置成<code>true</code></p>
 <ul>
@@ -382,7 +373,6 @@
 </li>
 <li><p>验证实例状态</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
-
 <p>若各个组件都是运行（up）状态，说明部署成功。</p>
 </li>
 <li><p>验证部署</p>
@@ -391,7 +381,6 @@
 </li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="language-bash">在192.168.126.167上执行下列命令</span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">docker <span class="built_in">exec</span> -it confs-10000_client_1 bash                        <span class="comment">#进入python组件容器内部</span></span></span><br><span class="line"><span class="meta">$ </span><span class="language-bash">flow <span class="built_in">test</span> toy --guest-party-id 10000 --host-party-id 9999        <span class="comment">#验证</span></span></span><br></pre></td></tr></table></figure>
-
 <p>至此，基本部署完毕。</p>
 </li>
 </ul>
@@ -418,7 +407,7 @@
       <i class="fa fa-chevron-left"></i> 联邦学习概述
     </a></div>
       <div class="post-nav-item">
-    <a href="/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/C-%E4%B8%ADsort%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/" rel="next" title="C++中sort函数的使用总结">
+    <a href="/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/C-%E4%B8%ADsort%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93-1/" rel="next" title="C++中sort函数的使用总结">
       C++中sort函数的使用总结 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -631,6 +620,8 @@
 
 
 
+
+  
 
   
 

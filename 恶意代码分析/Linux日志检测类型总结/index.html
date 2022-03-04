@@ -271,7 +271,6 @@
       
         <p>对Linux日志的基本分析以及对一些可能出现的恶意行为的分析。</p>
 <span id="more"></span>
-
 <h1 id="日志分析"><a href="#日志分析" class="headerlink" title="日志分析"></a>日志分析</h1><h2 id="常见Linux日志"><a href="#常见Linux日志" class="headerlink" title="常见Linux日志"></a>常见Linux日志</h2><h3 id="系统日志"><a href="#系统日志" class="headerlink" title="系统日志"></a>系统日志</h3><ul>
 <li>连接时间日志。由多个进程执行，把记录写入到<code>/var/log/wtmp</code>和<code>/var/run/utmp</code>。login等程序更新wtmp和utmp文件，使系统管理员能够跟踪到谁何时登录到系统；</li>
 <li>进程统计。由系统内核执行。当一个进程终止时，为该进程往进程统计文件（pacct或acct）中写一个记录。进程统计的目的是为系统中的基本服务提供命令使用统计。</li>
@@ -279,6 +278,7 @@
 </ul>
 <h3 id="网络日志"><a href="#网络日志" class="headerlink" title="网络日志"></a>网络日志</h3><p>Linux系统下，网络服务器主要是Apache。Apache提供HTTP服务时产生访问日志<code>/usr/local/apache/logs/access_log</code>以及错误日志<code>/usr/local/apache/logs/access_log</code>两个日志文件。在Linux系统下，FTP日志则保存在<code>/usr/adm/xferlog</code>文件中，邮件日志在<code>/var/log/maillog</code>中。</p>
 <p>总结：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -287,7 +287,8 @@
 <th>文件</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>lastlog</td>
 <td>记录最近几次成功登录的事件和最后一次不成功登录</td>
 <td><code>/usr/log/lastlog</code></td>
@@ -299,7 +300,7 @@
 </tr>
 <tr>
 <td>wtmp</td>
-<td>记录每个用户登录&#x2F;退出的历史信息</td>
+<td>记录每个用户登录/退出的历史信息</td>
 <td><code>/var/log/wtmp</code></td>
 </tr>
 <tr>
@@ -318,7 +319,7 @@
 <td><code>/var/log/kernlog</code></td>
 </tr>
 <tr>
-<td>acct&#x2F;pact</td>
+<td>acct/pact</td>
 <td>记录用户执行能够的命令和资源使用情况</td>
 <td><code>/var/run/pact</code></td>
 </tr>
@@ -339,12 +340,12 @@
 </tr>
 <tr>
 <td>access_log</td>
-<td>记录http&#x2F;web的传输信息</td>
+<td>记录http/web的传输信息</td>
 <td><code>/usr/local/apache/access_log</code></td>
 </tr>
 <tr>
 <td>error_log</td>
-<td>记录http&#x2F;web的错误信息</td>
+<td>记录http/web的错误信息</td>
 <td><code>/usr/local/apache/logs/error_log</code></td>
 </tr>
 <tr>
@@ -357,7 +358,9 @@
 <td>记录发送和接收邮件信息</td>
 <td><code>/var/log/maillog</code></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h3 id="各类日志文件的格式"><a href="#各类日志文件的格式" class="headerlink" title="各类日志文件的格式"></a>各类日志文件的格式</h3><ul>
 <li>syslogd记录下的日志文件：ASCII文本文件，采用syslog协议和POSIX标准定义日志信息，由日期、时间、优先级、主机名和消息这几部分组成。</li>
 <li>应用程序产生的日志文件：ASCII文本文件，现在大多数都是直接发往syslogd，统一由其处理，参照syslogd。</li>
@@ -393,7 +396,7 @@
 <p>该日志文件是许多进程日志文件的汇总<strong>从该文件可以看出任何入侵企图或成功的入侵</strong>。</p>
 </li>
 <li><p><code>/var/log/syslog</code></p>
-<p>默认不生成该日志文件但可以配置&#x2F;etc&#x2F;syslog.conf让系统生成该日志文件。它和&#x2F;etc&#x2F;log&#x2F;messages日志文件不同它只记录警告信息常常是系统出问题的信息所以更应该关注该文件。要让系统生成该日志文件在&#x2F;etc&#x2F;syslog.conf文件中加上*.warning。该日志文件能记录当用户登录时login记录下的错误口令、Sendmail的问题、su命令执行失败等信息。</p>
+<p>默认不生成该日志文件但可以配置/etc/syslog.conf让系统生成该日志文件。它和/etc/log/messages日志文件不同它只记录警告信息常常是系统出问题的信息所以更应该关注该文件。要让系统生成该日志文件在/etc/syslog.conf文件中加上*.warning。该日志文件能记录当用户登录时login记录下的错误口令、Sendmail的问题、su命令执行失败等信息。</p>
 </li>
 <li><p><code>/var/log/secure</code></p>
 <p>该日志文件记录与安全相关的信息。</p>
@@ -413,10 +416,10 @@
 </li>
 <li><p><code>/var/log/xferlog</code></p>
 <p>该日志文件记录FTP会话可以显示出用户向FTP服务器或从服务器拷贝了什么文件。该文件会显示用户拷贝到服务器上的用来入侵服务器的恶意程序以及该用户拷贝了哪些文件供他使用。</p>
-<p>该文件的格式为第一个域是日期和时间第二个域是下载文件所花费的秒数、远程系统名称、文件大小、本地路径名、传输类型ASCII&#x2F;二进制、与压缩相关的标志或tar或”_”如果没有压缩的话、传输方向相对于服务器而言i代表进o代表出、访问模式a匿名g输入口令r真实用户、用户名、服务名通常是ftp、认证方法lRFC931或0认证用户的ID或”*”。</p>
+<p>该文件的格式为第一个域是日期和时间第二个域是下载文件所花费的秒数、远程系统名称、文件大小、本地路径名、传输类型ASCII/二进制、与压缩相关的标志或tar或”_”如果没有压缩的话、传输方向相对于服务器而言i代表进o代表出、访问模式a匿名g输入口令r真实用户、用户名、服务名通常是ftp、认证方法lRFC931或0认证用户的ID或”*”。</p>
 </li>
 <li><p><code>/var/log/kernlog</code></p>
-<p>Linux默认没有记录该日志文件。要启用该日志文件必须在&#x2F;etc&#x2F;syslog.conf文件中添加一行kern.* &#x2F;var&#x2F;log&#x2F;kernlog 。这样就启用了向&#x2F;var&#x2F;log&#x2F;kernlog文件中记录所有内核消息的功能。该文件记录了系统启动时加载设备或使用设备的情况。一般是正常的操作但如果记录了没有授权的用户进行的这些操作就要注意因为有可能这就是恶意用户的行为。</p>
+<p>Linux默认没有记录该日志文件。要启用该日志文件必须在/etc/syslog.conf文件中添加一行kern.* /var/log/kernlog 。这样就启用了向/var/log/kernlog文件中记录所有内核消息的功能。该文件记录了系统启动时加载设备或使用设备的情况。一般是正常的操作但如果记录了没有授权的用户进行的这些操作就要注意因为有可能这就是恶意用户的行为。</p>
 </li>
 </ul>
 <h3 id="可疑的日志记录"><a href="#可疑的日志记录" class="headerlink" title="可疑的日志记录"></a>可疑的日志记录</h3><ul>
@@ -434,10 +437,9 @@
 </li>
 </ul>
 <h3 id="查找对应进程的应用程序"><a href="#查找对应进程的应用程序" class="headerlink" title="查找对应进程的应用程序"></a>查找对应进程的应用程序</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ll /proc/PID/cwd</span><br></pre></td></tr></table></figure>
-
 <p>可以查看应用程序的绝对路径</p>
-<h2 id="对每个日志分析"><a href="#对每个日志分析" class="headerlink" title="对每个日志分析"></a>对每个日志分析</h2><h4 id="x2F-var-x2F-log-x2F-messages"><a href="#x2F-var-x2F-log-x2F-messages" class="headerlink" title="&#x2F;var&#x2F;log&#x2F;messages"></a>&#x2F;var&#x2F;log&#x2F;messages</h4><p>messages 日志是核心系统日志文件。它包含了系统启动时的引导消息，以及系统运行时的其他状态消息。IO 错误、网络错误和其他系统错误都会记录到这个文件中。其他信息，比如某个人的身份切换为 root，也在这里列出。许多提权的行为都有可能是恶意行为。</p>
-<p>从日志中寻找：谁(ID)，从哪里(IPaddress)，如何(Port)进来，通过什么操作非法入侵，或者确认信息是否泄漏和变更，所有这些都完全参照日志文件进行。必须清楚系统中存在哪些日志文件，哪些守护进程管理这些日志，以及它们是如何被保存下来的。基本日志由syslogd控制，通过修改syslogd的设置文件&#x2F;etc&#x2F;syslog.conf来存储位置和文件名。<code>/var/log/messages</code>文件的内容如下：</p>
+<h2 id="对每个日志分析"><a href="#对每个日志分析" class="headerlink" title="对每个日志分析"></a>对每个日志分析</h2><h4 id="var-log-messages"><a href="#var-log-messages" class="headerlink" title="/var/log/messages"></a>/var/log/messages</h4><p>messages 日志是核心系统日志文件。它包含了系统启动时的引导消息，以及系统运行时的其他状态消息。IO 错误、网络错误和其他系统错误都会记录到这个文件中。其他信息，比如某个人的身份切换为 root，也在这里列出。许多提权的行为都有可能是恶意行为。</p>
+<p>从日志中寻找：谁(ID)，从哪里(IPaddress)，如何(Port)进来，通过什么操作非法入侵，或者确认信息是否泄漏和变更，所有这些都完全参照日志文件进行。必须清楚系统中存在哪些日志文件，哪些守护进程管理这些日志，以及它们是如何被保存下来的。基本日志由syslogd控制，通过修改syslogd的设置文件/etc/syslog.conf来存储位置和文件名。<code>/var/log/messages</code>文件的内容如下：</p>
 <p><img src="C:/Users/%E9%92%9F%E5%85%88%E7%94%9F/AppData/Roaming/Typora/typora-user-images/image-20220106171552994.png" alt="image-20220106171552994"></p>
 <p>该日志文件的意义分为月，日，时间，每个程序的名字和进程编号，用户的uid被记录下来。消息部分详细显示了生成日志时发生的事件。</p>
 <p>在linux中，负责日志轮换制的包是logrotate。logrotate是一个旨在有效管理不断增大的文件的程序。自动运行轮换制，进行压缩、删除、发送邮件等工作。logrotate在早期linux安装时自动登录cron并周期性运行。使用linux日志文件管理工具logrotate可以完成以下操作：</p>
@@ -446,85 +448,71 @@
 <li>第二，将日志文件压缩保存。</li>
 <li>第三，工作时出现错误时，将状态报告给指定的邮箱地址。</li>
 </ul>
-<h4 id="x2F-var-x2F-log-x2F-secure"><a href="#x2F-var-x2F-log-x2F-secure" class="headerlink" title="&#x2F;var&#x2F;log&#x2F;secure"></a>&#x2F;var&#x2F;log&#x2F;secure</h4><p>一般用来记录安全相关的信息，记录最多的是哪些用户登录服务器的相关日志，如果该文件很大，说明有人在破解你的 root 密码。</p>
+<h4 id="var-log-secure"><a href="#var-log-secure" class="headerlink" title="/var/log/secure"></a>/var/log/secure</h4><p>一般用来记录安全相关的信息，记录最多的是哪些用户登录服务器的相关日志，如果该文件很大，说明有人在破解你的 root 密码。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">如何进行查看: <span class="built_in">cat</span></span><br><span class="line">	 方法一: 只查看最新的信息</span><br><span class="line">	 <span class="built_in">head</span> -n 文件信息     --- 查看文件前几行信息</span><br><span class="line">	 <span class="built_in">tail</span> -n 文件信息     --- 查看文件后几行信息</span><br><span class="line">	 <span class="built_in">tail</span> -f 文件信息     --- 实时查看日志文件最新数据内容</span><br><span class="line">	 方法二: 关注指定信息  fail(错误)   error(错误)</span><br><span class="line">	 grep  <span class="string">&quot;关注信息&quot;</span>  文件 </span><br><span class="line">	 -C(Center)  -B(Before)   -A(After)    -i(ignore忽视.忽略)</span><br></pre></td></tr></table></figure>
-
 <p>可以分为几个字段来描述这些事件信息：</p>
 <p>　　1. 事件的日期和时间<br>　　2. 事件的来源主机 ( 通常是写主机名 )<br>　　3. 产生这个事件的程序[进程号]<br>　　4. 实际的日志信息</p>
 <p>该<strong>文件如果很大</strong>，说明有人在破解root密码，一般是SSH暴力破解，可以通过这个日志查到对方的IP，每次登陆，无论密码对错都会被详细记录下来。</p>
-<h4 id="x2F-var-x2F-log-x2F-syslog"><a href="#x2F-var-x2F-log-x2F-syslog" class="headerlink" title="&#x2F;var&#x2F;log&#x2F;syslog"></a>&#x2F;var&#x2F;log&#x2F;syslog</h4><p>它和<code>/etc/log/messages</code>日志文件不同，它只记录警告信息，常常是系统出问题的信息，所以更应该关注该文件。</p>
-<p>要让系统生成该日志文件，在&#x2F;etc&#x2F;syslog.conf文件中加上：*.warning &#x2F;var&#x2F;log&#x2F;syslog 该日志文件能记录当用户登录时login记录下的错误口令、Sendmail的问题、su命令执行失败等信息。</p>
+<h4 id="var-log-syslog"><a href="#var-log-syslog" class="headerlink" title="/var/log/syslog"></a>/var/log/syslog</h4><p>它和<code>/etc/log/messages</code>日志文件不同，它只记录警告信息，常常是系统出问题的信息，所以更应该关注该文件。</p>
+<p>要让系统生成该日志文件，在/etc/syslog.conf文件中加上：*.warning /var/log/syslog 该日志文件能记录当用户登录时login记录下的错误口令、Sendmail的问题、su命令执行失败等信息。</p>
 <p>该日志文件记录最近成功登录的事件和最后一次不成功的登录事件，由login生成。在每次用户登录时被查询，该文件是二进制文件，需要<strong>使用lastlog命令</strong>查看，根据UID排序显示登录名、端口号和上次登录时间。如果某用户从来没有登录过，就显示为”<strong>Never logged in</strong>“。该命令只能<strong>以root权限</strong>执行。简单地输入lastlog命令后就会看到：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Username         Port     From             Latest</span><br><span class="line">root             pts/0    110.87.109.232   Wed Jan  5 10:34:20 +0800 2022</span><br><span class="line">bin                                        **Never logged  <span class="keyword">in</span> **</span><br><span class="line">daemon                                     **Never logged  <span class="keyword">in</span> **</span><br><span class="line">adm                                        **Never logged  <span class="keyword">in</span> **</span><br><span class="line">lp                                         **Never logged  <span class="keyword">in</span> **</span><br><span class="line"><span class="built_in">sync</span>                                       **Never logged  <span class="keyword">in</span> **</span><br><span class="line">shutdown                                   **Never logged  <span class="keyword">in</span> **</span><br><span class="line">halt                                       **Never logged  <span class="keyword">in</span> **</span><br><span class="line">mail                                       **Never logged  <span class="keyword">in</span> **</span><br><span class="line">uucp                                       **Never logged  <span class="keyword">in</span> **</span><br><span class="line">operator                                    **Never logged  <span class="keyword">in</span> **</span><br><span class="line">games                                      **Never logged  <span class="keyword">in</span> **</span><br><span class="line">gopher                                     **Never logged  <span class="keyword">in</span> **</span><br><span class="line">ftp                                        **Never logged  <span class="keyword">in</span> **</span><br><span class="line">nobody                                     **Never logged  <span class="keyword">in</span> **</span><br><span class="line">vcsa                                       **Never logged  <span class="keyword">in</span> **</span><br><span class="line">saslauth                                   **Never logged  <span class="keyword">in</span> **</span><br><span class="line">postfix                                    **Never logged  <span class="keyword">in</span> **</span><br><span class="line">sshd                                       **Never logged  <span class="keyword">in</span> **</span><br><span class="line">ntp                                        **Never logged  <span class="keyword">in</span> **</span><br><span class="line">suda             pts/2    222.79.79.120    Tue Oct 25 16:00:01 +0800 2021</span><br></pre></td></tr></table></figure>
-
 <p>系统账户诸如bin、daemon、adm、uucp、mail等<strong>决不应该登录</strong>，如果发现这些账户已经登录，就说明系统可能已经被入侵了。若发现记录的时间不是用户上次登录的时间，则说明该用户的账户已经泄密了。</p>
-<p>可以使用lastlog命令检查某特定用户上次登录的时间，并格式化输出上次登录日志&#x2F;var&#x2F;log&#x2F;lastlog的内容。它根据<strong>UID排序</strong>显示登录名、端口号和上次登录时间。如果一个用户从未登录过，lastlog显示<strong>Never logged</strong>。注意需要<strong>以root身份运行</strong>该命令。</p>
-<h4 id="x2F-var-x2F-log-x2F-wtmp"><a href="#x2F-var-x2F-log-x2F-wtmp" class="headerlink" title="&#x2F;var&#x2F;log&#x2F;wtmp"></a>&#x2F;var&#x2F;log&#x2F;wtmp</h4><p>　　该日志文件永久记录每个用户登录、注销及系统的启动、停机的事件。因此随着系统正常运行时间的增加，该文件的大小也会越来越大，增加的速度取决于系统用户登录的次数。该日志文件可以用来查看用户的登录记录，last命令就通过访问这个文件获得这些信息，并以<strong>反序从后向前显示用户的登录记录</strong>，last也能根据用户、终端 tty或时间显示相应的记录。</p>
-<p>who命令查询utmp文件并报告<strong>当前登录的每个用户</strong>。Who的缺省输出包括用户名、终端类型、登录日期及远程主机。使用该命令，系统管理员可以查看当前系统存在哪些不法用户，从而对其进行审计和处理。如果指明了wtmp文件名，则who命令<strong>查询所有以前的记录</strong>。命令who &#x2F;var&#x2F;log&#x2F;wtmp将报告自从wtmp文件<strong>创建或删改以来的每一次登录</strong>。</p>
+<p>可以使用lastlog命令检查某特定用户上次登录的时间，并格式化输出上次登录日志/var/log/lastlog的内容。它根据<strong>UID排序</strong>显示登录名、端口号和上次登录时间。如果一个用户从未登录过，lastlog显示<strong>Never logged</strong>。注意需要<strong>以root身份运行</strong>该命令。</p>
+<h4 id="var-log-wtmp"><a href="#var-log-wtmp" class="headerlink" title="/var/log/wtmp"></a>/var/log/wtmp</h4><p>　　该日志文件永久记录每个用户登录、注销及系统的启动、停机的事件。因此随着系统正常运行时间的增加，该文件的大小也会越来越大，增加的速度取决于系统用户登录的次数。该日志文件可以用来查看用户的登录记录，last命令就通过访问这个文件获得这些信息，并以<strong>反序从后向前显示用户的登录记录</strong>，last也能根据用户、终端 tty或时间显示相应的记录。</p>
+<p>who命令查询utmp文件并报告<strong>当前登录的每个用户</strong>。Who的缺省输出包括用户名、终端类型、登录日期及远程主机。使用该命令，系统管理员可以查看当前系统存在哪些不法用户，从而对其进行审计和处理。如果指明了wtmp文件名，则who命令<strong>查询所有以前的记录</strong>。命令who /var/log/wtmp将报告自从wtmp文件<strong>创建或删改以来的每一次登录</strong>。</p>
 <p>last命令往回搜索wtmp来显示自从文件第<strong>一次创建以来登录过的用户</strong>。可以周期性地对这些用户的登录情况进行审计和考核，从而发现起中存在的问题，确定不法用户。</p>
 <p>可以通过指明用户来显示其登录信息即可：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">last reboot</span><br></pre></td></tr></table></figure>
-
 <p>显示reboot的历史登录信息。<br>last -u 102将报告UID为102的用户；last -t 7表示限制上一周的报告。</p>
 <p>last -u 用户名 显示用户<strong>上次登录的情况</strong>。</p>
 <p>last -t 天数 显示<strong>指定天数之前的用户登录情况</strong>。</p>
 <p><strong>ac命令</strong>根据当前的<code>/var/log/wtmp</code>文件中的登录进入和退出来报告用户连接的时间（小时），如果不使用标志，则报告总的时间。</p>
-<h4 id="x2F-var-x2F-run-x2F-utmp"><a href="#x2F-var-x2F-run-x2F-utmp" class="headerlink" title="&#x2F;var&#x2F;run&#x2F;utmp"></a>&#x2F;var&#x2F;run&#x2F;utmp</h4><p>　　该日志文件记录有关<strong>当前登录的每个用户的信息</strong>。因此这个文件会随着用户登录和注销系统而不断变化，它只保留当时联机的用户记录，不会为用户保留永久的记录。系统中需要查询<strong>当前用户状态的程序</strong>，如 who、w、users、finger等就需要访问这个文件。该日志文件并不能包括所有精确的信息，因为某些突发错误会终止用户登录会话，而系统没有及时更新 utmp记录，因此该日志文件的记录不是百分之百值得信赖的。</p>
+<h4 id="var-run-utmp"><a href="#var-run-utmp" class="headerlink" title="/var/run/utmp"></a>/var/run/utmp</h4><p>　　该日志文件记录有关<strong>当前登录的每个用户的信息</strong>。因此这个文件会随着用户登录和注销系统而不断变化，它只保留当时联机的用户记录，不会为用户保留永久的记录。系统中需要查询<strong>当前用户状态的程序</strong>，如 who、w、users、finger等就需要访问这个文件。该日志文件并不能包括所有精确的信息，因为某些突发错误会终止用户登录会话，而系统没有及时更新 utmp记录，因此该日志文件的记录不是百分之百值得信赖的。</p>
 <p>　　每次有一个用户登录时，login程序在文件lastlog中查看用户的UID。如果存在，则把用户上次登录、注销时间和主机名写到标准输出中，然后login程序在lastlog中记录新的登录时间，打开utmp文件并插入用户的utmp记录。该记录一直用到用户登录退出时删除。utmp文件被各种命令使用，包括who、w、users和finger。</p>
 <p>　　下一步，login程序打开文件wtmp附加用户的utmp记录。当用户登录退出时，具有更新时间戳的同一utmp记录附加到文件中。wtmp文件被程序last使用。</p>
-<h4 id="x2F-var-x2F-log-x2F-btmp"><a href="#x2F-var-x2F-log-x2F-btmp" class="headerlink" title="&#x2F;var&#x2F;log&#x2F;btmp"></a>&#x2F;var&#x2F;log&#x2F;btmp</h4><p>&#x2F;var&#x2F;log&#x2F;btmp文件是记录错误登录系统的日志。如果发现&#x2F;var&#x2F;log&#x2F;btmp日志文件比较大，大于1M，就算大了，就说明很多人在暴力破解ssh服务，此日志需要使用<code>lastb</code>查看。</p>
+<h4 id="var-log-btmp"><a href="#var-log-btmp" class="headerlink" title="/var/log/btmp"></a>/var/log/btmp</h4><p>/var/log/btmp文件是记录错误登录系统的日志。如果发现/var/log/btmp日志文件比较大，大于1M，就算大了，就说明很多人在暴力破解ssh服务，此日志需要使用<code>lastb</code>查看。</p>
 <h2 id="可能出现的一些恶意行为"><a href="#可能出现的一些恶意行为" class="headerlink" title="可能出现的一些恶意行为"></a>可能出现的一些恶意行为</h2><h4 id="iptables被关闭"><a href="#iptables被关闭" class="headerlink" title="iptables被关闭"></a>iptables被关闭</h4><p>攻击者登录以后先关闭iptables再进行高危操作：</p>
 <p>在<code>/var/log/messages</code>日志中：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Stopping IPv4 firewall with iptables...</span><br></pre></td></tr></table></figure>
-
 <p>在查看日志时，发现在某个时间，系统的iptables被关闭或者被永久禁止。</p>
 <h4 id="权限重置"><a href="#权限重置" class="headerlink" title="权限重置"></a>权限重置</h4><p>攻击者登录服务器后对文件或者对文件夹更改原有的权限，通过提权获得管理员权限达到窃取机密数据等目的：</p>
-<p>修改&#x2F;etc&#x2F;profile文件，将操作日志输出到文件中，进行查看分析：</p>
+<p>修改/etc/profile文件，将操作日志输出到文件中，进行查看分析：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root: turbo user=root client=192.168.1.190 61629 22 path=/root <span class="built_in">command</span>: <span class="built_in">chmod</span> -R 755 <span class="built_in">test</span></span><br><span class="line">root: turbo user=root client=192.168.1.190 61629 22 path=/root <span class="built_in">command</span>: <span class="built_in">chown</span> hopeful.root JZZS/</span><br></pre></td></tr></table></figure>
-
 <p>查看系统日志，发现某时间内某个文件或文件夹原有的权限发生了修改</p>
 <h4 id="用户增删改"><a href="#用户增删改" class="headerlink" title="用户增删改"></a>用户增删改</h4><p>系统中新增用户、删除用户、修改已有用户等也是高危行为：</p>
-<p>&#x2F;var&#x2F;log&#x2F;secure日志：</p>
+<p>/var/log/secure日志：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root: turbo user=root client=192.168.1.190 61629 22 path=/root <span class="built_in">command</span>: useradd test1</span><br><span class="line">root: turbo user=root client=192.168.1.190 61629 22 path=/root <span class="built_in">command</span>: usermod -G hopeful</span><br><span class="line">root: turbo user=root client=192.168.1.190 61629 22 path=/root <span class="built_in">command</span>: userdel <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
-
 <p>查看系统日志，有新增用户、修改用户权限、删除相应用户的行为。</p>
 <h4 id="指定目录创建、删除、修改文件"><a href="#指定目录创建、删除、修改文件" class="headerlink" title="指定目录创建、删除、修改文件"></a>指定目录创建、删除、修改文件</h4><p>在指定的目录中，攻击者进行了创建、修改、删除文件的操作，可能会造成数据的泄露或者被篡改：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root: turbo user=root client=192.168.1.190 61629 22 path=/home <span class="built_in">command</span>: <span class="built_in">touch</span> quail</span><br><span class="line">root: turbo user=root client=192.168.1.190 61629 22 path=/home <span class="built_in">command</span>: vi quail</span><br><span class="line">root: turbo user=root client=192.168.1.190 61629 22 path=/home <span class="built_in">command</span>: <span class="built_in">rm</span> -rf quail</span><br></pre></td></tr></table></figure>
-
 <p>在某个时间，查看系统日志，通过原始日志中的命令操作touch、vi、rm，以及<strong>在home目录下</strong>进行的操作，属于危险的操作行为。</p>
 <h4 id="linux用户su至root多次失败"><a href="#linux用户su至root多次失败" class="headerlink" title="linux用户su至root多次失败"></a>linux用户su至root多次失败</h4><p>攻击者获取账号后，通过su的方式获得root权限：</p>
-<p>&#x2F;var&#x2F;log&#x2F;secure日志：</p>
+<p>/var/log/secure日志：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hopeful-01 su: FAILED SU (to root) hopeful on pts/1</span><br><span class="line">hopeful-01 su: FAILED SU (to root) hopeful on pts/1</span><br></pre></td></tr></table></figure>
-
 <p>通过原始日志中的su行为，并且多次都是FAILED</p>
-<h4 id="Linux用户组-x2F-密码重置"><a href="#Linux用户组-x2F-密码重置" class="headerlink" title="Linux用户组&#x2F;密码重置"></a>Linux用户组&#x2F;密码重置</h4><p>系统中的每一个用户组都是用一个唯一的身份组标识GID，如果非正常授权修改Linux用户组或密码，则可能被攻击者修改并控制：</p>
-<p>若攻击者修改&#x2F;etc&#x2F;group或&#x2F;etc&#x2F;passwd：</p>
-<p>&#x2F;var&#x2F;log&#x2F;secure：</p>
+<h4 id="Linux用户组-密码重置"><a href="#Linux用户组-密码重置" class="headerlink" title="Linux用户组/密码重置"></a>Linux用户组/密码重置</h4><p>系统中的每一个用户组都是用一个唯一的身份组标识GID，如果非正常授权修改Linux用户组或密码，则可能被攻击者修改并控制：</p>
+<p>若攻击者修改/etc/group或/etc/passwd：</p>
+<p>/var/log/secure：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root: turbo user=root client=192.168.1.190 54471 22 path=/root <span class="built_in">command</span>: vi /etc/passwd secislog</span><br><span class="line">root: turbo user=root client=192.168.1.190 54471 22 path=/root <span class="built_in">command</span>: vi /etc/group secislog</span><br></pre></td></tr></table></figure>
-
 <p>查找到有修改group或者passwd文件的命令，且后面还有一些危险指令，则有可能遭遇入侵。</p>
 <h4 id="账户提权"><a href="#账户提权" class="headerlink" title="账户提权"></a>账户提权</h4><p>利用某些特殊方法而得到目标系统更高的权限：分析出存在修改sudoers文件行为，以及对提权账号的操作记录进行追踪和记录。</p>
-<p>&#x2F;var&#x2F;log&#x2F;secure：</p>
+<p>/var/log/secure：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root: turbo user=root client=192.168.1.190 60200 22 path=/etc <span class="built_in">command</span>: vi /etc/sudoers secislog</span><br><span class="line">root: turbo user=root client=192.168.1.190 60200 22 path=/etc <span class="built_in">command</span>: visudo secislog</span><br></pre></td></tr></table></figure>
-
 <p>存在修改sudoers文件行为，修改后提权账户成功使用超级用户的命令。同时对一定时间内的提权账户操作行为进行追踪和判断，是否存在账户高危操作和修改审计日志行为。存在相关后续操作行为，判定账户异常。</p>
 <h4 id="账号短时间内创建删除"><a href="#账号短时间内创建删除" class="headerlink" title="账号短时间内创建删除"></a>账号短时间内创建删除</h4><p>攻击者或内部员工，拥有新增删除用户权限。进行账号创建与删除操作。</p>
-<p>&#x2F;var&#x2F;log&#x2F;secure：</p>
+<p>/var/log/secure：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root: turbo user=root client=192.168.1.190 55538 22 path=/root <span class="built_in">command</span>: userdel -r wdsg3 secislog</span><br><span class="line">root: turbo user=root client=192.168.1.190 55538 22 path=/root <span class="built_in">command</span>: useradd wdsg3 secislog</span><br></pre></td></tr></table></figure>
-
 <p>日志中得知有创建用户和删除账号的行为，但创建账号后删除账号在较短的时间内删除。</p>
-<h4 id="删除、修改、移动审查日志"><a href="#删除、修改、移动审查日志" class="headerlink" title="删除、修改、移动审查日志"></a>删除、修改、移动审查日志</h4><p>&#x2F;var&#x2F;log&#x2F;secure：</p>
+<h4 id="删除、修改、移动审查日志"><a href="#删除、修改、移动审查日志" class="headerlink" title="删除、修改、移动审查日志"></a>删除、修改、移动审查日志</h4><p>/var/log/secure：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root: turbo user=root client=192.168.1.190 55905 22 path=/root <span class="built_in">command</span>: vi /var/log/messages secislog</span><br></pre></td></tr></table></figure>
-
 <p>查找到有修改系统重要日志文件的操作，且通过对修改日志文件前的操作命令进行追踪。分析操作记录和修改的日志文件进行对比，来进行排查。</p>
 <h4 id="主机开启大量监听端口"><a href="#主机开启大量监听端口" class="headerlink" title="主机开启大量监听端口"></a>主机开启大量监听端口</h4><p>攻击者可以通过nc命令开启大量监听端口：</p>
-<p>&#x2F;etc&#x2F;profile：</p>
+<p>/etc/profile：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root: turbo user=root client=192.168.1.190 50234 22 path=/root <span class="built_in">command</span>: nc -l 12342 &amp; secilog</span><br><span class="line">root: turbo user=root client=192.168.1.190 50234 22 path=/root <span class="built_in">command</span>: nc -l 12343 &amp; secilog</span><br><span class="line">root: turbo user=root client=192.168.1.190 50234 22 path=/root <span class="built_in">command</span>: nc -l 12344 &amp; secilog</span><br></pre></td></tr></table></figure>
-
 <p>通过对系统原始日志进行分析中有多次使用nc命令开启端口的行为或者通过防火墙开启大量端口，此时应当对开放的端口进行排查。</p>
 <p>可以<strong>在 netstat 输出中显示 PID 和进程名称</strong> </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -p</span><br></pre></td></tr></table></figure>
-
 <h2 id="用Shell日志分析"><a href="#用Shell日志分析" class="headerlink" title="用Shell日志分析"></a>用Shell日志分析</h2><h4 id="IP分析"><a href="#IP分析" class="headerlink" title="IP分析"></a>IP分析</h4><ul>
 <li><p>当天访问次数最多的IP</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cut -d- -f 1 /usr/local/apache2/logs/access_log |uniq -c | sort -rn | head -20</span><br></pre></td></tr></table></figure>
@@ -536,36 +524,33 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk &#x27;&#123;++S[$1]&#125; END &#123;for (a in S) print a,S[a]&#125;&#x27; log_file</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>查看某一个IP访问了哪些页面</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep ^111.111.111.111 log_file| awk &#x27;&#123;print $1,$7&#125;&#x27;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep ^111.111.111.111 log_file| awk &#x27;&#123;print $1,$7&#125;&#x27;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <h4 id="ERROR日志"><a href="#ERROR日志" class="headerlink" title="ERROR日志"></a>ERROR日志</h4><ul>
 <li>记录的时间范围：</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cut -f 4 -d &#x27; &#x27; /var/log/apache2/error.log| cut -f 1 -d &#x27;:&#x27; |head -1|tr -d [</span><br><span class="line">cut -f 4 -d &#x27; &#x27; /var/log/apache2/error.log| cut -f 1 -d &#x27;:&#x27; |tail -1|tr -d [</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>错误记录：（检查注册表中错误项的数量）</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /var/log/apache2/error.log |wc -l</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>数量和类型：</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /var/log/apache2/error.log |cut -f 3 -d &#x27;[&#x27;|sort|uniq -c|sort -g|tr -d ]</span><br></pre></td></tr></table></figure>
-
 <ul>
-<li>重复次数错误&#x2F;警告:（检查重复次数是否过多）</li>
+<li>重复次数错误/警告:（检查重复次数是否过多）</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /var/log/apache2/error.log|cut -f 4 -d &#x27;]&#x27;|sort|uniq -c|sort -g|tail -1</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>导致最多错误的ip地址和此ip引发的错误：</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">client=$(cat /var/log/apache2/error.log|cut -f 4 -d &#x27;[&#x27;|cut -f 1 -d &#x27;]&#x27;|sort|uniq -c|sort -g|tail -1|cut -f 6 -d &#x27; &#x27;)</span><br><span class="line">grep $client /var/log/apache2/error.log |cut -f 4 -d &#x27;]&#x27;|sort| uniq</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li><p>错误日志最多的IP地址：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /var/log/apache2/error.log|cut -f 4 -d &#x27;[&#x27;|cut -f 1 -d &#x27;]&#x27;|sort|uniq -c|sort -g|grep -v &#x27;sh&#x27;|	tail -10|tr -s &#x27; &#x27; &#x27; &#x27;|cut -f 4 -d &#x27; &#x27;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /var/log/apache2/error.log|cut -f 4 -d &#x27;[&#x27;|cut -f 1 -d &#x27;]&#x27;|sort|uniq -c|sort -g|grep -v &#x27;sh&#x27;|	tail -10|tr -s &#x27; &#x27; &#x27; &#x27;|cut -f 4 -d &#x27; &#x27;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 
     </div>
@@ -653,7 +638,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">日志分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81Linux%E6%97%A5%E5%BF%97"><span class="nav-number">1.1.</span> <span class="nav-text">常见Linux日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E6%97%A5%E5%BF%97"><span class="nav-number">1.1.1.</span> <span class="nav-text">系统日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97"><span class="nav-number">1.1.2.</span> <span class="nav-text">网络日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84%E7%B1%BB%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.1.3.</span> <span class="nav-text">各类日志文件的格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96"><span class="nav-number">1.2.</span> <span class="nav-text">特征提取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E6%97%A5%E5%BF%97"><span class="nav-number">1.2.1.</span> <span class="nav-text">登录日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E6%97%A5%E5%BF%97"><span class="nav-number">1.2.2.</span> <span class="nav-text">通用日志</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%88%86%E6%9E%90"><span class="nav-number">1.3.</span> <span class="nav-text">具体分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E7%96%91%E7%9A%84%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95"><span class="nav-number">1.3.1.</span> <span class="nav-text">可疑的日志记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E5%AF%B9%E5%BA%94%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.3.2.</span> <span class="nav-text">查找对应进程的应用程序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%AF%8F%E4%B8%AA%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90"><span class="nav-number">1.4.</span> <span class="nav-text">对每个日志分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#x2F-var-x2F-log-x2F-messages"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">&#x2F;var&#x2F;log&#x2F;messages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#x2F-var-x2F-log-x2F-secure"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">&#x2F;var&#x2F;log&#x2F;secure</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#x2F-var-x2F-log-x2F-syslog"><span class="nav-number">1.4.0.3.</span> <span class="nav-text">&#x2F;var&#x2F;log&#x2F;syslog</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#x2F-var-x2F-log-x2F-wtmp"><span class="nav-number">1.4.0.4.</span> <span class="nav-text">&#x2F;var&#x2F;log&#x2F;wtmp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#x2F-var-x2F-run-x2F-utmp"><span class="nav-number">1.4.0.5.</span> <span class="nav-text">&#x2F;var&#x2F;run&#x2F;utmp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#x2F-var-x2F-log-x2F-btmp"><span class="nav-number">1.4.0.6.</span> <span class="nav-text">&#x2F;var&#x2F;log&#x2F;btmp</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E6%81%B6%E6%84%8F%E8%A1%8C%E4%B8%BA"><span class="nav-number">1.5.</span> <span class="nav-text">可能出现的一些恶意行为</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#iptables%E8%A2%AB%E5%85%B3%E9%97%AD"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">iptables被关闭</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E9%87%8D%E7%BD%AE"><span class="nav-number">1.5.0.2.</span> <span class="nav-text">权限重置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%A2%9E%E5%88%A0%E6%94%B9"><span class="nav-number">1.5.0.3.</span> <span class="nav-text">用户增删改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E7%9B%AE%E5%BD%95%E5%88%9B%E5%BB%BA%E3%80%81%E5%88%A0%E9%99%A4%E3%80%81%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6"><span class="nav-number">1.5.0.4.</span> <span class="nav-text">指定目录创建、删除、修改文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linux%E7%94%A8%E6%88%B7su%E8%87%B3root%E5%A4%9A%E6%AC%A1%E5%A4%B1%E8%B4%A5"><span class="nav-number">1.5.0.5.</span> <span class="nav-text">linux用户su至root多次失败</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E7%94%A8%E6%88%B7%E7%BB%84-x2F-%E5%AF%86%E7%A0%81%E9%87%8D%E7%BD%AE"><span class="nav-number">1.5.0.6.</span> <span class="nav-text">Linux用户组&#x2F;密码重置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%A6%E6%88%B7%E6%8F%90%E6%9D%83"><span class="nav-number">1.5.0.7.</span> <span class="nav-text">账户提权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%A6%E5%8F%B7%E7%9F%AD%E6%97%B6%E9%97%B4%E5%86%85%E5%88%9B%E5%BB%BA%E5%88%A0%E9%99%A4"><span class="nav-number">1.5.0.8.</span> <span class="nav-text">账号短时间内创建删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E3%80%81%E4%BF%AE%E6%94%B9%E3%80%81%E7%A7%BB%E5%8A%A8%E5%AE%A1%E6%9F%A5%E6%97%A5%E5%BF%97"><span class="nav-number">1.5.0.9.</span> <span class="nav-text">删除、修改、移动审查日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E6%9C%BA%E5%BC%80%E5%90%AF%E5%A4%A7%E9%87%8F%E7%9B%91%E5%90%AC%E7%AB%AF%E5%8F%A3"><span class="nav-number">1.5.0.10.</span> <span class="nav-text">主机开启大量监听端口</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8Shell%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90"><span class="nav-number">1.6.</span> <span class="nav-text">用Shell日志分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IP%E5%88%86%E6%9E%90"><span class="nav-number">1.6.0.1.</span> <span class="nav-text">IP分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ERROR%E6%97%A5%E5%BF%97"><span class="nav-number">1.6.0.2.</span> <span class="nav-text">ERROR日志</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">日志分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81Linux%E6%97%A5%E5%BF%97"><span class="nav-number">1.1.</span> <span class="nav-text">常见Linux日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E6%97%A5%E5%BF%97"><span class="nav-number">1.1.1.</span> <span class="nav-text">系统日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%97%A5%E5%BF%97"><span class="nav-number">1.1.2.</span> <span class="nav-text">网络日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84%E7%B1%BB%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.1.3.</span> <span class="nav-text">各类日志文件的格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96"><span class="nav-number">1.2.</span> <span class="nav-text">特征提取</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E6%97%A5%E5%BF%97"><span class="nav-number">1.2.1.</span> <span class="nav-text">登录日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E6%97%A5%E5%BF%97"><span class="nav-number">1.2.2.</span> <span class="nav-text">通用日志</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%88%86%E6%9E%90"><span class="nav-number">1.3.</span> <span class="nav-text">具体分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E7%96%91%E7%9A%84%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95"><span class="nav-number">1.3.1.</span> <span class="nav-text">可疑的日志记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E5%AF%B9%E5%BA%94%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.3.2.</span> <span class="nav-text">查找对应进程的应用程序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%AF%8F%E4%B8%AA%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90"><span class="nav-number">1.4.</span> <span class="nav-text">对每个日志分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#var-log-messages"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">&#x2F;var&#x2F;log&#x2F;messages</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#var-log-secure"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">&#x2F;var&#x2F;log&#x2F;secure</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#var-log-syslog"><span class="nav-number">1.4.0.3.</span> <span class="nav-text">&#x2F;var&#x2F;log&#x2F;syslog</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#var-log-wtmp"><span class="nav-number">1.4.0.4.</span> <span class="nav-text">&#x2F;var&#x2F;log&#x2F;wtmp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#var-run-utmp"><span class="nav-number">1.4.0.5.</span> <span class="nav-text">&#x2F;var&#x2F;run&#x2F;utmp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#var-log-btmp"><span class="nav-number">1.4.0.6.</span> <span class="nav-text">&#x2F;var&#x2F;log&#x2F;btmp</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E6%81%B6%E6%84%8F%E8%A1%8C%E4%B8%BA"><span class="nav-number">1.5.</span> <span class="nav-text">可能出现的一些恶意行为</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#iptables%E8%A2%AB%E5%85%B3%E9%97%AD"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">iptables被关闭</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E9%87%8D%E7%BD%AE"><span class="nav-number">1.5.0.2.</span> <span class="nav-text">权限重置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E5%A2%9E%E5%88%A0%E6%94%B9"><span class="nav-number">1.5.0.3.</span> <span class="nav-text">用户增删改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E7%9B%AE%E5%BD%95%E5%88%9B%E5%BB%BA%E3%80%81%E5%88%A0%E9%99%A4%E3%80%81%E4%BF%AE%E6%94%B9%E6%96%87%E4%BB%B6"><span class="nav-number">1.5.0.4.</span> <span class="nav-text">指定目录创建、删除、修改文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linux%E7%94%A8%E6%88%B7su%E8%87%B3root%E5%A4%9A%E6%AC%A1%E5%A4%B1%E8%B4%A5"><span class="nav-number">1.5.0.5.</span> <span class="nav-text">linux用户su至root多次失败</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E7%94%A8%E6%88%B7%E7%BB%84-%E5%AF%86%E7%A0%81%E9%87%8D%E7%BD%AE"><span class="nav-number">1.5.0.6.</span> <span class="nav-text">Linux用户组&#x2F;密码重置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%A6%E6%88%B7%E6%8F%90%E6%9D%83"><span class="nav-number">1.5.0.7.</span> <span class="nav-text">账户提权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B4%A6%E5%8F%B7%E7%9F%AD%E6%97%B6%E9%97%B4%E5%86%85%E5%88%9B%E5%BB%BA%E5%88%A0%E9%99%A4"><span class="nav-number">1.5.0.8.</span> <span class="nav-text">账号短时间内创建删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E3%80%81%E4%BF%AE%E6%94%B9%E3%80%81%E7%A7%BB%E5%8A%A8%E5%AE%A1%E6%9F%A5%E6%97%A5%E5%BF%97"><span class="nav-number">1.5.0.9.</span> <span class="nav-text">删除、修改、移动审查日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E6%9C%BA%E5%BC%80%E5%90%AF%E5%A4%A7%E9%87%8F%E7%9B%91%E5%90%AC%E7%AB%AF%E5%8F%A3"><span class="nav-number">1.5.0.10.</span> <span class="nav-text">主机开启大量监听端口</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8Shell%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90"><span class="nav-number">1.6.</span> <span class="nav-text">用Shell日志分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IP%E5%88%86%E6%9E%90"><span class="nav-number">1.6.0.1.</span> <span class="nav-text">IP分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ERROR%E6%97%A5%E5%BF%97"><span class="nav-number">1.6.0.2.</span> <span class="nav-text">ERROR日志</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -804,6 +789,8 @@
 
 
 
+
+  
 
   
 

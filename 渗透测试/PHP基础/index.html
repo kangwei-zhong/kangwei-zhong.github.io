@@ -43,8 +43,8 @@
 <meta property="article:published_time" content="2022-03-03T08:41:11.000Z">
 <meta property="article:modified_time" content="2022-03-03T10:46:50.423Z">
 <meta property="article:author" content="Zhong Kangwei">
-<meta property="article:tag" content="渗透测试">
 <meta property="article:tag" content="编程基础">
+<meta property="article:tag" content="渗透测试">
 <meta property="article:tag" content="PHP">
 <meta property="article:tag" content="Web">
 <meta name="twitter:card" content="summary">
@@ -273,20 +273,14 @@
       
         <p>PHP是渗透测试中比较常用的语言，简单入个门……</p>
 <span id="more"></span>
-
-
-
-<h1 id="PHP基础"><a href="#PHP基础" class="headerlink" title="PHP基础"></a>PHP基础</h1><h2 id="了解PHP"><a href="#了解PHP" class="headerlink" title="了解PHP"></a>了解PHP</h2><p>PHP能做什么？–开发网站</p>
+<h1 id="PHP基础"><a href="#PHP基础" class="headerlink" title="PHP基础"></a>PHP基础</h1><h2 id="了解PHP"><a href="#了解PHP" class="headerlink" title="了解PHP"></a>了解PHP</h2><p>PHP能做什么？—开发网站</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;Hello World&#x27;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p><code>&lt;?php  ?&gt;</code> 标识，告诉你是php代码</p>
 <p>echo ‘Hello World’;        代码</p>
 <p>echo[指令] 输出</p>
 <h2 id="进阶PHP"><a href="#进阶PHP" class="headerlink" title="进阶PHP"></a>进阶PHP</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$sex</span> = <span class="string">&#x27;男&#x27;</span>;   <span class="comment">//变量 </span></span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$sex</span> == <span class="string">&#x27;男&#x27;</span>)&#123;   <span class="comment">//如果</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;帅哥，进店里来看看把，有XXXX&#x27;</span>;&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;<span class="keyword">echo</span> <span class="string">&quot;妹妹我们店有XXXX化妆品&quot;</span>;&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>$开头的是变量</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$a</span> = <span class="string">&#x27;Ak&#x27;</span>;</span><br><span class="line"><span class="variable">$b</span> = <span class="string">&#x27;47&#x27;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$a</span>.<span class="variable">$b</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>这里的<code>.</code>是连接符</p>
 <p><code>“&lt;br/&gt;”</code>是html语言中的换行</p>
 <h3 id="字符串处理"><a href="#字符串处理" class="headerlink" title="字符串处理"></a>字符串处理</h3><p>单引号和双引号的区别：对<code>$</code>有不同的处理方法。<strong>双引号会去解析内部是否为变量，如果为变量则输出变量的值，而单引号不会</strong></p>
@@ -295,17 +289,13 @@
 <p><code>str_replace(&quot;before&quot;,&quot;after&quot;,&quot;destination&quot;)</code>，将destination中的before替换为after</p>
 <p>转义<code>\</code> </p>
 <h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="variable">$a</span> = <span class="keyword">array</span>(<span class="string">&#x27;001&#x27;</span> =&gt; <span class="string">&#x27;xx&#x27;</span>,<span class="string">&#x27;002&#x27;</span> =&gt;<span class="string">&#x27;xxx&#x27;</span>);</span><br><span class="line">    <span class="title function_ invoke__">print_r</span>(<span class="variable">$a</span>);</span><br><span class="line">	<span class="title function_ invoke__">var_dump</span>(<span class="variable">$a</span>);</span><br><span class="line">	<span class="keyword">echo</span> <span class="variable">$a</span>[<span class="string">&#x27;001&#x27;</span>];	<span class="comment">//输出单个内容</span></span><br><span class="line"> <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p><code>array</code>创建数组，<code>print_r</code>输出数组，<code>var_dump();</code>是查找变量的类型和内容</p>
 <h3 id="接受传参数据"><a href="#接受传参数据" class="headerlink" title="接受传参数据"></a>接受传参数据</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="variable">$_GET</span> 	<span class="comment">//预定义全局变量</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p><code>var_dump($_GET)</code>发现，<code>$_GET</code>实际上是一个数组</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$_GET</span>&lt;<span class="number">60</span>)&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;同学你考试不及格&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;同学你及格了&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>其实$_GET是一个数组，这个数组是无法比较的，所以要用<code>$_GET[&#39;fenshu&#39;]</code></p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;fenshu&#x27;</span>]&lt;<span class="number">60</span>)&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;同学你考试不及格&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;同学你及格了&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><code>$_GET</code>,<code>$_POST</code>,<code>$_REQUEST</code>,<code>$_COOKIE</code>都是超全局变量&#x3D;&gt;不用事先定义，可以直接用</p>
+<p><code>$_GET</code>,<code>$_POST</code>,<code>$_REQUEST</code>,<code>$_COOKIE</code>都是超全局变量=&gt;不用事先定义，可以直接用</p>
 <h3 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>表单在网页中主要负责数据采集功能。</p>
 <p>一个表单有三个基本组成部分：</p>
 <p>表单标签：这里面包含了处理表单数据所用动态脚本的URL以及数据提交到服务器的方法。</p>
@@ -323,19 +313,17 @@
 <p>就是填入信息的各种框框</p>
 <p><code>&lt;input type=&#39;txt&#39;/&gt;</code></p>
 <p><code>&lt;input type=&#39;submit&#39; value=&quot;submit&quot;/&gt;</code></p>
-<p>密码不显示的时候&#x3D;&gt;检查源码&#x3D;&gt;找到<code>type=“password”</code>改成<code>type=“txt ”</code>即会显示出来</p>
+<p>密码不显示的时候=&gt;检查源码=&gt;找到<code>type=“password”</code>改成<code>type=“txt ”</code>即会显示出来</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&#x27;18.php&#x27;</span> <span class="attr">method</span>=<span class="string">&#x27;POST&#x27;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;txt&#x27;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;submit&#x27;</span> <span class="attr">value</span>=<span class="string">&quot;submit&quot;</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p>使用<code>var_dump($_POST)</code>查看，发现我明明提交了东西，为什么不显示？</p>
 <p>因为没有给表单取名</p>
 <p>修改：<code>&lt;input type=&#39;txt&#39; name=&#39;scores&#39;/&gt;</code></p>
 <p>在18.php中写如下代码，即可显示</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	<span class="variable">$score</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;scores&#x27;</span>];</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&#x27;your information is&#x27;</span>.<span class="variable">$score</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
 <p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220303164239607.png" alt="image-20220303164239607"></p>
 <p><strong>POST和GET一定要大写</strong></p>
 <p>如果既要能接受POST传参又要能接受GET传参，则选择预定义全局变量<code>$_REQUEST</code> （大部分时候写这个）</p>
-<p>cookie&#x3D;&gt;相当于登陆后证明身份的凭证</p>
+<p>cookie=&gt;相当于登陆后证明身份的凭证</p>
 
     </div>
 
@@ -345,8 +333,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag"># 渗透测试</a>
               <a href="/tags/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" rel="tag"># 编程基础</a>
+              <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag"># 渗透测试</a>
               <a href="/tags/PHP/" rel="tag"># PHP</a>
               <a href="/tags/Web/" rel="tag"># Web</a>
           </div>
@@ -574,6 +562,8 @@
 
 
 
+
+  
 
   
 

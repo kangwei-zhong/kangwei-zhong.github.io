@@ -267,7 +267,6 @@
       
         <p>哈希表的基本使用和解决冲突的办法。</p>
 <span id="more"></span>
-
 <h3 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h3><h4 id="哈希表的应用"><a href="#哈希表的应用" class="headerlink" title="哈希表的应用"></a>哈希表的应用</h4><p>将比较庞大的数据映射到比较小的一个区间内</p>
 <p>算法题中一般只有<strong>增加</strong>和<strong>查找</strong>两个操作（如果要实现删除，就开一个数组，然后打标记表示删除）</p>
 <h4 id="一般情况的哈希（按冲突处理方式分）"><a href="#一般情况的哈希（按冲突处理方式分）" class="headerlink" title="一般情况的哈希（按冲突处理方式分）"></a>一般情况的哈希（按冲突处理方式分）</h4><ul>
@@ -276,10 +275,8 @@
 <h5 id="开放寻址法"><a href="#开放寻址法" class="headerlink" title="开放寻址法"></a>开放寻址法</h5><p>为确保所有值都有坑，需要将哈希表长度开到需存的数的数量的<strong>2-3</strong>倍</p>
 <p>方法：计算出的哈希值的位置已经有值占用就往后推，直到找到空的位置为止。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;    <span class="comment">// 如果x已经存在，返回x的下标；若x不存在，返回x应该存的位置</span></span><br><span class="line">    <span class="type">int</span> k = (x % N + N) % N;</span><br><span class="line">    <span class="keyword">while</span> (h[k] != null &amp;&amp; h[k] != x)&#123;</span><br><span class="line">        k ++;</span><br><span class="line">        <span class="keyword">if</span>(k == N) k = <span class="number">0</span>;	<span class="comment">//到最后没找到的话又从第一个开始找</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> k;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>插入</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">k = <span class="built_in">find</span>(x);</span><br><span class="line">h[k] = x;</span><br></pre></td></tr></table></figure>
-
 <p><strong>查找</strong></p>
 <ol>
 <li>计算哈希值，看哈希值的位置是不是该数，若为空则没有该数；</li>
@@ -287,27 +284,20 @@
 <li>若不是该数，则按规则继续往后找，直到找到该数或找到空的位置（没有该数）</li>
 </ol>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">k = <span class="built_in">find</span>(x);</span><br><span class="line"><span class="keyword">if</span>(h[k] != null) <span class="built_in">puts</span>(<span class="string">&quot;Yes&quot;</span>);</span><br><span class="line"><span class="keyword">else</span> <span class="built_in">puts</span>(<span class="string">&quot;No&quot;</span>);</span><br></pre></td></tr></table></figure>
-
 <h5 id="拉链法"><a href="#拉链法" class="headerlink" title="拉链法"></a>拉链法</h5><p>映射到同一个位置的时候，用链表串起来</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">h(11) = 3</span></span><br><span class="line"><span class="comment">h(23) = 3</span></span><br><span class="line"><span class="comment">[0 1 2 3 4 5 ... 10^5-1]</span></span><br><span class="line"><span class="comment">       |</span></span><br><span class="line"><span class="comment">       11</span></span><br><span class="line"><span class="comment">       |</span></span><br><span class="line"><span class="comment">       23</span></span><br></pre></td></tr></table></figure>
-
 <p>一般情况下，冲突的情况很少，时间复杂度可以看成<code>O(1)</code></p>
 <p><strong>插入</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="comment">//h[N]为哈希表值为k的地方指向的第一个数，e[N]存储数，ne[N]存储指向下一个数的指针，idx为当前指针的位置</span></span><br><span class="line">    <span class="type">int</span> k = (x % N + N) % N;     <span class="comment">// C++中 负数的模还是负数，为了统一转化为正数，采用这种写法</span></span><br><span class="line">    e[idx] = x;     <span class="comment">// 单链表的插入</span></span><br><span class="line">    ne[idx] = h[k];</span><br><span class="line">    h[k] = idx ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p><strong>查找</strong></p>
 <p>计算出哈希值以后沿着链表查找</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> k = (x % N + N) % N;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = h[k]; i != <span class="number">-1</span>; i = ne[i])&#123;</span><br><span class="line">        <span class="keyword">if</span>(x == e[i]) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
 <h4 id="字符串的哈希"><a href="#字符串的哈希" class="headerlink" title="字符串的哈希"></a>字符串的哈希</h4><p><strong>应用：</strong>快速判断两个字符串是否相等（O(1)就能做）</p>
 <p>除了循环节，在其他方面KMP就不如HASH算法了</p>
 <hr>
 <p>字符串<strong>前缀</strong>哈希法</p>
 <p>e.g.</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">str = <span class="string">&quot;ABCABCD&quot;</span></span><br><span class="line">h[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">h[<span class="number">1</span>] = <span class="string">&quot;A&quot;</span>的hash值</span><br><span class="line">h[<span class="number">2</span>] = <span class="string">&quot;AB&quot;</span>的hash值</span><br><span class="line">h[<span class="number">3</span>] = <span class="string">&quot;ABC&quot;</span>的hash值</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
 <h5 id="如何得到前缀子串哈希值（预处理）？"><a href="#如何得到前缀子串哈希值（预处理）？" class="headerlink" title="如何得到前缀子串哈希值（预处理）？"></a><strong>如何得到前缀子串哈希值（预处理）？</strong></h5><ol>
 <li><p>把字符串的每个字符都转换成数字，如<code>char - &#39;A&#39; + 1</code>（<strong>不能映射成0！！！</strong>）</p>
 <blockquote>
@@ -322,16 +312,12 @@
 <p>按这种方法取P，Q，99%不会出现冲突（直接假定不会出现冲突做题）</p>
 <p>用<code>unsigned long long</code>存储，直接溢出，则不需要取模了</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">h[i] = h[i - <span class="number">1</span>] * p + str[i];</span><br></pre></td></tr></table></figure>
-
 <p>代码：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;   <span class="comment">//预处理得前缀哈希值</span></span><br><span class="line">        h[i] = h[i - <span class="number">1</span>] * P + str[i];</span><br><span class="line">        p[i] = p[i - <span class="number">1</span>] * P;</span><br><span class="line">    &#125; </span><br></pre></td></tr></table></figure>
-
 <h5 id="字符串-L-R-区间的哈希值计算"><a href="#字符串-L-R-区间的哈希值计算" class="headerlink" title="字符串[L,R]区间的哈希值计算"></a>字符串[L,R]区间的哈希值计算</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">h = h[R] - h[L - <span class="number">1</span>] * p^(R - L + <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
 <p>预处理完前缀哈希值以后，可以在<code>O(1)</code>时间算出任意子段的哈希值了</p>
 <p>代码：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ULL <span class="title">get</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> h[r] - h[l - <span class="number">1</span>] * p[r - l + <span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <hr>
 <blockquote>
 <p>哈希和离散化有什么区别？</p>
@@ -572,6 +558,8 @@
 
 
 
+
+  
 
   
 

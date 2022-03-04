@@ -268,7 +268,6 @@
       
         <p>最近系统地学习了Git的使用方法和多人开发技术，这里是一些比较通俗易懂的记录，还有更进阶的部分还有待学习……</p>
 <span id="more"></span>
-
 <h3 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h3><h4 id="Git基本概念"><a href="#Git基本概念" class="headerlink" title="Git基本概念"></a>Git基本概念</h4><ul>
 <li>工作区：仓库的目录，独立于各个分支</li>
 <li>暂存区：数据暂时存放的区域，是工作区写入版本库之前的缓存区，独立于各个分支</li>
@@ -278,32 +277,28 @@
 <h4 id="全局设置"><a href="#全局设置" class="headerlink" title="全局设置"></a>全局设置</h4><ul>
 <li><p>设置全局用户名</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name xxx</span><br></pre></td></tr></table></figure>
-
 <p>信息记录在<code>~/.gitconfig</code>文件中</p>
 </li>
 <li><p>设置全局邮箱</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email xxx@xxx</span><br></pre></td></tr></table></figure>
-
 <p>信息记录在<code>~/.gitconfig</code>文件中</p>
 </li>
 <li><p>初始化</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
-
 <p>将当前目录配置成git仓库，信息记录在隐藏的<code>.git</code>文件夹中（<code>ls -a</code>可以显示隐藏的文件夹）</p>
 </li>
 </ul>
 <h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><ul>
 <li><p><strong>文件-&gt;暂存区</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add xx</span><br></pre></td></tr></table></figure>
-
 <p>将xx文件添加到暂存区</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
-
 <p>将所有待加入暂存区的文件加入暂存区</p>
 </li>
-<li><p><strong>暂存区&#x3D;&gt;版本库</strong></p>
+</ul>
+<ul>
+<li><p><strong>暂存区=&gt;版本库</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;备注信息&quot;</span><br></pre></td></tr></table></figure>
-
 <p>将暂存区的内容全部提交到当前分支</p>
 <ul>
 <li><p>提交修改的<strong>部分</strong>文件</p>
@@ -324,43 +319,38 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone xxxx@xxxxxx</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>查看所有分支和当前所处分支</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <h4 id="查看命令"><a href="#查看命令" class="headerlink" title="查看命令"></a>查看命令</h4><ul>
 <li><p><strong>查看状态</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
-
 <p>查看仓库状态</p>
 </li>
 <li><p><strong>查看对比</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
-
 <p>查看相对于暂存区修改了哪些内容</p>
 </li>
 <li><p><strong>查看版本</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
-
 <p>查看当前分支的所有版本(从下到上显示)</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --pretty=oneline</span><br></pre></td></tr></table></figure>
-
 <p>每个版本用一行来显示</p>
 </li>
 <li><p><strong>查看HEAD指针的移动历史（包括回滚）</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reflog</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>查看所有分支和当前分支</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <h4 id="删除命令"><a href="#删除命令" class="headerlink" title="删除命令"></a>删除命令</h4><ul>
 <li><p><strong>把文件从暂存区去除</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm --cached xx</span><br></pre></td></tr></table></figure>
-
 <p>在暂存区中将该文件删除，取消跟踪（类似于工作区中刚创建该文件还没有add到暂存区），工作区没有任何变化，将文件从仓库索引目录中删掉，<strong>不希望管理这个文件</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git restore xx</span><br><span class="line">git checkout — XX		# 等价于restore</span><br></pre></td></tr></table></figure>
-
-<p>将filename 从暂存区恢复到工作区，其中 – 可以不加，<strong>工作区的文件会被暂存区的文件覆盖</strong>（即将上一步对代码的修改取消，回滚到上一版本）</p>
+<p>将filename 从暂存区恢复到工作区，其中 — 可以不加，<strong>工作区的文件会被暂存区的文件覆盖</strong>（即将上一步对代码的修改取消，回滚到上一版本）</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2. git restore --staged filename</span><br></pre></td></tr></table></figure>
-
 <p>会把暂存区的文件撤回到工作区,但工作区的文件不会被修改,可以理解为<strong>只是撤回了暂存区的文件</strong></p>
 </li>
 <li><p><strong>删除文件</strong></p>
@@ -370,34 +360,30 @@
 </li>
 <li><p>将该修改添加到暂存区</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add xxx xxx</span><br></pre></td></tr></table></figure>
-
-<p>注意：<code>git add</code>的<code>add</code>是将修改添加到暂存区的意思，所以删除文件也是用<code>add filename </code></p>
+<p>注意：<code>git add</code>的<code>add</code>是将修改添加到暂存区的意思，所以删除文件也是用<code>add filename</code></p>
 </li>
 <li><p>从暂存区提交到版本库</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;comment&quot;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;comment&quot;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 </ul>
 <h4 id="代码回滚"><a href="#代码回滚" class="headerlink" title="代码回滚"></a>代码回滚</h4><ul>
 <li><p><strong>回滚到上一版本</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD^</span><br></pre></td></tr></table></figure>
-
 <p>或者</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD~</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>往上回滚多次（次数较少）</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD^^</span><br></pre></td></tr></table></figure>
-
 <p>一个<code>^</code>代表一次，以此类推</p>
 </li>
 <li><p><strong>往上回滚多次（次数较大）</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD~100</span><br></pre></td></tr></table></figure>
-
 <p><code>~</code>后面的数字代表往上回滚多少个版本</p>
 </li>
 <li><p><strong>往上回滚到某个版本</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard 版本号</span><br></pre></td></tr></table></figure>
-
 <p>版本号可在<code>git log</code>中查看，是其哈希值的<strong>前7位</strong></p>
 <p>找不到要回滚的版本？要回滚的版本已经不存在了？<strong>用<code>git reflog</code>查看！</strong></p>
 </li>
@@ -405,30 +391,27 @@
 <h4 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h4><ul>
 <li><p><strong>将本地仓库关联远程仓库</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin xxx@xxxxxxx</span><br></pre></td></tr></table></figure>
-
 <p><code>origin</code>为默认远程版本库名称（<code>master</code>为默认主分支名称），后面<code>xxx@xxxxxxx</code>为远程仓库的地址</p>
 </li>
 <li><p><strong>将当前分支推送到远程仓库</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -u</span><br></pre></td></tr></table></figure>
-
 <p>(第一次需要加<code>-u</code>，后面不需要)</p>
 <ul>
 <li><p>将本地的<strong>某个分支</strong>推送到远程仓库</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin branch_name</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin branch_name</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 <li><p><strong>将远程仓库克隆到当前目录下</strong></p>
 </li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone xxx@xxxxxxx</span><br></pre></td></tr></table></figure>
-
 <p>​    <code>xxx@xxxxxxx</code>为远程仓库的地址</p>
 <p>​    只是把仓库克隆下来了，但是<code>reflog</code>就没有了</p>
 <h4 id="分支命令"><a href="#分支命令" class="headerlink" title="分支命令"></a>分支命令</h4><p>注意：暂存区和分支是独立的，暂存区是共用的，在<code>commit</code>时，当前在哪个分支就会提交到哪个分支里</p>
 <ul>
 <li><p><strong>创建新分支</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch branch_name</span><br></pre></td></tr></table></figure>
-
 <p><strong>注意</strong>：创建分支时只有一个往新分支走的箭头，不会产生新的节点，只有<code>commit</code>才会产生新的节点</p>
 </li>
 <li><p><strong>查看所有分支和当前所在的分支</strong></p>
@@ -442,7 +425,6 @@
 </li>
 <li><p><strong>将<code>branch_name</code>分支合并到当前分支</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git merge branch_name</span><br></pre></td></tr></table></figure>
-
 <p>这种快速合并是直接改变<code>HEAD</code>的位置，如果需要强行复制一遍的话可以在后面加<code>--no-ff</code></p>
 <ul>
 <li><p><strong>合并冲突</strong></p>
@@ -461,7 +443,8 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d branch_name</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>删除远程仓库<code>branch_name</code>分支</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -d origin branch_name</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -d origin branch_name</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 <li><p><strong>将远程的<code>branch_name1</code>分支对应到本地<code>branch_name2</code>分支</strong></p>
@@ -469,11 +452,9 @@
 </li>
 <li><p><strong>将远程仓库的当前分支与本地仓库的当前分支合并</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li><p>将远程仓库<code>branch_name</code>分支与本地仓库的当前分支合并</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull origin branch_name</span><br></pre></td></tr></table></figure>
-
 <p>(一般操作是，拉下来以后合并到master分支，然后把本地和远程的该分支删掉，然后又push同步到云端)</p>
 </li>
 </ul>
@@ -502,7 +483,8 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash apply</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>删除栈顶存储的修改</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash drop</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git stash drop</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 <h4 id="多人开发"><a href="#多人开发" class="headerlink" title="多人开发"></a>多人开发</h4><p>多人开发的时候一般都不在<code>master</code>分支开发，一般在<code>dev</code>(自己创建的分支)开发</p>
 <hr>
@@ -517,8 +499,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch --set-upstream-to=origin/branch_name1 branch_name2</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>B把云端的分支拉下来</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">  git pull</span><br><span class="line"></span><br><span class="line">此时A和B在开发同一个分支...</span><br><span class="line"></span><br><span class="line">- A和B都创建了新结点，B先`push`了</span><br><span class="line"></span><br><span class="line">  再当A `push`时，会提示当前云端的版本已经和本地的版本不一致，需要先解决冲突：</span><br><span class="line"></span><br><span class="line">  ```shell</span><br><span class="line">  git pull</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">  git pull</span><br><span class="line"></span><br><span class="line">此时A和B在开发同一个分支...</span><br><span class="line"></span><br><span class="line">- A和B都创建了新结点，B先`push`了</span><br><span class="line"></span><br><span class="line">  再当A `push`时，会提示当前云端的版本已经和本地的版本不一致，需要先解决冲突：</span><br><span class="line"></span><br><span class="line">  ```shell</span><br><span class="line">  git pull</span><br></pre></td></tr></table></figure>
 <p>将云端的分支拉到本地，此时拉到本地的内容是包含了云端的版本和A改的版本两个版本的内容，需要手动解决冲突</p>
 </li>
 <li><p>A解决冲突，并<code>commit</code>，然后<code>push</code>到云端</p>
@@ -761,6 +742,8 @@
 
 
 
+
+  
 
   
 
