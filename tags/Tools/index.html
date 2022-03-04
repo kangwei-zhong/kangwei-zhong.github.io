@@ -34,7 +34,7 @@
   <meta name="description" content="Learn and Live.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Zhong Kangwei&#39;s Blog">
-<meta property="og:url" content="http://example.com/tags/tools/">
+<meta property="og:url" content="http://example.com/tags/Tools/">
 <meta property="og:site_name" content="Zhong Kangwei&#39;s Blog">
 <meta property="og:description" content="Learn and Live.">
 <meta property="og:locale" content="zh_CN">
@@ -42,7 +42,7 @@
 <meta property="article:tag" content="Information Security">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/tags/tools/">
+<link rel="canonical" href="http://example.com/tags/Tools/">
 
 
 <script id="page-configurations">
@@ -55,7 +55,7 @@
   };
 </script>
 
-  <title>标签: tools | Zhong Kangwei's Blog</title>
+  <title>标签: Tools | Zhong Kangwei's Blog</title>
   
 
 
@@ -204,7 +204,7 @@
   <div class="post-block">
     <div class="posts-collapse">
       <div class="collection-title">
-        <h2 class="collection-header">tools
+        <h2 class="collection-header">Tools
           <small>标签</small>
         </h2>
       </div>
@@ -219,15 +219,75 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2022-03-03T18:54:07+08:00"
+              datetime="2022-03-03T19:18:17+08:00"
               content="2022-03-03">
           03-03
         </time>
       </div>
 
       <div class="post-title">
-          <a class="post-title-link" href="/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" itemprop="url">
-            <span itemprop="name">信息搜集</span>
+          <a class="post-title-link" href="/Linux/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" itemprop="url">
+            <span itemprop="name">Linux常用命令</span>
+          </a>
+      </div>
+
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2022-03-03T19:13:45+08:00"
+              content="2022-03-03">
+          03-03
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/Debug/%E8%A7%A3%E5%86%B3Github%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98/" itemprop="url">
+            <span itemprop="name">解决Github无法访问的问题</span>
+          </a>
+      </div>
+
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2022-03-03T19:04:09+08:00"
+              content="2022-03-03">
+          03-03
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%EF%BC%88%E4%B8%80%EF%BC%89/" itemprop="url">
+            <span itemprop="name">渗透测试常用工具（一）</span>
+          </a>
+      </div>
+
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2022-03-03T10:50:05+08:00"
+              content="2022-03-03">
+          03-03
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/Tools/Git%E4%BD%BF%E7%94%A8-%E5%A4%9A%E4%BA%BA%E5%BC%80%E5%8F%91/" itemprop="url">
+            <span itemprop="name">Git使用&多人开发</span>
           </a>
       </div>
 
@@ -446,6 +506,59 @@
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
