@@ -518,35 +518,6 @@
       </tags>
   </entry>
   <entry>
-    <title>PHP与数据库交互</title>
-    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/PHP%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%A4%E4%BA%92/</url>
-    <content><![CDATA[<p>PHP与数据库的交互，后端基础。</p>
-<span id="more"></span>
-<h1 id="PHP与数据库交互"><a href="#PHP与数据库交互" class="headerlink" title="PHP与数据库交互"></a>PHP与数据库交互</h1><p>正常网站的步骤：</p>
-<blockquote>
-<p> 传参-&gt;PHP处理-&gt;去数据库存取东西-&gt;显示数据</p>
-</blockquote>
-<p>这里有很核心的一步是PHP能够操作数据库，这里就需要用到PHP的mysqli扩展</p>
-<p> 这个扩展时操纵mysql数据库，自带的，你可以理解为他是一些函数，当你看到一个函数时mysqli_ 的适合一般都属于mysqli扩展。</p>
-<p> Mysqli扩展的核心就是PHP去操作数据库</p>
-<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><p><code>mysqli_connect(链接地址,账号,密码,库名)</code> php连接数据库</p>
-<p><code>mysqli_select_db(连接，库名)</code></p>
-<p><code>mysqli_query(连接，执行SQL语句)</code></p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="variable">$conn</span>=<span class="title function_ invoke__">mysqli_connect</span>(<span class="string">&#x27;localhost&#x27;</span>,<span class="string">&#x27;4root&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">	<span class="title function_ invoke__">mysqli_select_db</span>(<span class="variable">$conn</span>,<span class="string">&#x27;a&#x27;</span>);	<span class="comment">//写一个不存在的域名也不会报错</span></span><br><span class="line">	<span class="variable">$sql</span>=<span class="string">&#x27;insert into b value(666,\&#x27;PHP\&#x27;)&#x27;</span> <span class="comment">//单引号容易产生冲突，要转义</span></span><br><span class="line">     <span class="title function_ invoke__">mysqli_query</span>(<span class="variable">$conn</span>,<span class="variable">$sql</span>);	<span class="comment">//执行sql语句</span></span><br><span class="line">	<span class="title function_ invoke__">mysqli_close</span>(<span class="variable">$conn</span>);		<span class="comment">//关闭数据库连接</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$row</span> = <span class="title function_ invoke__">mysqli_fetch_row</span>();	<span class="comment">//返回一行</span></span><br><span class="line"><span class="variable">$table</span> = <span class="title function_ invoke__">mysqli_fetch_all</span>();	<span class="comment">//返回全部内容（一个表）</span></span><br><span class="line"><span class="variable">$row</span> = <span class="title function_ invoke__">mysqli_fetch_array</span>(); 	<span class="comment">//以数组返回</span></span><br></pre></td></tr></table></figure>
-<p><code>mysqli_fetch_array()</code> 将对象转化为数组</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$result</span> =<span class="title function_ invoke__">mysqli_query</span>(<span class="variable">$conn</span>,<span class="variable">$sql</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">mysqli_fetch_array</span>(<span class="variable">$result</span>)[<span class="string">&#x27;id&#x27;</span>];</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>渗透测试</category>
-      </categories>
-      <tags>
-        <tag>数据库</tag>
-        <tag>渗透测试</tag>
-        <tag>PHP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>PAXOS共识算法</title>
     <url>/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0%E5%8F%8A%E5%AE%9E%E9%AA%8C/PAXOS%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<p>实现共识算法中比较古老且复杂的共识算法PAXOS，几乎没有应用于区块链了。</p>
@@ -617,6 +588,115 @@
       <tags>
         <tag>共识算法</tag>
         <tag>信息安全环境与工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PHP与数据库交互</title>
+    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/PHP%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%A4%E4%BA%92/</url>
+    <content><![CDATA[<p>PHP与数据库的交互，后端基础。</p>
+<span id="more"></span>
+<h1 id="PHP与数据库交互"><a href="#PHP与数据库交互" class="headerlink" title="PHP与数据库交互"></a>PHP与数据库交互</h1><p>正常网站的步骤：</p>
+<blockquote>
+<p> 传参-&gt;PHP处理-&gt;去数据库存取东西-&gt;显示数据</p>
+</blockquote>
+<p>这里有很核心的一步是PHP能够操作数据库，这里就需要用到PHP的mysqli扩展</p>
+<p> 这个扩展时操纵mysql数据库，自带的，你可以理解为他是一些函数，当你看到一个函数时mysqli_ 的适合一般都属于mysqli扩展。</p>
+<p> Mysqli扩展的核心就是PHP去操作数据库</p>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><p><code>mysqli_connect(链接地址,账号,密码,库名)</code> php连接数据库</p>
+<p><code>mysqli_select_db(连接，库名)</code></p>
+<p><code>mysqli_query(连接，执行SQL语句)</code></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="variable">$conn</span>=<span class="title function_ invoke__">mysqli_connect</span>(<span class="string">&#x27;localhost&#x27;</span>,<span class="string">&#x27;4root&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">	<span class="title function_ invoke__">mysqli_select_db</span>(<span class="variable">$conn</span>,<span class="string">&#x27;a&#x27;</span>);	<span class="comment">//写一个不存在的域名也不会报错</span></span><br><span class="line">	<span class="variable">$sql</span>=<span class="string">&#x27;insert into b value(666,\&#x27;PHP\&#x27;)&#x27;</span> <span class="comment">//单引号容易产生冲突，要转义</span></span><br><span class="line">     <span class="title function_ invoke__">mysqli_query</span>(<span class="variable">$conn</span>,<span class="variable">$sql</span>);	<span class="comment">//执行sql语句</span></span><br><span class="line">	<span class="title function_ invoke__">mysqli_close</span>(<span class="variable">$conn</span>);		<span class="comment">//关闭数据库连接</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$row</span> = <span class="title function_ invoke__">mysqli_fetch_row</span>();	<span class="comment">//返回一行</span></span><br><span class="line"><span class="variable">$table</span> = <span class="title function_ invoke__">mysqli_fetch_all</span>();	<span class="comment">//返回全部内容（一个表）</span></span><br><span class="line"><span class="variable">$row</span> = <span class="title function_ invoke__">mysqli_fetch_array</span>(); 	<span class="comment">//以数组返回</span></span><br></pre></td></tr></table></figure>
+<p><code>mysqli_fetch_array()</code> 将对象转化为数组</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$result</span> =<span class="title function_ invoke__">mysqli_query</span>(<span class="variable">$conn</span>,<span class="variable">$sql</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">mysqli_fetch_array</span>(<span class="variable">$result</span>)[<span class="string">&#x27;id&#x27;</span>];</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>渗透测试</category>
+      </categories>
+      <tags>
+        <tag>数据库</tag>
+        <tag>渗透测试</tag>
+        <tag>PHP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SQL注入原理分析</title>
+    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/SQL%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<p>SQL注入的基本原理分析入门。</p>
+<span id="more"></span>
+<h1 id="SQL注入原理分析"><a href="#SQL注入原理分析" class="headerlink" title="SQL注入原理分析"></a>SQL注入原理分析</h1><h2 id="SQL注入的本质"><a href="#SQL注入的本质" class="headerlink" title="SQL注入的本质"></a>SQL注入的本质</h2><p>SQL：结构化查询语言（数据库的代码）</p>
+<p>注入攻击的本质：把用户输入的数据当作代码执行</p>
+<p>关键点</p>
+<pre><code>1. 用户能够控制输入
+2. 原本程序要执行的代码，拼接了用户输入的数据后进行执行
+</code></pre><p>SQL注入就是针对SQL语句的注入</p>
+<p>SQL注入应用的场景：任何与数据库交互的传参（任何传参点）</p>
+<p>判断是不是SQL注入：</p>
+<ul>
+<li><p>在url的后面写 <code>and 1=1</code> 正确 <code>and 1=2</code> 错误 =&gt;极有可能有SQL注入，如果and被过滤，可能要找其他符号代替</p>
+</li>
+<li><p>运算符检测。若写<code>2-1</code>传参是1的时候，一定有SQL注入，只有数据库参与其中才会进行运算(一般不要用+，因为url会自动将+转化为空格) </p>
+</li>
+<li><p>and sleep(10)</p>
+</li>
+</ul>
+<p>我们知道了如何判断是否存在SQL注入，我想要的东西，肯定是数据库中信息。<br>数据库里面有网站的一切敏感信息，例如：管理员账号密码</p>
+<hr>
+<p>利用漏洞，看是否能拿到数据：</p>
+<p>union =&gt; 联合查询：将两条sql语句一起输出（必须满足类型：相同字段数）</p>
+<p>order by =&gt;排序：用来判断存在注入的点之前有几个字段（超过则报错）    id一般是正整数，使用一个浮点数让其不输出；数据库可以选择性输出，所以要找输出点</p>
+<p>database() =&gt;显示当前数据库的库名</p>
+<p>information_schema=&gt;系统自带库，存着tables表，里面储存了数据表和数据库的关联</p>
+<p><code>select table_name from tables where table_schema =&#39;xxx&#39;</code></p>
+<p><code>select table_name from information_schema.tables where table_schema =&#39;xxx&#39;</code>    (在别的库中时这样使用，即库.表.字段格式)</p>
+<p>limit =&gt;分页 </p>
+<p>​    limit n,m=&gt; 从n+1条数据开始取m条</p>
+<p>information_schema.columns 里面有字段</p>
+<p><code>select from 1,table_name from information_schema.columns where table_name=&#39;admin&#39; and table_schema=database()</code></p>
+<p><code>select *from admin where username=&#39;a&#39;</code><br><code>UNION</code><br><code>select *from news where id=1</code></p>
+<p>必须相同列数（相同的字段数）【针对于输出结果】<br>union 不显示重复值<br>union all 会显示</p>
+<p>怎么知道原本程序的SQL语句的执行结果的字段是是多少？</p>
+<p>用<code>order by</code> 排序 来判断有几个字段，若排到没有的字段则会报错或没有内容</p>
+<p>网页只显示给你看的部分的数据给你看</p>
+<p>把传参的数据改成浮点数，导致输出错误，然后union我们要执行的东西</p>
+<p>用<code>union select 1,2</code> 如果输出2 说明2是回显点</p>
+<p>我们要管理员的密码=&gt;要知道在什么表，什么字段</p>
+<p>查库：select database();</p>
+<p>表： mysql有一张默认的自带表，叫<code>tables</code> ，里面显示的是库和表的关联，语句：<code>select table_name from information_schema.tables where table_schema=&#39;xx&#39;</code> 从information库中查表名</p>
+<p>通过<code>库.表</code>选中某个库中的某个表</p>
+<p>查找字段名：<code>select 1,column_name from information_schema.columns where table_name = &#39;admin&#39; and table_schema=database()</code> </p>
+<p>闭合：双引号和单引号里面都是字符串，要让我们的语句当作代码执行，则加<code>‘</code> 让前面的单引号闭合，后面用<code>-- xxx</code> 注释，使得后面的单引号失效</p>
+<h2 id="分析猫舍注入"><a href="#分析猫舍注入" class="headerlink" title="分析猫舍注入"></a>分析猫舍注入</h2><p><code>http://59.63.200.79:8003/?id=1.111 union select &#39;a&#39;,table_name from information_schema.tables where table_schema= database() limit 0,1</code>  ‘a’是为了填充字段 <code>limit 0,1</code>是取第一条数据</p>
+<p><code>http://59.63.200.79:8003/?id=1.111 union select 1,column_name from information_schema.columns where table_name = &#39;admin&#39; and table_schema=database() limit 3,1</code> 获得字段</p>
+<h2 id="显错注入靶场做法"><a href="#显错注入靶场做法" class="headerlink" title="显错注入靶场做法"></a>显错注入靶场做法</h2><h3 id="判断注入点"><a href="#判断注入点" class="headerlink" title="判断注入点"></a>判断注入点</h3><p>最古老的方法：    and 1=1 页面正常 </p>
+<p>   and 1=2 页面不正常</p>
+<p>最简单的方法：    页面后面加’,看是否报错</p>
+<p>老师的方法：    </p>
+<p> 如果是数字型传参，可以尝试-1 </p>
+<p> 例如：</p>
+<p> <a href="http://www.xxx.com/new.php?id=1">http://www.xxx.com/new.php?id=1</a>  页面显示id=1的新闻</p>
+<p> <a href="http://www.xxx.com/new.php?id=2-1">http://www.xxx.com/new.php?id=2-1</a> 页面显示id=1的新闻</p>
+<p> and 1=1 and 1=2 被拦截的可能性太高了</p>
+<p> 可以尝试 and -1=-1 and -1=-2 and 1&gt;0 or 1=1 </p>
+<p>或者直接 or sleep(5)</p>
+<h3 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h3><p><img src="https://s2.loli.net/2022/03/03/JIDeTxZtk15O2j4.png" alt="image-20220303185911160"></p>
+<p>Mysql在5.0以上版本加入了 information_schema 这个系统自带库 其中保存着关于MySQL服务器所维护的所有其他数据库的信息。如数据库名，数据库的表，表栏的数据类型与访问权限等</p>
+<p>information_schema.tables 存放表名和库名的对应     information_schema.columns 存放字段名和表名的对应</p>
+<p>判断当前页面字段总数 <code>and 1=1 order by 1,2,3,4,5……</code></p>
+<p>判断显示位 <code>and 1=2 union select 1,2,3,4,5,6,7……</code></p>
+<p>查当前数据库 <code>and 1=2 union select 1,2,database()</code></p>
+<h3 id="查表名"><a href="#查表名" class="headerlink" title="查表名"></a>查表名</h3><p><code>and 1=2 union select 1,2,table_name from information_schema.tables where table_schema=database() limit 0,1</code></p>
+<h3 id="查列名"><a href="#查列名" class="headerlink" title="查列名"></a>查列名</h3><p><code>and 1=2 union select 1,2,column_name from information_schema.columns where table_name=表名 and table_schema=database() limit 0,1</code></p>
+<h3 id="查字段内容"><a href="#查字段内容" class="headerlink" title="查字段内容"></a>查字段内容</h3><p><code>and 1=2 union select 1,字段名,字段名 from 表名 limit 0,1</code></p>
+<p><code>GROUP_CONCAT</code> 将多行数据进行整合在一行输出</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>​    1、判断SQL注入 （and +-*/ sleep）<br>​    2、SQL注入的流程（猜字段数、找回显点、去系统自带库查询表名字段名、取数据）<br>​    3、information_schema (tables columns)<br>​       database() 显示当前的库名<br>​       传参方式不重要，最重要的是获取的传参是否会放入数据库执行</p>
+]]></content>
+      <categories>
+        <category>渗透测试</category>
+      </categories>
+      <tags>
+        <tag>渗透测试</tag>
+        <tag>SQL注入</tag>
       </tags>
   </entry>
   <entry>
@@ -742,161 +822,6 @@
       <tags>
         <tag>渗透测试</tag>
         <tag>SQL注入</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SQL注入原理分析</title>
-    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/SQL%E6%B3%A8%E5%85%A5%E5%8E%9F%E7%90%86%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<p>SQL注入的基本原理分析入门。</p>
-<span id="more"></span>
-<h1 id="SQL注入原理分析"><a href="#SQL注入原理分析" class="headerlink" title="SQL注入原理分析"></a>SQL注入原理分析</h1><h2 id="SQL注入的本质"><a href="#SQL注入的本质" class="headerlink" title="SQL注入的本质"></a>SQL注入的本质</h2><p>SQL：结构化查询语言（数据库的代码）</p>
-<p>注入攻击的本质：把用户输入的数据当作代码执行</p>
-<p>关键点</p>
-<pre><code>1. 用户能够控制输入
-2. 原本程序要执行的代码，拼接了用户输入的数据后进行执行
-</code></pre><p>SQL注入就是针对SQL语句的注入</p>
-<p>SQL注入应用的场景：任何与数据库交互的传参（任何传参点）</p>
-<p>判断是不是SQL注入：</p>
-<ul>
-<li><p>在url的后面写 <code>and 1=1</code> 正确 <code>and 1=2</code> 错误 =&gt;极有可能有SQL注入，如果and被过滤，可能要找其他符号代替</p>
-</li>
-<li><p>运算符检测。若写<code>2-1</code>传参是1的时候，一定有SQL注入，只有数据库参与其中才会进行运算(一般不要用+，因为url会自动将+转化为空格) </p>
-</li>
-<li><p>and sleep(10)</p>
-</li>
-</ul>
-<p>我们知道了如何判断是否存在SQL注入，我想要的东西，肯定是数据库中信息。<br>数据库里面有网站的一切敏感信息，例如：管理员账号密码</p>
-<hr>
-<p>利用漏洞，看是否能拿到数据：</p>
-<p>union =&gt; 联合查询：将两条sql语句一起输出（必须满足类型：相同字段数）</p>
-<p>order by =&gt;排序：用来判断存在注入的点之前有几个字段（超过则报错）    id一般是正整数，使用一个浮点数让其不输出；数据库可以选择性输出，所以要找输出点</p>
-<p>database() =&gt;显示当前数据库的库名</p>
-<p>information_schema=&gt;系统自带库，存着tables表，里面储存了数据表和数据库的关联</p>
-<p><code>select table_name from tables where table_schema =&#39;xxx&#39;</code></p>
-<p><code>select table_name from information_schema.tables where table_schema =&#39;xxx&#39;</code>    (在别的库中时这样使用，即库.表.字段格式)</p>
-<p>limit =&gt;分页 </p>
-<p>​    limit n,m=&gt; 从n+1条数据开始取m条</p>
-<p>information_schema.columns 里面有字段</p>
-<p><code>select from 1,table_name from information_schema.columns where table_name=&#39;admin&#39; and table_schema=database()</code></p>
-<p><code>select *from admin where username=&#39;a&#39;</code><br><code>UNION</code><br><code>select *from news where id=1</code></p>
-<p>必须相同列数（相同的字段数）【针对于输出结果】<br>union 不显示重复值<br>union all 会显示</p>
-<p>怎么知道原本程序的SQL语句的执行结果的字段是是多少？</p>
-<p>用<code>order by</code> 排序 来判断有几个字段，若排到没有的字段则会报错或没有内容</p>
-<p>网页只显示给你看的部分的数据给你看</p>
-<p>把传参的数据改成浮点数，导致输出错误，然后union我们要执行的东西</p>
-<p>用<code>union select 1,2</code> 如果输出2 说明2是回显点</p>
-<p>我们要管理员的密码=&gt;要知道在什么表，什么字段</p>
-<p>查库：select database();</p>
-<p>表： mysql有一张默认的自带表，叫<code>tables</code> ，里面显示的是库和表的关联，语句：<code>select table_name from information_schema.tables where table_schema=&#39;xx&#39;</code> 从information库中查表名</p>
-<p>通过<code>库.表</code>选中某个库中的某个表</p>
-<p>查找字段名：<code>select 1,column_name from information_schema.columns where table_name = &#39;admin&#39; and table_schema=database()</code> </p>
-<p>闭合：双引号和单引号里面都是字符串，要让我们的语句当作代码执行，则加<code>‘</code> 让前面的单引号闭合，后面用<code>-- xxx</code> 注释，使得后面的单引号失效</p>
-<h2 id="分析猫舍注入"><a href="#分析猫舍注入" class="headerlink" title="分析猫舍注入"></a>分析猫舍注入</h2><p><code>http://59.63.200.79:8003/?id=1.111 union select &#39;a&#39;,table_name from information_schema.tables where table_schema= database() limit 0,1</code>  ‘a’是为了填充字段 <code>limit 0,1</code>是取第一条数据</p>
-<p><code>http://59.63.200.79:8003/?id=1.111 union select 1,column_name from information_schema.columns where table_name = &#39;admin&#39; and table_schema=database() limit 3,1</code> 获得字段</p>
-<h2 id="显错注入靶场做法"><a href="#显错注入靶场做法" class="headerlink" title="显错注入靶场做法"></a>显错注入靶场做法</h2><h3 id="判断注入点"><a href="#判断注入点" class="headerlink" title="判断注入点"></a>判断注入点</h3><p>最古老的方法：    and 1=1 页面正常 </p>
-<p>   and 1=2 页面不正常</p>
-<p>最简单的方法：    页面后面加’,看是否报错</p>
-<p>老师的方法：    </p>
-<p> 如果是数字型传参，可以尝试-1 </p>
-<p> 例如：</p>
-<p> <a href="http://www.xxx.com/new.php?id=1">http://www.xxx.com/new.php?id=1</a>  页面显示id=1的新闻</p>
-<p> <a href="http://www.xxx.com/new.php?id=2-1">http://www.xxx.com/new.php?id=2-1</a> 页面显示id=1的新闻</p>
-<p> and 1=1 and 1=2 被拦截的可能性太高了</p>
-<p> 可以尝试 and -1=-1 and -1=-2 and 1&gt;0 or 1=1 </p>
-<p>或者直接 or sleep(5)</p>
-<h3 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h3><p><img src="https://s2.loli.net/2022/03/03/JIDeTxZtk15O2j4.png" alt="image-20220303185911160"></p>
-<p>Mysql在5.0以上版本加入了 information_schema 这个系统自带库 其中保存着关于MySQL服务器所维护的所有其他数据库的信息。如数据库名，数据库的表，表栏的数据类型与访问权限等</p>
-<p>information_schema.tables 存放表名和库名的对应     information_schema.columns 存放字段名和表名的对应</p>
-<p>判断当前页面字段总数 <code>and 1=1 order by 1,2,3,4,5……</code></p>
-<p>判断显示位 <code>and 1=2 union select 1,2,3,4,5,6,7……</code></p>
-<p>查当前数据库 <code>and 1=2 union select 1,2,database()</code></p>
-<h3 id="查表名"><a href="#查表名" class="headerlink" title="查表名"></a>查表名</h3><p><code>and 1=2 union select 1,2,table_name from information_schema.tables where table_schema=database() limit 0,1</code></p>
-<h3 id="查列名"><a href="#查列名" class="headerlink" title="查列名"></a>查列名</h3><p><code>and 1=2 union select 1,2,column_name from information_schema.columns where table_name=表名 and table_schema=database() limit 0,1</code></p>
-<h3 id="查字段内容"><a href="#查字段内容" class="headerlink" title="查字段内容"></a>查字段内容</h3><p><code>and 1=2 union select 1,字段名,字段名 from 表名 limit 0,1</code></p>
-<p><code>GROUP_CONCAT</code> 将多行数据进行整合在一行输出</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>​    1、判断SQL注入 （and +-*/ sleep）<br>​    2、SQL注入的流程（猜字段数、找回显点、去系统自带库查询表名字段名、取数据）<br>​    3、information_schema (tables columns)<br>​       database() 显示当前的库名<br>​       传参方式不重要，最重要的是获取的传参是否会放入数据库执行</p>
-]]></content>
-      <categories>
-        <category>渗透测试</category>
-      </categories>
-      <tags>
-        <tag>渗透测试</tag>
-        <tag>SQL注入</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>搭建Web安全测试环境</title>
-    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/Web%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<p>通过phpstudy快速搭建Web安全测试环境，在本地安全地模拟实战。</p>
-<span id="more"></span>
-<h1 id="Web安全测试环境的简单搭建"><a href="#Web安全测试环境的简单搭建" class="headerlink" title="Web安全测试环境的简单搭建"></a>Web安全测试环境的简单搭建</h1><p>目的：</p>
-<ul>
-<li>在本地尝试搭建站点来记录内容</li>
-<li>在本地锻炼自己的模拟实战（有一个新的漏洞，我们要去尝试）</li>
-</ul>
-<h2 id="动态语言"><a href="#动态语言" class="headerlink" title="动态语言"></a>动态语言</h2><p>定义：对服务器行为的编程，被称为服务器端脚本（操控服务器），是后端语言</p>
-<p>常见服务器脚本：Asp、Aspx（Windows）PHP（全平台）JSP（全平台）（java）python（全平台）</p>
-<p>能做什么？</p>
-<p>1.动态地向 web 页面编辑、改变或添加任何的内容</p>
-<p>2.对由 HTML 表单提交的用户请求或数据进行响应</p>
-<p>3.访问数据或数据库，并向浏览器返回结果</p>
-<p>4.为不同的用户定制页面</p>
-<p>5.提高网页安全性，使您的网页代码不会通过浏览器被查看到</p>
-<p> web容器解析：</p>
-<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220303160121964.png" alt="image-20220303160121964"></p>
-<h2 id="服务器环境的快速搭建"><a href="#服务器环境的快速搭建" class="headerlink" title="服务器环境的快速搭建"></a>服务器环境的快速搭建</h2><p>搭建一个网站三要素：Web容器、数据库、动态语言</p>
-<p>常见搭建软件：</p>
-<p>​    JSP(Tomcat)</p>
-<p>​    PHP(PHPStudy) windows</p>
-<p>​    PHP(lnmp) linux</p>
-<p>​    宝塔、Lamp、upupw (宝塔、upupw)</p>
-<p>此处介绍phpstudy</p>
-<h3 id="搭建方法"><a href="#搭建方法" class="headerlink" title="搭建方法"></a>搭建方法</h3><p>远程连接：</p>
-<p><strong>虚拟机</strong>：在cmd命令行输入<code>ipconfig</code>查询本机的ip地址=&gt;计算机=&gt;右键属性=&gt;远程设置=&gt;允许运行任何版本远程桌面的计算机连接（同一个内网的都可以连接）</p>
-<blockquote>
-<p>注意，如果没有账户，则用命令<code>net user account password /add</code>添加，然后给用户提升权限<code>net localgroup administrators account /add</code></p>
-</blockquote>
-<p><strong>本机</strong>：搜索=&gt;远程桌面连接=&gt;输入虚拟机ip地址</p>
-<p>把phpstudy的安装在虚拟机中，并且必须安装vc9</p>
-<blockquote>
-<p>网络分为两种：</p>
-<p>​    桥接模式：把虚拟机加入当前内网，同一个内网的人都能访问</p>
-<p>​    nat：只有自己能访问（虚拟机不加入内网）</p>
-</blockquote>
-<h2 id="phpstudy功能介绍"><a href="#phpstudy功能介绍" class="headerlink" title="phpstudy功能介绍"></a>phpstudy功能介绍</h2><p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220303160214713.png" alt="image-20220303160214713"></p>
-<p>检验安装成功：浏览器打开<code>127.0.0.1</code>，是phpstudy探针则安装成功</p>
-<p>启动失败：</p>
-<ol>
-<li>vc9没安装</li>
-<li>用管理员身份运行试试</li>
-<li>端口冲突（其他选项菜单=&gt;环境端口检测，如果有问题则在phpstudy设置=&gt;端口常规设置里改端口）</li>
-</ol>
-<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220303160228609.png" alt="image-20220303160228609"></p>
-<p>！！！一定要先把WWW中的东西全部删除，否则别人可以直接把虚拟机黑掉</p>
-<p>任何一个网站都有根目录，我们访问网站实际上是访问这个网站下面某一台电脑上的一个文件夹</p>
-<p>本机访问虚拟机访问不到：有防火墙</p>
-<p>解决方法：</p>
-<p>​    1.关闭防火墙（简单粗暴）</p>
-<p>​    2.修改防火墙策略（开始=&gt;所有程序=&gt;管理工具=&gt;高级安全=&gt;Windows防火墙=&gt;入站规则=&gt;新建规则=&gt;端口=&gt;下一步=&gt;TCP/特定本地端口=&gt;填入80=&gt;下一步下一步下一步=&gt;填入名称）</p>
-<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220303160240387.png" alt="image-20220303160240387"></p>
-<p>服务模式：每次开机都自动开启Apache和MySQL(也有可能权限不同，大多数情况下高于非服务模式)</p>
-<p>非服务模式则需手动开启</p>
-<p>退出方法：=&gt;停止=&gt;右下角图标退出</p>
-<p>如果不能启动，则以管理员模式运行</p>
-<p>cmd功能可以直接进入数据库</p>
-<p>站点域名管理可以搭若干个网站（但要电脑能承受住）</p>
-<p>一般情况下一个端口搭一个站</p>
-<p>数据库账号密码一般都是root</p>
-<p><code>mysqul -u root -p</code> 登录</p>
-<h2 id="快速搭建一个网站（CMS）"><a href="#快速搭建一个网站（CMS）" class="headerlink" title="快速搭建一个网站（CMS）"></a>快速搭建一个网站（CMS）</h2><p>CMS“内容管理系统”，实际上是一个快速建站的模板</p>
-<p>一般在a5源码交流平台找源码，然后把upload复制到放入WWW的文件夹</p>
-]]></content>
-      <categories>
-        <category>渗透测试</category>
-      </categories>
-      <tags>
-        <tag>渗透测试</tag>
-        <tag>Web</tag>
       </tags>
   </entry>
   <entry>
@@ -1046,6 +971,173 @@
       </tags>
   </entry>
   <entry>
+    <title>搭建Web安全测试环境</title>
+    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/Web%E5%AE%89%E5%85%A8%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83%E7%9A%84%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<p>通过phpstudy快速搭建Web安全测试环境，在本地安全地模拟实战。</p>
+<span id="more"></span>
+<h1 id="Web安全测试环境的简单搭建"><a href="#Web安全测试环境的简单搭建" class="headerlink" title="Web安全测试环境的简单搭建"></a>Web安全测试环境的简单搭建</h1><p>目的：</p>
+<ul>
+<li>在本地尝试搭建站点来记录内容</li>
+<li>在本地锻炼自己的模拟实战（有一个新的漏洞，我们要去尝试）</li>
+</ul>
+<h2 id="动态语言"><a href="#动态语言" class="headerlink" title="动态语言"></a>动态语言</h2><p>定义：对服务器行为的编程，被称为服务器端脚本（操控服务器），是后端语言</p>
+<p>常见服务器脚本：Asp、Aspx（Windows）PHP（全平台）JSP（全平台）（java）python（全平台）</p>
+<p>能做什么？</p>
+<p>1.动态地向 web 页面编辑、改变或添加任何的内容</p>
+<p>2.对由 HTML 表单提交的用户请求或数据进行响应</p>
+<p>3.访问数据或数据库，并向浏览器返回结果</p>
+<p>4.为不同的用户定制页面</p>
+<p>5.提高网页安全性，使您的网页代码不会通过浏览器被查看到</p>
+<p> web容器解析：</p>
+<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220303160121964.png" alt="image-20220303160121964"></p>
+<h2 id="服务器环境的快速搭建"><a href="#服务器环境的快速搭建" class="headerlink" title="服务器环境的快速搭建"></a>服务器环境的快速搭建</h2><p>搭建一个网站三要素：Web容器、数据库、动态语言</p>
+<p>常见搭建软件：</p>
+<p>​    JSP(Tomcat)</p>
+<p>​    PHP(PHPStudy) windows</p>
+<p>​    PHP(lnmp) linux</p>
+<p>​    宝塔、Lamp、upupw (宝塔、upupw)</p>
+<p>此处介绍phpstudy</p>
+<h3 id="搭建方法"><a href="#搭建方法" class="headerlink" title="搭建方法"></a>搭建方法</h3><p>远程连接：</p>
+<p><strong>虚拟机</strong>：在cmd命令行输入<code>ipconfig</code>查询本机的ip地址=&gt;计算机=&gt;右键属性=&gt;远程设置=&gt;允许运行任何版本远程桌面的计算机连接（同一个内网的都可以连接）</p>
+<blockquote>
+<p>注意，如果没有账户，则用命令<code>net user account password /add</code>添加，然后给用户提升权限<code>net localgroup administrators account /add</code></p>
+</blockquote>
+<p><strong>本机</strong>：搜索=&gt;远程桌面连接=&gt;输入虚拟机ip地址</p>
+<p>把phpstudy的安装在虚拟机中，并且必须安装vc9</p>
+<blockquote>
+<p>网络分为两种：</p>
+<p>​    桥接模式：把虚拟机加入当前内网，同一个内网的人都能访问</p>
+<p>​    nat：只有自己能访问（虚拟机不加入内网）</p>
+</blockquote>
+<h2 id="phpstudy功能介绍"><a href="#phpstudy功能介绍" class="headerlink" title="phpstudy功能介绍"></a>phpstudy功能介绍</h2><p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220303160214713.png" alt="image-20220303160214713"></p>
+<p>检验安装成功：浏览器打开<code>127.0.0.1</code>，是phpstudy探针则安装成功</p>
+<p>启动失败：</p>
+<ol>
+<li>vc9没安装</li>
+<li>用管理员身份运行试试</li>
+<li>端口冲突（其他选项菜单=&gt;环境端口检测，如果有问题则在phpstudy设置=&gt;端口常规设置里改端口）</li>
+</ol>
+<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220303160228609.png" alt="image-20220303160228609"></p>
+<p>！！！一定要先把WWW中的东西全部删除，否则别人可以直接把虚拟机黑掉</p>
+<p>任何一个网站都有根目录，我们访问网站实际上是访问这个网站下面某一台电脑上的一个文件夹</p>
+<p>本机访问虚拟机访问不到：有防火墙</p>
+<p>解决方法：</p>
+<p>​    1.关闭防火墙（简单粗暴）</p>
+<p>​    2.修改防火墙策略（开始=&gt;所有程序=&gt;管理工具=&gt;高级安全=&gt;Windows防火墙=&gt;入站规则=&gt;新建规则=&gt;端口=&gt;下一步=&gt;TCP/特定本地端口=&gt;填入80=&gt;下一步下一步下一步=&gt;填入名称）</p>
+<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20220303160240387.png" alt="image-20220303160240387"></p>
+<p>服务模式：每次开机都自动开启Apache和MySQL(也有可能权限不同，大多数情况下高于非服务模式)</p>
+<p>非服务模式则需手动开启</p>
+<p>退出方法：=&gt;停止=&gt;右下角图标退出</p>
+<p>如果不能启动，则以管理员模式运行</p>
+<p>cmd功能可以直接进入数据库</p>
+<p>站点域名管理可以搭若干个网站（但要电脑能承受住）</p>
+<p>一般情况下一个端口搭一个站</p>
+<p>数据库账号密码一般都是root</p>
+<p><code>mysqul -u root -p</code> 登录</p>
+<h2 id="快速搭建一个网站（CMS）"><a href="#快速搭建一个网站（CMS）" class="headerlink" title="快速搭建一个网站（CMS）"></a>快速搭建一个网站（CMS）</h2><p>CMS“内容管理系统”，实际上是一个快速建站的模板</p>
+<p>一般在a5源码交流平台找源码，然后把upload复制到放入WWW的文件夹</p>
+]]></content>
+      <categories>
+        <category>渗透测试</category>
+      </categories>
+      <tags>
+        <tag>渗透测试</tag>
+        <tag>Web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>前端基本概念</title>
+    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E5%89%8D%E7%AB%AF%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
+    <content><![CDATA[<p>前端的基本概念，HTML的基本语法等。</p>
+<span id="more"></span>
+<h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h1><h2 id="前端是什么？"><a href="#前端是什么？" class="headerlink" title="前端是什么？"></a>前端是什么？</h2><p>前端负责展示，后端负责处理请求</p>
+<p>HTML+CSS+JS等</p>
+<p>HTML是骨架（按钮、框）</p>
+<p>CSS是前端页面化妆师</p>
+<p>JS是丰富网页功能的脚本（前端动画渲染等）</p>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><p>tag：由尖括号包围的关键词，一般成对出现(也有自闭合标签)</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span>		//声明h5</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span>		//开始标签</span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span>		//头部开始标签</span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span>	//规定编码格式</span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>xxx<span class="tag">&lt;/<span class="name">title</span>&gt;</span>		//规定title内容</span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">h1</span>&gt;</span>				//标题标签</span><br><span class="line">           我的第一个标题</span><br><span class="line">        <span class="tag">&lt;/<span class="name">h1</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>				//段落标签</span><br><span class="line">            我的第一个段落</span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span>			//内容结束标签</span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span>				//html代码结束标签</span><br></pre></td></tr></table></figure>
+<p><code>&lt;h1 id=&#39;first&#39;&gt;</code>可以给它加属性，可以给它取名字，加载图片等</p>
+<p>前端有很强大的容错机制</p>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><p>可以大大扩展与用户的交互功能，可以操纵浏览器，安全性不强，如果执行了恶意js代码会影响电脑的安全性。</p>
+<blockquote>
+<p>e.g.</p>
+<p>弹框:<code>alert()</code></p>
+<p>读取自动填充的密码：<code>document.getElementByld(&#39;pwd&#39;).value</code></p>
+<p>截屏</p>
+<p>记录键盘</p>
+<p>访问内网页面</p>
+<p>偷偷发数据包出去访问其他页面</p>
+</blockquote>
+<p>GOOGLE浏览器=&gt;设置=&gt;内容=&gt;网站设置=&gt;JavaScript=&gt;关闭</p>
+<p>可能可以绕过登录直接进入后台</p>
+]]></content>
+      <categories>
+        <category>渗透测试</category>
+      </categories>
+      <tags>
+        <tag>渗透测试</tag>
+        <tag>Web</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>前缀和与差分</title>
+    <url>/%E7%AE%97%E6%B3%95/%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86/</url>
+    <content><![CDATA[<p>一维、二维的前缀和与差分算法。</p>
+<span id="more"></span>
+<h2 id="前缀和"><a href="#前缀和" class="headerlink" title="前缀和"></a>前缀和</h2><p>前缀和$s_i=a_1+a_2+…+a_i$</p>
+<ul>
+<li><p>求法：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">s[<span class="number">0</span>] = <span class="number">0</span>;	<span class="comment">//important</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">    s[i] = s[i - <span class="number">1</span>] +a[i]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>数组a的下标一定要从1开始！！！</strong>=&gt;为了定义$s_0$，处理边界问题</p>
+</li>
+<li><p>作用：</p>
+<p>能快速求出原数组中一段数的和（区间和的计算）</p>
+</li>
+<li><p>扩展到二维：求子矩阵的和</p>
+<p><strong>两个方向的前缀</strong></p>
+<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20211130193812461.png" alt="image-20211130193812461"></p>
+<p><code>s[i,j]</code>求的是左上部分的前缀和。</p>
+</li>
+</ul>
+<p>  初始化：<code>s[i][j] = s[i-1][j]+s[i][j-1]-s[i-1][j-1]+a[i][j]</code></p>
+<p>  <img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20211130194139172.png" alt="image-20211130194139172"></p>
+<p>  求红色矩阵的前缀和，使用求面积的方法，即<code>sum=s[x2][y2]-s[x2][y1-1]-s[x1-1][y2]-s[x1-1][y1-1]</code></p>
+<h2 id="差分"><a href="#差分" class="headerlink" title="差分"></a>差分</h2><p>差分是前缀和的逆运算(相邻元素之差)</p>
+<p>使得a[]是b[]的前缀和，则b是a的差分。</p>
+<ul>
+<li>求法</li>
+</ul>
+<p>​    $a_i = b_1+b_2+…+b_i$</p>
+<p>​    $b_1=a_1$</p>
+<p>​    $b_2=a_2-a_1$</p>
+<p>​    …</p>
+<ul>
+<li><p>作用</p>
+<p>对b数组求一遍前缀和即可得到原数组a</p>
+<p>O(n)时间内可得到a</p>
+<p>使用场景：[l,r]的每个元素都要加上数c，用差分可以由O(n)降到O(1)</p>
+</li>
+</ul>
+<p>​    即，<code>b[l]+c</code>，则<code>a[l],a[l+1]...</code>都会加c，因为是通过前缀和求的。</p>
+<p>​    在后面<code>b[r+1]-c</code>，则实现了<code>a[l,r]</code>都加c</p>
+<ul>
+<li><p>二维差分</p>
+<p>给一个子矩阵的每个元素加一个值</p>
+<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20211130201000274.png" alt="image-20211130201000274"></p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">b[x1][y1]+=c;</span><br><span class="line">b[x2+<span class="number">1</span>][y1]-=c;</span><br><span class="line">b[x1][y2+<span class="number">1</span>]-=c;</span><br><span class="line">b[x2+<span class="number">1</span>][y2+<span class="number">1</span>]+=c;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>基础算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>信息搜集</title>
     <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/</url>
     <content><![CDATA[<p>信息搜集的意义以及常用的一些信息搜集工具。</p>
@@ -1144,167 +1236,6 @@
       </tags>
   </entry>
   <entry>
-    <title>前端基本概念</title>
-    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E5%89%8D%E7%AB%AF%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
-    <content><![CDATA[<p>前端的基本概念，HTML的基本语法等。</p>
-<span id="more"></span>
-<h1 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h1><h2 id="前端是什么？"><a href="#前端是什么？" class="headerlink" title="前端是什么？"></a>前端是什么？</h2><p>前端负责展示，后端负责处理请求</p>
-<p>HTML+CSS+JS等</p>
-<p>HTML是骨架（按钮、框）</p>
-<p>CSS是前端页面化妆师</p>
-<p>JS是丰富网页功能的脚本（前端动画渲染等）</p>
-<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><p>tag：由尖括号包围的关键词，一般成对出现(也有自闭合标签)</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span>		//声明h5</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span>		//开始标签</span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span>		//头部开始标签</span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span>	//规定编码格式</span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>xxx<span class="tag">&lt;/<span class="name">title</span>&gt;</span>		//规定title内容</span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">h1</span>&gt;</span>				//标题标签</span><br><span class="line">           我的第一个标题</span><br><span class="line">        <span class="tag">&lt;/<span class="name">h1</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>				//段落标签</span><br><span class="line">            我的第一个段落</span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span>			//内容结束标签</span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span>				//html代码结束标签</span><br></pre></td></tr></table></figure>
-<p><code>&lt;h1 id=&#39;first&#39;&gt;</code>可以给它加属性，可以给它取名字，加载图片等</p>
-<p>前端有很强大的容错机制</p>
-<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><p>可以大大扩展与用户的交互功能，可以操纵浏览器，安全性不强，如果执行了恶意js代码会影响电脑的安全性。</p>
-<blockquote>
-<p>e.g.</p>
-<p>弹框:<code>alert()</code></p>
-<p>读取自动填充的密码：<code>document.getElementByld(&#39;pwd&#39;).value</code></p>
-<p>截屏</p>
-<p>记录键盘</p>
-<p>访问内网页面</p>
-<p>偷偷发数据包出去访问其他页面</p>
-</blockquote>
-<p>GOOGLE浏览器=&gt;设置=&gt;内容=&gt;网站设置=&gt;JavaScript=&gt;关闭</p>
-<p>可能可以绕过登录直接进入后台</p>
-]]></content>
-      <categories>
-        <category>渗透测试</category>
-      </categories>
-      <tags>
-        <tag>渗透测试</tag>
-        <tag>Web</tag>
-        <tag>前端</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>前缀和与差分</title>
-    <url>/%E7%AE%97%E6%B3%95/%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86/</url>
-    <content><![CDATA[<p>一维、二维的前缀和与差分算法。</p>
-<span id="more"></span>
-<h2 id="前缀和"><a href="#前缀和" class="headerlink" title="前缀和"></a>前缀和</h2><p>前缀和$s_i=a_1+a_2+…+a_i$</p>
-<ul>
-<li><p>求法：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">s[<span class="number">0</span>] = <span class="number">0</span>;	<span class="comment">//important</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;</span><br><span class="line">    s[i] = s[i - <span class="number">1</span>] +a[i]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>数组a的下标一定要从1开始！！！</strong>=&gt;为了定义$s_0$，处理边界问题</p>
-</li>
-<li><p>作用：</p>
-<p>能快速求出原数组中一段数的和（区间和的计算）</p>
-</li>
-<li><p>扩展到二维：求子矩阵的和</p>
-<p><strong>两个方向的前缀</strong></p>
-<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20211130193812461.png" alt="image-20211130193812461"></p>
-<p><code>s[i,j]</code>求的是左上部分的前缀和。</p>
-</li>
-</ul>
-<p>  初始化：<code>s[i][j] = s[i-1][j]+s[i][j-1]-s[i-1][j-1]+a[i][j]</code></p>
-<p>  <img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20211130194139172.png" alt="image-20211130194139172"></p>
-<p>  求红色矩阵的前缀和，使用求面积的方法，即<code>sum=s[x2][y2]-s[x2][y1-1]-s[x1-1][y2]-s[x1-1][y1-1]</code></p>
-<h2 id="差分"><a href="#差分" class="headerlink" title="差分"></a>差分</h2><p>差分是前缀和的逆运算(相邻元素之差)</p>
-<p>使得a[]是b[]的前缀和，则b是a的差分。</p>
-<ul>
-<li>求法</li>
-</ul>
-<p>​    $a_i = b_1+b_2+…+b_i$</p>
-<p>​    $b_1=a_1$</p>
-<p>​    $b_2=a_2-a_1$</p>
-<p>​    …</p>
-<ul>
-<li><p>作用</p>
-<p>对b数组求一遍前缀和即可得到原数组a</p>
-<p>O(n)时间内可得到a</p>
-<p>使用场景：[l,r]的每个元素都要加上数c，用差分可以由O(n)降到O(1)</p>
-</li>
-</ul>
-<p>​    即，<code>b[l]+c</code>，则<code>a[l],a[l+1]...</code>都会加c，因为是通过前缀和求的。</p>
-<p>​    在后面<code>b[r+1]-c</code>，则实现了<code>a[l,r]</code>都加c</p>
-<ul>
-<li><p>二维差分</p>
-<p>给一个子矩阵的每个元素加一个值</p>
-<p><img src="https://gitee.com/zhong-kangwei/picbed/raw/master/pic/image-20211130201000274.png" alt="image-20211130201000274"></p>
-</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">b[x1][y1]+=c;</span><br><span class="line">b[x2+<span class="number">1</span>][y1]-=c;</span><br><span class="line">b[x1][y2+<span class="number">1</span>]-=c;</span><br><span class="line">b[x2+<span class="number">1</span>][y2+<span class="number">1</span>]+=c;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>基础算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>哈希</title>
-    <url>/%E7%AE%97%E6%B3%95/%E5%93%88%E5%B8%8C/</url>
-    <content><![CDATA[<p>哈希表的基本使用和解决冲突的办法。</p>
-<span id="more"></span>
-<h3 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h3><h4 id="哈希表的应用"><a href="#哈希表的应用" class="headerlink" title="哈希表的应用"></a>哈希表的应用</h4><p>将比较庞大的数据映射到比较小的一个区间内</p>
-<p>算法题中一般只有<strong>增加</strong>和<strong>查找</strong>两个操作（如果要实现删除，就开一个数组，然后打标记表示删除）</p>
-<h4 id="一般情况的哈希（按冲突处理方式分）"><a href="#一般情况的哈希（按冲突处理方式分）" class="headerlink" title="一般情况的哈希（按冲突处理方式分）"></a>一般情况的哈希（按冲突处理方式分）</h4><ul>
-<li>怎么实现哈希？<strong>直接取模最方便</strong>（mod的数一般要取质数，冲突概率最小）！</li>
-</ul>
-<h5 id="开放寻址法"><a href="#开放寻址法" class="headerlink" title="开放寻址法"></a>开放寻址法</h5><p>为确保所有值都有坑，需要将哈希表长度开到需存的数的数量的<strong>2-3</strong>倍</p>
-<p>方法：计算出的哈希值的位置已经有值占用就往后推，直到找到空的位置为止。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;    <span class="comment">// 如果x已经存在，返回x的下标；若x不存在，返回x应该存的位置</span></span><br><span class="line">    <span class="type">int</span> k = (x % N + N) % N;</span><br><span class="line">    <span class="keyword">while</span> (h[k] != null &amp;&amp; h[k] != x)&#123;</span><br><span class="line">        k ++;</span><br><span class="line">        <span class="keyword">if</span>(k == N) k = <span class="number">0</span>;	<span class="comment">//到最后没找到的话又从第一个开始找</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> k;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>插入</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">k = <span class="built_in">find</span>(x);</span><br><span class="line">h[k] = x;</span><br></pre></td></tr></table></figure>
-<p><strong>查找</strong></p>
-<ol>
-<li>计算哈希值，看哈希值的位置是不是该数，若为空则没有该数；</li>
-<li>若为该数，则找到；</li>
-<li>若不是该数，则按规则继续往后找，直到找到该数或找到空的位置（没有该数）</li>
-</ol>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">k = <span class="built_in">find</span>(x);</span><br><span class="line"><span class="keyword">if</span>(h[k] != null) <span class="built_in">puts</span>(<span class="string">&quot;Yes&quot;</span>);</span><br><span class="line"><span class="keyword">else</span> <span class="built_in">puts</span>(<span class="string">&quot;No&quot;</span>);</span><br></pre></td></tr></table></figure>
-<h5 id="拉链法"><a href="#拉链法" class="headerlink" title="拉链法"></a>拉链法</h5><p>映射到同一个位置的时候，用链表串起来</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">h(11) = 3</span></span><br><span class="line"><span class="comment">h(23) = 3</span></span><br><span class="line"><span class="comment">[0 1 2 3 4 5 ... 10^5-1]</span></span><br><span class="line"><span class="comment">       |</span></span><br><span class="line"><span class="comment">       11</span></span><br><span class="line"><span class="comment">       |</span></span><br><span class="line"><span class="comment">       23</span></span><br></pre></td></tr></table></figure>
-<p>一般情况下，冲突的情况很少，时间复杂度可以看成<code>O(1)</code></p>
-<p><strong>插入</strong></p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="comment">//h[N]为哈希表值为k的地方指向的第一个数，e[N]存储数，ne[N]存储指向下一个数的指针，idx为当前指针的位置</span></span><br><span class="line">    <span class="type">int</span> k = (x % N + N) % N;     <span class="comment">// C++中 负数的模还是负数，为了统一转化为正数，采用这种写法</span></span><br><span class="line">    e[idx] = x;     <span class="comment">// 单链表的插入</span></span><br><span class="line">    ne[idx] = h[k];</span><br><span class="line">    h[k] = idx ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>查找</strong></p>
-<p>计算出哈希值以后沿着链表查找</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> k = (x % N + N) % N;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = h[k]; i != <span class="number">-1</span>; i = ne[i])&#123;</span><br><span class="line">        <span class="keyword">if</span>(x == e[i]) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="字符串的哈希"><a href="#字符串的哈希" class="headerlink" title="字符串的哈希"></a>字符串的哈希</h4><p><strong>应用：</strong>快速判断两个字符串是否相等（O(1)就能做）</p>
-<p>除了循环节，在其他方面KMP就不如HASH算法了</p>
-<hr>
-<p>字符串<strong>前缀</strong>哈希法</p>
-<p>e.g.</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">str = <span class="string">&quot;ABCABCD&quot;</span></span><br><span class="line">h[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">h[<span class="number">1</span>] = <span class="string">&quot;A&quot;</span>的hash值</span><br><span class="line">h[<span class="number">2</span>] = <span class="string">&quot;AB&quot;</span>的hash值</span><br><span class="line">h[<span class="number">3</span>] = <span class="string">&quot;ABC&quot;</span>的hash值</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<h5 id="如何得到前缀子串哈希值（预处理）？"><a href="#如何得到前缀子串哈希值（预处理）？" class="headerlink" title="如何得到前缀子串哈希值（预处理）？"></a><strong>如何得到前缀子串哈希值（预处理）？</strong></h5><ol>
-<li><p>把字符串的每个字符都转换成数字，如<code>char - &#39;A&#39; + 1</code>（<strong>不能映射成0！！！</strong>）</p>
-<blockquote>
-<p>如“A”映射成0，那“AA”也是0</p>
-</blockquote>
-</li>
-<li><p>把字符串看成p进制的数（p一般取131或13331）</p>
-</li>
-<li><p>把p进制转换成十进制数，并<code>mod Q</code>即可映射到哈希表（Q一般取$2^{64}$）</p>
-</li>
-</ol>
-<p>按这种方法取P，Q，99%不会出现冲突（直接假定不会出现冲突做题）</p>
-<p>用<code>unsigned long long</code>存储，直接溢出，则不需要取模了</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">h[i] = h[i - <span class="number">1</span>] * p + str[i];</span><br></pre></td></tr></table></figure>
-<p>代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;   <span class="comment">//预处理得前缀哈希值</span></span><br><span class="line">        h[i] = h[i - <span class="number">1</span>] * P + str[i];</span><br><span class="line">        p[i] = p[i - <span class="number">1</span>] * P;</span><br><span class="line">    &#125; </span><br></pre></td></tr></table></figure>
-<h5 id="字符串-L-R-区间的哈希值计算"><a href="#字符串-L-R-区间的哈希值计算" class="headerlink" title="字符串[L,R]区间的哈希值计算"></a>字符串[L,R]区间的哈希值计算</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">h = h[R] - h[L - <span class="number">1</span>] * p^(R - L + <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<p>预处理完前缀哈希值以后，可以在<code>O(1)</code>时间算出任意子段的哈希值了</p>
-<p>代码：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">ULL <span class="title">get</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> h[r] - h[l - <span class="number">1</span>] * p[r - l + <span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<blockquote>
-<p>哈希和离散化有什么区别？</p>
-<p>离散化是一种比较特殊的方式，它需要<strong>保序</strong>，而哈希不需要保序。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>垃圾邮件分类</title>
     <url>/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0%E5%8F%8A%E5%AE%9E%E9%AA%8C/%E5%9E%83%E5%9C%BE%E9%82%AE%E4%BB%B6%E5%88%86%E7%B1%BB/</url>
     <content><![CDATA[<p>通过概率论中学的贝叶斯公式来推断一封新收到的邮件是否为垃圾邮件。</p>
@@ -1380,6 +1311,75 @@
       <tags>
         <tag>信息安全环境与工具</tag>
         <tag>Socket</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>哈希</title>
+    <url>/%E7%AE%97%E6%B3%95/%E5%93%88%E5%B8%8C/</url>
+    <content><![CDATA[<p>哈希表的基本使用和解决冲突的办法。</p>
+<span id="more"></span>
+<h3 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h3><h4 id="哈希表的应用"><a href="#哈希表的应用" class="headerlink" title="哈希表的应用"></a>哈希表的应用</h4><p>将比较庞大的数据映射到比较小的一个区间内</p>
+<p>算法题中一般只有<strong>增加</strong>和<strong>查找</strong>两个操作（如果要实现删除，就开一个数组，然后打标记表示删除）</p>
+<h4 id="一般情况的哈希（按冲突处理方式分）"><a href="#一般情况的哈希（按冲突处理方式分）" class="headerlink" title="一般情况的哈希（按冲突处理方式分）"></a>一般情况的哈希（按冲突处理方式分）</h4><ul>
+<li>怎么实现哈希？<strong>直接取模最方便</strong>（mod的数一般要取质数，冲突概率最小）！</li>
+</ul>
+<h5 id="开放寻址法"><a href="#开放寻址法" class="headerlink" title="开放寻址法"></a>开放寻址法</h5><p>为确保所有值都有坑，需要将哈希表长度开到需存的数的数量的<strong>2-3</strong>倍</p>
+<p>方法：计算出的哈希值的位置已经有值占用就往后推，直到找到空的位置为止。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;    <span class="comment">// 如果x已经存在，返回x的下标；若x不存在，返回x应该存的位置</span></span><br><span class="line">    <span class="type">int</span> k = (x % N + N) % N;</span><br><span class="line">    <span class="keyword">while</span> (h[k] != null &amp;&amp; h[k] != x)&#123;</span><br><span class="line">        k ++;</span><br><span class="line">        <span class="keyword">if</span>(k == N) k = <span class="number">0</span>;	<span class="comment">//到最后没找到的话又从第一个开始找</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> k;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>插入</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">k = <span class="built_in">find</span>(x);</span><br><span class="line">h[k] = x;</span><br></pre></td></tr></table></figure>
+<p><strong>查找</strong></p>
+<ol>
+<li>计算哈希值，看哈希值的位置是不是该数，若为空则没有该数；</li>
+<li>若为该数，则找到；</li>
+<li>若不是该数，则按规则继续往后找，直到找到该数或找到空的位置（没有该数）</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">k = <span class="built_in">find</span>(x);</span><br><span class="line"><span class="keyword">if</span>(h[k] != null) <span class="built_in">puts</span>(<span class="string">&quot;Yes&quot;</span>);</span><br><span class="line"><span class="keyword">else</span> <span class="built_in">puts</span>(<span class="string">&quot;No&quot;</span>);</span><br></pre></td></tr></table></figure>
+<h5 id="拉链法"><a href="#拉链法" class="headerlink" title="拉链法"></a>拉链法</h5><p>映射到同一个位置的时候，用链表串起来</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">h(11) = 3</span></span><br><span class="line"><span class="comment">h(23) = 3</span></span><br><span class="line"><span class="comment">[0 1 2 3 4 5 ... 10^5-1]</span></span><br><span class="line"><span class="comment">       |</span></span><br><span class="line"><span class="comment">       11</span></span><br><span class="line"><span class="comment">       |</span></span><br><span class="line"><span class="comment">       23</span></span><br></pre></td></tr></table></figure>
+<p>一般情况下，冲突的情况很少，时间复杂度可以看成<code>O(1)</code></p>
+<p><strong>插入</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">insert</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="comment">//h[N]为哈希表值为k的地方指向的第一个数，e[N]存储数，ne[N]存储指向下一个数的指针，idx为当前指针的位置</span></span><br><span class="line">    <span class="type">int</span> k = (x % N + N) % N;     <span class="comment">// C++中 负数的模还是负数，为了统一转化为正数，采用这种写法</span></span><br><span class="line">    e[idx] = x;     <span class="comment">// 单链表的插入</span></span><br><span class="line">    ne[idx] = h[k];</span><br><span class="line">    h[k] = idx ++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>查找</strong></p>
+<p>计算出哈希值以后沿着链表查找</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> k = (x % N + N) % N;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = h[k]; i != <span class="number">-1</span>; i = ne[i])&#123;</span><br><span class="line">        <span class="keyword">if</span>(x == e[i]) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="字符串的哈希"><a href="#字符串的哈希" class="headerlink" title="字符串的哈希"></a>字符串的哈希</h4><p><strong>应用：</strong>快速判断两个字符串是否相等（O(1)就能做）</p>
+<p>除了循环节，在其他方面KMP就不如HASH算法了</p>
+<hr>
+<p>字符串<strong>前缀</strong>哈希法</p>
+<p>e.g.</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">str = <span class="string">&quot;ABCABCD&quot;</span></span><br><span class="line">h[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">h[<span class="number">1</span>] = <span class="string">&quot;A&quot;</span>的hash值</span><br><span class="line">h[<span class="number">2</span>] = <span class="string">&quot;AB&quot;</span>的hash值</span><br><span class="line">h[<span class="number">3</span>] = <span class="string">&quot;ABC&quot;</span>的hash值</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h5 id="如何得到前缀子串哈希值（预处理）？"><a href="#如何得到前缀子串哈希值（预处理）？" class="headerlink" title="如何得到前缀子串哈希值（预处理）？"></a><strong>如何得到前缀子串哈希值（预处理）？</strong></h5><ol>
+<li><p>把字符串的每个字符都转换成数字，如<code>char - &#39;A&#39; + 1</code>（<strong>不能映射成0！！！</strong>）</p>
+<blockquote>
+<p>如“A”映射成0，那“AA”也是0</p>
+</blockquote>
+</li>
+<li><p>把字符串看成p进制的数（p一般取131或13331）</p>
+</li>
+<li><p>把p进制转换成十进制数，并<code>mod Q</code>即可映射到哈希表（Q一般取$2^{64}$）</p>
+</li>
+</ol>
+<p>按这种方法取P，Q，99%不会出现冲突（直接假定不会出现冲突做题）</p>
+<p>用<code>unsigned long long</code>存储，直接溢出，则不需要取模了</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">h[i] = h[i - <span class="number">1</span>] * p + str[i];</span><br></pre></td></tr></table></figure>
+<p>代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)&#123;   <span class="comment">//预处理得前缀哈希值</span></span><br><span class="line">        h[i] = h[i - <span class="number">1</span>] * P + str[i];</span><br><span class="line">        p[i] = p[i - <span class="number">1</span>] * P;</span><br><span class="line">    &#125; </span><br></pre></td></tr></table></figure>
+<h5 id="字符串-L-R-区间的哈希值计算"><a href="#字符串-L-R-区间的哈希值计算" class="headerlink" title="字符串[L,R]区间的哈希值计算"></a>字符串[L,R]区间的哈希值计算</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">h = h[R] - h[L - <span class="number">1</span>] * p^(R - L + <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>预处理完前缀哈希值以后，可以在<code>O(1)</code>时间算出任意子段的哈希值了</p>
+<p>代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">ULL <span class="title">get</span><span class="params">(<span class="type">int</span> l, <span class="type">int</span> r)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> h[r] - h[l - <span class="number">1</span>] * p[r - l + <span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>哈希和离散化有什么区别？</p>
+<p>离散化是一种比较特殊的方式，它需要<strong>保序</strong>，而哈希不需要保序。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -1581,43 +1581,6 @@
       </tags>
   </entry>
   <entry>
-    <title>堆</title>
-    <url>/%E7%AE%97%E6%B3%95/%E5%A0%86/</url>
-    <content><![CDATA[<p>堆的基础算法，用数组实现。</p>
-<span id="more"></span>
-<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><h4 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h4><p>堆是一个<strong>完全二叉树</strong></p>
-<p>小根堆：每一个结点小于等于左右儿子</p>
-<p>大根堆：每一个结点大于等于左右儿子</p>
-<hr>
-<h4 id="堆的存储"><a href="#堆的存储" class="headerlink" title="堆的存储"></a>堆的存储</h4><p>用<strong>一维数组</strong>存，第一个点为根结点（<strong>下标从1开始！</strong>），$x$的左儿子为$2x$，$x$的右儿子为$2x+1$</p>
-<hr>
-<h4 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h4><h5 id="建堆"><a href="#建堆" class="headerlink" title="建堆"></a>建堆</h5><p>法1：O(nlogn)直接每一个插入</p>
-<p>法2：<strong>O(n)</strong>从n/2【非叶子结点】开始down，一直down到1</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = n/<span class="number">2</span>; i; i --) <span class="built_in">down</span>(i);</span><br></pre></td></tr></table></figure>
-<h5 id="down-x"><a href="#down-x" class="headerlink" title="down(x)"></a>down(x)</h5><p><strong>这里的x表示的是结点的下标！！</strong></p>
-<p>时间复杂度：O(logn)</p>
-<p>往下调整</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">down</span><span class="params">(<span class="type">int</span> u)</span></span>&#123;   <span class="comment">// down编号为u的结点</span></span><br><span class="line">    <span class="type">int</span> t = u;  <span class="comment">// t记录一个结点和两个子节点中的最小值的编号</span></span><br><span class="line">    <span class="keyword">if</span>(u * <span class="number">2</span> &lt;= arr_size &amp;&amp; h[u * <span class="number">2</span>] &lt; h[t]) t = u * <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(u * <span class="number">2</span> + <span class="number">1</span> &lt;= arr_size &amp;&amp; h[u * <span class="number">2</span> + <span class="number">1</span>] &lt; h[t]) t = u * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(u != t)&#123;</span><br><span class="line">        <span class="built_in">swap</span>(h[u], h[t]);   <span class="comment">// 换的是值</span></span><br><span class="line">        <span class="built_in">down</span>(t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="up-x"><a href="#up-x" class="headerlink" title="up(x)"></a>up(x)</h5><p>O(logn)</p>
-<p>往上调整</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">up</span><span class="params">(<span class="type">int</span> u)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(u / <span class="number">2</span> &amp;&amp; h[u / <span class="number">2</span>] &gt; h[u])&#123;	<span class="comment">// 只要和父结点比，可以写成迭代的形式</span></span><br><span class="line">        <span class="built_in">swap</span>(h[u / <span class="number">2</span>], h[u]);</span><br><span class="line">        u /= <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="STL可实现的操作"><a href="#STL可实现的操作" class="headerlink" title="STL可实现的操作"></a>STL可实现的操作</h4><h5 id="插入一个数"><a href="#插入一个数" class="headerlink" title="插入一个数"></a>插入一个数</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">heap[++size] = x;</span><br><span class="line"><span class="built_in">up</span>(size);</span><br></pre></td></tr></table></figure>
-<h5 id="求集合当中的最小值"><a href="#求集合当中的最小值" class="headerlink" title="求集合当中的最小值"></a>求集合当中的最小值</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">heap[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
-<h5 id="删除最小值"><a href="#删除最小值" class="headerlink" title="删除最小值"></a>删除最小值</h5><p>一维数组删除头结点很难，删除尾结点比较简单，所以先把最后一个点覆盖第一个点，然后调整：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">heap[<span class="number">1</span>] = heap[size];</span><br><span class="line">size --;</span><br><span class="line"><span class="built_in">down</span>(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="STL实现不了的操作"><a href="#STL实现不了的操作" class="headerlink" title="STL实现不了的操作"></a>STL实现不了的操作</h4><h5 id="删除任意一个元素"><a href="#删除任意一个元素" class="headerlink" title="删除任意一个元素"></a>删除任意一个元素</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">heap[k] = heap[size];</span><br><span class="line">size --;</span><br><span class="line"><span class="built_in">down</span>(k);</span><br><span class="line"><span class="built_in">up</span>(k);	<span class="comment">//虽然down和up两个都写，但是只会执行一个</span></span><br></pre></td></tr></table></figure>
-<h5 id="修改任意一个元素"><a href="#修改任意一个元素" class="headerlink" title="修改任意一个元素"></a>修改任意一个元素</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">heap[k] = x;</span><br><span class="line"><span class="built_in">down</span>(k);</span><br><span class="line"><span class="built_in">up</span>(k);	<span class="comment">//虽然down和up两个都写，但是只会执行一个</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>并查集</title>
     <url>/%E7%AE%97%E6%B3%95/%E5%B9%B6%E6%9F%A5%E9%9B%86/</url>
     <content><![CDATA[<p>并查集的基本使用和优化。</p>
@@ -1708,6 +1671,161 @@
       </tags>
   </entry>
   <entry>
+    <title>堆</title>
+    <url>/%E7%AE%97%E6%B3%95/%E5%A0%86/</url>
+    <content><![CDATA[<p>堆的基础算法，用数组实现。</p>
+<span id="more"></span>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><h4 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h4><p>堆是一个<strong>完全二叉树</strong></p>
+<p>小根堆：每一个结点小于等于左右儿子</p>
+<p>大根堆：每一个结点大于等于左右儿子</p>
+<hr>
+<h4 id="堆的存储"><a href="#堆的存储" class="headerlink" title="堆的存储"></a>堆的存储</h4><p>用<strong>一维数组</strong>存，第一个点为根结点（<strong>下标从1开始！</strong>），$x$的左儿子为$2x$，$x$的右儿子为$2x+1$</p>
+<hr>
+<h4 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h4><h5 id="建堆"><a href="#建堆" class="headerlink" title="建堆"></a>建堆</h5><p>法1：O(nlogn)直接每一个插入</p>
+<p>法2：<strong>O(n)</strong>从n/2【非叶子结点】开始down，一直down到1</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = n/<span class="number">2</span>; i; i --) <span class="built_in">down</span>(i);</span><br></pre></td></tr></table></figure>
+<h5 id="down-x"><a href="#down-x" class="headerlink" title="down(x)"></a>down(x)</h5><p><strong>这里的x表示的是结点的下标！！</strong></p>
+<p>时间复杂度：O(logn)</p>
+<p>往下调整</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">down</span><span class="params">(<span class="type">int</span> u)</span></span>&#123;   <span class="comment">// down编号为u的结点</span></span><br><span class="line">    <span class="type">int</span> t = u;  <span class="comment">// t记录一个结点和两个子节点中的最小值的编号</span></span><br><span class="line">    <span class="keyword">if</span>(u * <span class="number">2</span> &lt;= arr_size &amp;&amp; h[u * <span class="number">2</span>] &lt; h[t]) t = u * <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(u * <span class="number">2</span> + <span class="number">1</span> &lt;= arr_size &amp;&amp; h[u * <span class="number">2</span> + <span class="number">1</span>] &lt; h[t]) t = u * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(u != t)&#123;</span><br><span class="line">        <span class="built_in">swap</span>(h[u], h[t]);   <span class="comment">// 换的是值</span></span><br><span class="line">        <span class="built_in">down</span>(t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="up-x"><a href="#up-x" class="headerlink" title="up(x)"></a>up(x)</h5><p>O(logn)</p>
+<p>往上调整</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">up</span><span class="params">(<span class="type">int</span> u)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(u / <span class="number">2</span> &amp;&amp; h[u / <span class="number">2</span>] &gt; h[u])&#123;	<span class="comment">// 只要和父结点比，可以写成迭代的形式</span></span><br><span class="line">        <span class="built_in">swap</span>(h[u / <span class="number">2</span>], h[u]);</span><br><span class="line">        u /= <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="STL可实现的操作"><a href="#STL可实现的操作" class="headerlink" title="STL可实现的操作"></a>STL可实现的操作</h4><h5 id="插入一个数"><a href="#插入一个数" class="headerlink" title="插入一个数"></a>插入一个数</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">heap[++size] = x;</span><br><span class="line"><span class="built_in">up</span>(size);</span><br></pre></td></tr></table></figure>
+<h5 id="求集合当中的最小值"><a href="#求集合当中的最小值" class="headerlink" title="求集合当中的最小值"></a>求集合当中的最小值</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">heap[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+<h5 id="删除最小值"><a href="#删除最小值" class="headerlink" title="删除最小值"></a>删除最小值</h5><p>一维数组删除头结点很难，删除尾结点比较简单，所以先把最后一个点覆盖第一个点，然后调整：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">heap[<span class="number">1</span>] = heap[size];</span><br><span class="line">size --;</span><br><span class="line"><span class="built_in">down</span>(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="STL实现不了的操作"><a href="#STL实现不了的操作" class="headerlink" title="STL实现不了的操作"></a>STL实现不了的操作</h4><h5 id="删除任意一个元素"><a href="#删除任意一个元素" class="headerlink" title="删除任意一个元素"></a>删除任意一个元素</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">heap[k] = heap[size];</span><br><span class="line">size --;</span><br><span class="line"><span class="built_in">down</span>(k);</span><br><span class="line"><span class="built_in">up</span>(k);	<span class="comment">//虽然down和up两个都写，但是只会执行一个</span></span><br></pre></td></tr></table></figure>
+<h5 id="修改任意一个元素"><a href="#修改任意一个元素" class="headerlink" title="修改任意一个元素"></a>修改任意一个元素</h5><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">heap[k] = x;</span><br><span class="line"><span class="built_in">down</span>(k);</span><br><span class="line"><span class="built_in">up</span>(k);	<span class="comment">//虽然down和up两个都写，但是只会执行一个</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>时空复杂度分析</title>
+    <url>/%E7%AE%97%E6%B3%95/%E6%97%B6%E7%A9%BA%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<p>常用算法的时空复杂度分析，以及根据数据范围判断用什么算法。</p>
+<span id="more"></span>
+<h3 id="时空复杂度分析"><a href="#时空复杂度分析" class="headerlink" title="时空复杂度分析"></a>时空复杂度分析</h3><ul>
+<li>C++在1s内能算$10^7$~$10^8$次，控制在$10^7$次以内为最加</li>
+</ul>
+<h4 id="根据数据选算法"><a href="#根据数据选算法" class="headerlink" title="根据数据选算法"></a>根据数据选算法</h4><ol>
+<li>$n≤30$，状态压缩 dp，DFS+剪枝，指数级别暴搜+剪枝</li>
+<li>$n≤100$，或者几百=&gt;$O(n^3)$，floyd，dp</li>
+<li>$n≤1000$=&gt;$O(n^2)$，$O(n^2logn)$=&gt;dp，二分，朴素Dijkstra</li>
+<li>$n≤10^4$=&gt;$O(n+\sqrt{n})$块状链表</li>
+<li>$n≤10^5$=&gt;$O(nlogn)$算法=&gt;各种sort，线段树，树状数组，set，map，heap，堆优化版Dijkstra，spfa，二分</li>
+<li>$n≤10^6$=&gt;$O(n)/常数小的O(nlogn)$=&gt;$O(n)$：hash，双指针，kmp 常数小的$O(nlogn)$：各种sort，spfa，树状数组，heap，堆优化版Dijkstra，spfa，前缀和与差分</li>
+<li>$n≤10^7$=&gt;$O(n)$，双指针扫描，kmp，线性筛素数</li>
+<li>$n≤10^9$=&gt;$O(\sqrt{n})$，判断质数等</li>
+<li>$n≤10^{18}$=&gt;$O(logn)$，欧几里得求最大公约数，快速幂</li>
+</ol>
+<h4 id="代码时间复杂度分析"><a href="#代码时间复杂度分析" class="headerlink" title="代码时间复杂度分析"></a>代码时间复杂度分析</h4><ol>
+<li><p>纯循环</p>
+</li>
+<li><p>递归=&gt;通过主定理计算</p>
+<ul>
+<li>快排、归并=&gt;每层O(n)，一共logn层</li>
+</ul>
+</li>
+<li><p>双指针算法</p>
+<p>看上去是两重循环，但内层的j是<strong>只加不减</strong>的，因此内循环执行的次数≤n，因此复杂度是O(n)</p>
+</li>
+<li><p>单调栈和单调队列</p>
+<p>看上去是两重循环，但是元素只会进出一次，因此复杂度为O(n)</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>渗透测试常用工具（一）</title>
+    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<p>一些常用的比较基础的渗透测试工具。</p>
+<span id="more"></span>
+<h1 id="渗透测试常用工具（一）"><a href="#渗透测试常用工具（一）" class="headerlink" title="渗透测试常用工具（一）"></a>渗透测试常用工具（一）</h1><h2 id="python-sqlmap"><a href="#python-sqlmap" class="headerlink" title="python-sqlmap"></a>python-sqlmap</h2><h3 id="python安装"><a href="#python安装" class="headerlink" title="python安装"></a>python安装</h3><p>渗透工具要装Python2</p>
+<p>python和Java都是一门脚本语言，脚本语言一般都需要有那个语言对应的环境才能运行。如果我们需要在任意文件夹中直接调用那么我们就需要添加一个环境变量。</p>
+<p>环境变量：环境变量一般是指在操作系统中用来指定操作系统运行环境的一些参数，如果我定义了这个环境变量的路径，那么当在windows系统的变量中寻找不到的时候，就会去我添加的路径去寻找对应的东西。</p>
+<p>当在cmd输入一个命令时，计算机会去环境变量里搜有没有这个文件</p>
+<p>在任意路径下都能调用：就要添加环境变量</p>
+<p><img src="https://s2.loli.net/2022/03/03/inPDZHza1pMqQU9.png" alt="image-20220303190013768"></p>
+<p>编辑，添加在后面，记得要先写分号</p>
+<h3 id="Sqlmap"><a href="#Sqlmap" class="headerlink" title="Sqlmap"></a>Sqlmap</h3><p>进入路径</p>
+<p><img src="https://s2.loli.net/2022/03/03/IND32ZrVaPjwCSq.png" alt="image-20220303190031102"></p>
+<p><code>python sqlmap.py</code> 打开</p>
+<p><img src="https://s2.loli.net/2022/03/03/5LgIajzQq2lSCm9.png" alt="image-20220303190047200"></p>
+<p>Sqlmap快速调用：建立快捷方式，找到cmd</p>
+<p><code>C:\Windows\System32\cmd.exe</code>位置</p>
+<p><img src="https://s2.loli.net/2022/03/03/UTdI7xSgpfQKw52.png" alt="image-20220303190103254"></p>
+<p>改成sqlmap的路径</p>
+<hr>
+<p>使用：</p>
+<p><code>-u</code> 指定注入点（url地址）</p>
+<p>如果确定存在sql注入，就把网址输在后面<code>-u xxxxxx</code> 就会对这个网址进行测试，会跑出漏洞</p>
+<p><code>--dbs</code> 查库</p>
+<p><code>-D xxx</code> 指定库</p>
+<p><code>--tables</code> 查看所有表</p>
+<p><code>-T xxx</code> 指定表</p>
+<p><code>--column</code> 查看字段</p>
+<p><code>-C xxx</code> 指定字段</p>
+<p><code>--dump</code> 查看数据（这个是风险命令）</p>
+<p><a href="https://www.cnblogs.com/hongfei/p/3872156.html">sqlmap manual</a></p>
+<p>常用：</p>
+<p><code>python sqlmap.py -u http://59.63.200.79:8003/?id=1 -D maoshe -T ADMIN --dump</code></p>
+<p><code>python sqlmap.py -u http://59.63.200.79:8003/?id=1 --level 3 --risk 2</code> <strong>万用命令(level越高，测试得越多)</strong></p>
+<p>常见指令：</p>
+<p> <code>--random-agent</code>选择随机user-agents头 </p>
+<p> <code>--delay=1</code>每次探测延时1秒（防止访问过快被ban）</p>
+<p> <code>--count</code> 查看数据量</p>
+<p> <code>--proxy</code> “<a href="http://127.0.0.1:1080&quot;`">http://127.0.0.1:1080&quot;`</a> 使用本地1080端口</p>
+<p> <code>--level</code> 1-5 测试等级（最低1，最高5） level等级越高检测越详细，例如 level大于2会检测cookie注入，大于3会检测头注入 —risk 2                       (—level 3 —risk 2)</p>
+<p> <code>--is-dba</code>       查询注入点的数据库权限，如果DBA是True可以尝试直接拿webshell</p>
+<p> <code>--os-shell</code> 尝试往网站中放入一个cmdshell(就是拥有cmd权限的shell),先选择写入shell的脚本语言<strong>（一定要DBA是True才能用）</strong></p>
+<p><img src="https://s2.loli.net/2022/03/03/dMvfn1KB8sOotSe.png" alt="image-20220303190123622"></p>
+<p>有的需要填写网站的web目录的绝对路径，有的可以直接选择好shell的脚本语言类型就可以直接拿shell</p>
+<p><img src="https://s2.loli.net/2022/03/03/Si3g9axer2yBj8z.png" alt="image-20220303190138745"></p>
+<p>这就是拿到了服务器</p>
+<p>—flush-session    刷新缓存，重新跑</p>
+<h2 id="Burp"><a href="#Burp" class="headerlink" title="Burp"></a>Burp</h2><h3 id="安装java"><a href="#安装java" class="headerlink" title="安装java"></a>安装java</h3><h3 id="安装burp"><a href="#安装burp" class="headerlink" title="安装burp"></a>安装burp</h3><p><a href="https://www.zkaq.org/t/2178.html">https://www.zkaq.org/t/2178.html</a></p>
+<h3 id="burp简介"><a href="#burp简介" class="headerlink" title="burp简介"></a>burp简介</h3><p><a href="file:///C:/Users/%E9%92%9F%E5%85%88%E7%94%9F/Desktop/web/%E5%8D%81%E4%B8%80%E6%9C%9F/%E8%AF%BE%E5%90%8E/5.2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E8%AE%B2%E8%A7%A3(%E5%B7%A5%E5%85%B7+%E8%AF%BE%E4%BB%B6">使用指南</a>/5.2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E8%AE%B2%E8%A7%A3/BurpSuite+%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97.pdf)</p>
+<p>Burp Suite 是用于攻击web 应用程序的集成平台，包含了许多工具。Burp Suite为这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应的HTTP 消息、持久性、认证、代理、日志、警报。</p>
+<p>Burp最主要的功能：<br>可以抓包、放包</p>
+<p>承担中间人作用： 你 -&gt; 邮差 -&gt;女朋友<br>Burp：浏览器 -&gt; Burp -&gt; 网站</p>
+<p>证书：正常情况下https Burp抓不到<br>要安装证书</p>
+<p>方法：浏览器中<code>127.0.0.1:8080</code> 下载证书</p>
+<p>然后打开chrome导入证书</p>
+<p><img src="https://s2.loli.net/2022/03/03/GbW1HfCiT4Ma9lw.png" alt="image-20220303190203146"></p>
+<p>Repeater跑包模块（爆破模块)：跑字典<br>银行卡密码是6位纯数字<br>000000-999999</p>
+<p>Proxy SwitchySharp 代理插件</p>
+<p><img src="https://s2.loli.net/2022/03/03/K5rSkxfieIdChJD.png" alt="image-20220303190223998"></p>
+<p>访问的数据包会给本地的8080端口</p>
+<p><img src="https://s2.loli.net/2022/03/03/e9QYNyAjVucpmfs.png" alt="image-20220303190248109"></p>
+<p>burp来监听</p>
+<p><img src="https://s2.loli.net/2022/03/03/gY32ca5foz1yhPX.png" alt="image-20220303190311615"></p>
+<p>ModHeader 设置请求头插件</p>
+<p>Charset_v0.5.2 设置编码格式插件</p>
+]]></content>
+      <categories>
+        <category>渗透测试</category>
+      </categories>
+      <tags>
+        <tag>Tools</tag>
+        <tag>渗透测试</tag>
+        <tag>SQL注入</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PHP正则表达式</title>
     <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
     <content><![CDATA[<p>正则表达式应用非常广泛，但在各种编程语言中有所不同，此处为PHP的正则表达式。</p>
@@ -1789,121 +1907,6 @@
         <tag>渗透测试</tag>
         <tag>PHP</tag>
         <tag>正则表达式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>渗透测试常用工具（一）</title>
-    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<p>一些常用的比较基础的渗透测试工具。</p>
-<span id="more"></span>
-<h1 id="渗透测试常用工具（一）"><a href="#渗透测试常用工具（一）" class="headerlink" title="渗透测试常用工具（一）"></a>渗透测试常用工具（一）</h1><h2 id="python-sqlmap"><a href="#python-sqlmap" class="headerlink" title="python-sqlmap"></a>python-sqlmap</h2><h3 id="python安装"><a href="#python安装" class="headerlink" title="python安装"></a>python安装</h3><p>渗透工具要装Python2</p>
-<p>python和Java都是一门脚本语言，脚本语言一般都需要有那个语言对应的环境才能运行。如果我们需要在任意文件夹中直接调用那么我们就需要添加一个环境变量。</p>
-<p>环境变量：环境变量一般是指在操作系统中用来指定操作系统运行环境的一些参数，如果我定义了这个环境变量的路径，那么当在windows系统的变量中寻找不到的时候，就会去我添加的路径去寻找对应的东西。</p>
-<p>当在cmd输入一个命令时，计算机会去环境变量里搜有没有这个文件</p>
-<p>在任意路径下都能调用：就要添加环境变量</p>
-<p><img src="https://s2.loli.net/2022/03/03/inPDZHza1pMqQU9.png" alt="image-20220303190013768"></p>
-<p>编辑，添加在后面，记得要先写分号</p>
-<h3 id="Sqlmap"><a href="#Sqlmap" class="headerlink" title="Sqlmap"></a>Sqlmap</h3><p>进入路径</p>
-<p><img src="https://s2.loli.net/2022/03/03/IND32ZrVaPjwCSq.png" alt="image-20220303190031102"></p>
-<p><code>python sqlmap.py</code> 打开</p>
-<p><img src="https://s2.loli.net/2022/03/03/5LgIajzQq2lSCm9.png" alt="image-20220303190047200"></p>
-<p>Sqlmap快速调用：建立快捷方式，找到cmd</p>
-<p><code>C:\Windows\System32\cmd.exe</code>位置</p>
-<p><img src="https://s2.loli.net/2022/03/03/UTdI7xSgpfQKw52.png" alt="image-20220303190103254"></p>
-<p>改成sqlmap的路径</p>
-<hr>
-<p>使用：</p>
-<p><code>-u</code> 指定注入点（url地址）</p>
-<p>如果确定存在sql注入，就把网址输在后面<code>-u xxxxxx</code> 就会对这个网址进行测试，会跑出漏洞</p>
-<p><code>--dbs</code> 查库</p>
-<p><code>-D xxx</code> 指定库</p>
-<p><code>--tables</code> 查看所有表</p>
-<p><code>-T xxx</code> 指定表</p>
-<p><code>--column</code> 查看字段</p>
-<p><code>-C xxx</code> 指定字段</p>
-<p><code>--dump</code> 查看数据（这个是风险命令）</p>
-<p><a href="https://www.cnblogs.com/hongfei/p/3872156.html">sqlmap manual</a></p>
-<p>常用：</p>
-<p><code>python sqlmap.py -u http://59.63.200.79:8003/?id=1 -D maoshe -T ADMIN --dump</code></p>
-<p><code>python sqlmap.py -u http://59.63.200.79:8003/?id=1 --level 3 --risk 2</code> <strong>万用命令(level越高，测试得越多)</strong></p>
-<p>常见指令：</p>
-<p> <code>--random-agent</code>选择随机user-agents头 </p>
-<p> <code>--delay=1</code>每次探测延时1秒（防止访问过快被ban）</p>
-<p> <code>--count</code> 查看数据量</p>
-<p> <code>--proxy</code> “<a href="http://127.0.0.1:1080&quot;`">http://127.0.0.1:1080&quot;`</a> 使用本地1080端口</p>
-<p> <code>--level</code> 1-5 测试等级（最低1，最高5） level等级越高检测越详细，例如 level大于2会检测cookie注入，大于3会检测头注入 —risk 2                       (—level 3 —risk 2)</p>
-<p> <code>--is-dba</code>       查询注入点的数据库权限，如果DBA是True可以尝试直接拿webshell</p>
-<p> <code>--os-shell</code> 尝试往网站中放入一个cmdshell(就是拥有cmd权限的shell),先选择写入shell的脚本语言<strong>（一定要DBA是True才能用）</strong></p>
-<p><img src="https://s2.loli.net/2022/03/03/dMvfn1KB8sOotSe.png" alt="image-20220303190123622"></p>
-<p>有的需要填写网站的web目录的绝对路径，有的可以直接选择好shell的脚本语言类型就可以直接拿shell</p>
-<p><img src="https://s2.loli.net/2022/03/03/Si3g9axer2yBj8z.png" alt="image-20220303190138745"></p>
-<p>这就是拿到了服务器</p>
-<p>—flush-session    刷新缓存，重新跑</p>
-<h2 id="Burp"><a href="#Burp" class="headerlink" title="Burp"></a>Burp</h2><h3 id="安装java"><a href="#安装java" class="headerlink" title="安装java"></a>安装java</h3><h3 id="安装burp"><a href="#安装burp" class="headerlink" title="安装burp"></a>安装burp</h3><p><a href="https://www.zkaq.org/t/2178.html">https://www.zkaq.org/t/2178.html</a></p>
-<h3 id="burp简介"><a href="#burp简介" class="headerlink" title="burp简介"></a>burp简介</h3><p><a href="file:///C:/Users/%E9%92%9F%E5%85%88%E7%94%9F/Desktop/web/%E5%8D%81%E4%B8%80%E6%9C%9F/%E8%AF%BE%E5%90%8E/5.2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E8%AE%B2%E8%A7%A3(%E5%B7%A5%E5%85%B7+%E8%AF%BE%E4%BB%B6">使用指南</a>/5.2%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7%E8%AE%B2%E8%A7%A3/BurpSuite+%E5%AE%9E%E6%88%98%E6%8C%87%E5%8D%97.pdf)</p>
-<p>Burp Suite 是用于攻击web 应用程序的集成平台，包含了许多工具。Burp Suite为这些工具设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应的HTTP 消息、持久性、认证、代理、日志、警报。</p>
-<p>Burp最主要的功能：<br>可以抓包、放包</p>
-<p>承担中间人作用： 你 -&gt; 邮差 -&gt;女朋友<br>Burp：浏览器 -&gt; Burp -&gt; 网站</p>
-<p>证书：正常情况下https Burp抓不到<br>要安装证书</p>
-<p>方法：浏览器中<code>127.0.0.1:8080</code> 下载证书</p>
-<p>然后打开chrome导入证书</p>
-<p><img src="https://s2.loli.net/2022/03/03/GbW1HfCiT4Ma9lw.png" alt="image-20220303190203146"></p>
-<p>Repeater跑包模块（爆破模块)：跑字典<br>银行卡密码是6位纯数字<br>000000-999999</p>
-<p>Proxy SwitchySharp 代理插件</p>
-<p><img src="https://s2.loli.net/2022/03/03/K5rSkxfieIdChJD.png" alt="image-20220303190223998"></p>
-<p>访问的数据包会给本地的8080端口</p>
-<p><img src="https://s2.loli.net/2022/03/03/e9QYNyAjVucpmfs.png" alt="image-20220303190248109"></p>
-<p>burp来监听</p>
-<p><img src="https://s2.loli.net/2022/03/03/gY32ca5foz1yhPX.png" alt="image-20220303190311615"></p>
-<p>ModHeader 设置请求头插件</p>
-<p>Charset_v0.5.2 设置编码格式插件</p>
-]]></content>
-      <categories>
-        <category>渗透测试</category>
-      </categories>
-      <tags>
-        <tag>Tools</tag>
-        <tag>渗透测试</tag>
-        <tag>SQL注入</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>盲注</title>
-    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E7%9B%B2%E6%B3%A8/</url>
-    <content><![CDATA[<p>盲注对应的是SQL注入中的显错注入/报错注入，有布尔型盲注和时间型盲注。</p>
-<span id="more"></span>
-<h1 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h1><p>盲注对应的是显错注入/报错注入。</p>
-<p>盲注：页面毫无回显，但是我们可以判断出我们想要的数据。</p>
-<p>如果没有回显点，并且报错注入不能使用就要用盲注。</p>
-<p>分为两种：布尔型盲注/时间型盲注</p>
-<p>布尔型盲注：返回0/1（有结果或没有结果）</p>
-<p>时间型盲注：无论<code>1=1</code> <code>1=2</code> 都返回正常，藏得很深，依靠时间差<code>sleep()</code> </p>
-<h2 id="盲注所需函数"><a href="#盲注所需函数" class="headerlink" title="盲注所需函数"></a>盲注所需函数</h2><h3 id="布尔型盲注"><a href="#布尔型盲注" class="headerlink" title="布尔型盲注"></a>布尔型盲注</h3><p><code>length()</code> 返回字符串长度内容</p>
-<p><code>substr()</code> 截取字符串,即把字符串分开 （语法:<code>SUBSTR(str,pos,len)</code>）pos:从哪里开始截,len:截取的长度</p>
-<p> <code>select*from duomi_admin where id=1 and substr(database(),1,1)=&#39;a&#39;</code> </p>
-<p>首先要保证<code>and</code> 的前半部分要有数据返回</p>
-<p>其次，只有后面这个字符正确才会返回，然后一个一个字符查询……</p>
-<p>太慢了怎么办？</p>
-<ul>
-<li>数字是可以进行比较的（可以用二分法来进行判断）</li>
-<li>字母无法比较=&gt;转化成ascii码<code>ascii(substr(database(),3,1))&gt;110</code> 然后用二分法判断</li>
-<li>用burp直接跑数据（如果要更快则跑双包等）</li>
-</ul>
-<p>查表：</p>
-<p><code>length((select table_name from information_schema.tables where table_schema=database() limit 0,1))&gt;1</code></p>
-<p>sql也可以跑盲注</p>
-<h3 id="时间型盲注"><a href="#时间型盲注" class="headerlink" title="时间型盲注"></a>时间型盲注</h3><p><code>A条件 and b条件(sleep())</code> 要保证A条件成立，如果不成立则不会执行b条件</p>
-<p>select*from news where id=1 or sleep(10);<br>1   不延时<br>2    10秒<br>3    10秒<br>4    10秒 =&gt; 30秒<br>延时说明：他有注入 =&gt;（库名、表名、字段名）?</p>
-<p>if(expr1,expr2,expr3) 判断语句 如果第一个语句正确就执行第二个语句如果错误执行第三个语句</p>
-<p><code>select if(length(database())&gt;3,sleep(3),1)</code> </p>
-<p>也可用sqlmap来跑</p>
-]]></content>
-      <categories>
-        <category>渗透测试</category>
-      </categories>
-      <tags>
-        <tag>渗透测试</tag>
-        <tag>SQL注入</tag>
       </tags>
   </entry>
   <entry>
@@ -2033,80 +2036,42 @@
       </tags>
   </entry>
   <entry>
-    <title>简单网站查询成绩</title>
-    <url>/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/%E7%AE%80%E5%8D%95%E7%BD%91%E7%AB%99%E6%9F%A5%E8%AF%A2%E6%88%90%E7%BB%A9/</url>
-    <content><![CDATA[<p>有注册和登录功能的简单成绩查询网站。</p>
+    <title>盲注</title>
+    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E7%9B%B2%E6%B3%A8/</url>
+    <content><![CDATA[<p>盲注对应的是SQL注入中的显错注入/报错注入，有布尔型盲注和时间型盲注。</p>
 <span id="more"></span>
-<h3 id="写一个简单网站查询成绩"><a href="#写一个简单网站查询成绩" class="headerlink" title="写一个简单网站查询成绩"></a>写一个简单网站查询成绩</h3><p><code>&lt;meta setchar=&#39;UTF-8&#39; /&gt;</code> 可以强制用utf-8编码</p>
-<p>编写一个网站可以查询及格的人，要有后台登录功能</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">后台管理</span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&#x27;houtai.php&#x27;</span> <span class="attr">method</span>=<span class="string">&#x27;POST&#x27;</span>&gt;</span></span><br><span class="line">帐号	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;txt&#x27;</span> <span class="attr">name</span>=<span class="string">&#x27;username&#x27;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">密码	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;password&#x27;</span> <span class="attr">name</span>=<span class="string">&#x27;password&#x27;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;submit&#x27;</span> <span class="attr">value</span>=<span class="string">&#x27;提交&#x27;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$username</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;username&#x27;</span>];</span><br><span class="line"><span class="variable">$password</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>];</span><br><span class="line"><span class="variable">$conn</span>=<span class="title function_ invoke__">mysqli_connect</span>(<span class="string">&#x27;localhost&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;t&#x27;</span>);</span><br><span class="line"><span class="variable">$sql</span>=<span class="string">&quot;select * from admin where username= &#x27;admin&#x27; and password=&#x27;admin&#x27;&quot;</span>;</span><br><span class="line"><span class="variable">$result</span> =<span class="title function_ invoke__">mysqli_query</span>(<span class="variable">$conn</span>,<span class="variable">$sql</span>);</span><br><span class="line"><span class="variable">$a</span> = <span class="title function_ invoke__">mysqli_fetch_array</span>(<span class="variable">$result</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$a</span>[<span class="string">&#x27;username&#x27;</span>] == <span class="variable">$username</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&#x27;登陆成功!&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&#x27;登陆失败！&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">登记分数</span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&#x27;fenshu.php&#x27;</span> <span class="attr">method</span>=<span class="string">&#x27;POST&#x27;</span>&gt;</span></span><br><span class="line">姓名<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;txt&#x27;</span> <span class="attr">name</span>=<span class="string">&#x27;name&#x27;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">分数<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;txt&#x27;</span> <span class="attr">name</span>=<span class="string">&#x27;fenshu&#x27;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;submit&#x27;</span> <span class="attr">value</span>=<span class="string">&quot;提交&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$name</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;name&#x27;</span>];</span><br><span class="line"><span class="variable">$fenshu</span>=(<span class="keyword">int</span>)<span class="variable">$_POST</span>[<span class="string">&#x27;fenshu&#x27;</span>];</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$fenshu</span>&lt;<span class="number">60</span>)&#123;</span><br><span class="line">	<span class="variable">$i</span>=<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&#x27;NO&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="variable">$i</span>=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&#x27;YES&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$conn</span>=<span class="title function_ invoke__">mysqli_connect</span>(<span class="string">&#x27;localhost&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;t&#x27;</span>);</span><br><span class="line"><span class="variable">$sql</span>=<span class="string">&quot;insert into fenshu value(&#x27;<span class="subst">$name</span>&#x27;,<span class="subst">$fenshu</span>,<span class="subst">$i</span>)&quot;</span>;</span><br><span class="line"><span class="variable">$result</span> =<span class="title function_ invoke__">mysqli_query</span>(<span class="variable">$conn</span>,<span class="variable">$sql</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$conn</span>=<span class="title function_ invoke__">mysqli_connect</span>(<span class="string">&#x27;localhost&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;t&#x27;</span>);</span><br><span class="line"><span class="variable">$sql</span>=<span class="string">&quot;select*from fenshu where jg=1&quot;</span>;</span><br><span class="line"><span class="variable">$result</span> =<span class="title function_ invoke__">mysqli_query</span>(<span class="variable">$conn</span>,<span class="variable">$sql</span>);</span><br><span class="line"><span class="keyword">while</span>(<span class="variable">$a</span> =<span class="title function_ invoke__">mysqli_fetch_array</span>(<span class="variable">$result</span>))&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="variable">$a</span>[<span class="string">&#x27;name&#x27;</span>].<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">	<span class="keyword">echo</span> <span class="variable">$a</span>[<span class="string">&#x27;fs&#x27;</span>].<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">	<span class="keyword">if</span>(<span class="variable">$a</span>[<span class="string">&#x27;jg&#x27;</span>] ==<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&#x27;Yes &lt;br/&gt;&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&#x27;No &lt;br/&gt;&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>编程基础</category>
-      </categories>
-      <tags>
-        <tag>编程基础</tag>
-        <tag>渗透测试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>表单验证</title>
-    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E8%A1%A8%E5%8D%95%E9%AA%8C%E8%AF%81/</url>
-    <content><![CDATA[<p>表单在网页中主要负责数据采集功能（类似于问卷调查），出现的各种可以选择/输入的框就是表单。</p>
-<span id="more"></span>
-<h1 id="表单验证"><a href="#表单验证" class="headerlink" title="表单验证"></a>表单验证</h1><h2 id="什么是表单"><a href="#什么是表单" class="headerlink" title="什么是表单"></a>什么是表单</h2><p>表单在网页中主要负责数据采集功能（类似于问卷调查），出现的各种可以选择/输入的框就是表单。</p>
-<p>一个表单有三个基本组成部分：</p>
-<p><strong>表单标签 </strong>：这里面包含了处理表单数据所用动态脚本的URL以及数据提交到服务器的方法。（应该把数据给谁，怎么给）</p>
-<p><strong>表单域</strong>：包含了文本框、密码框、隐藏域、多行文本框、复选框、单选框、下拉选择框和文件上传框等。</p>
-<p><strong>表单按钮</strong>：包括提交按钮、复位按钮和一般按钮；用于将数据传送到服务器上的动态脚本或者取消输入，还可以用表单按钮来控制其他定义了处理脚本的处理工作。</p>
-<p>GET/POST是HTTP协议常见的提交方式</p>
-<p>GET：在URL栏显示出来，只能少量提交（在url栏看到<code>?</code>说明是GET传参）</p>
-<p>POST：不会显示，可以传递文件并提交数据</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;</span> <span class="string">&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/1999/xhtml&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Content-Type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;text/html; charset=utf-8&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>无标题文档<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;1.html&quot;</span> <span class="attr">method</span>=<span class="string">&quot;get&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> /&gt;</span>普通文本框<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> /&gt;</span>密码文本框<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> /&gt;</span>数字文本框<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> /&gt;</span>上传框<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;dx&quot;</span><span class="attr">value</span>=<span class="string">&quot;单选&quot;</span>/&gt;</span>单选框<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">value</span>=<span class="string">&quot;多选&quot;</span>/&gt;</span>多选<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> /&gt;</span>按钮<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> /&gt;</span>提交<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;image&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=640471028,4203642916&amp;fm=26&amp;gp=0.jpg&quot;</span>/&gt;</span>图片提交按钮<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span> /&gt;</span>重置<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;月&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">1</span>&gt;</span>1月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">2</span>&gt;</span>2月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">3</span>&gt;</span>3月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">4</span>&gt;</span>4月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">5</span>&gt;</span>5月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">6</span>&gt;</span>6月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">7</span>&gt;</span>7月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">8</span>&gt;</span>8月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">9</span>&gt;</span>9月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">10</span>&gt;</span>10月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">11</span>&gt;</span>11月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">12</span>&gt;</span>12月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">select</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">textarea</span>&gt;</span>留言板<span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>所有类型的表单</p>
-<p>单引号不可以解析变量，双引号可以</p>
+<h1 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h1><p>盲注对应的是显错注入/报错注入。</p>
+<p>盲注：页面毫无回显，但是我们可以判断出我们想要的数据。</p>
+<p>如果没有回显点，并且报错注入不能使用就要用盲注。</p>
+<p>分为两种：布尔型盲注/时间型盲注</p>
+<p>布尔型盲注：返回0/1（有结果或没有结果）</p>
+<p>时间型盲注：无论<code>1=1</code> <code>1=2</code> 都返回正常，藏得很深，依靠时间差<code>sleep()</code> </p>
+<h2 id="盲注所需函数"><a href="#盲注所需函数" class="headerlink" title="盲注所需函数"></a>盲注所需函数</h2><h3 id="布尔型盲注"><a href="#布尔型盲注" class="headerlink" title="布尔型盲注"></a>布尔型盲注</h3><p><code>length()</code> 返回字符串长度内容</p>
+<p><code>substr()</code> 截取字符串,即把字符串分开 （语法:<code>SUBSTR(str,pos,len)</code>）pos:从哪里开始截,len:截取的长度</p>
+<p> <code>select*from duomi_admin where id=1 and substr(database(),1,1)=&#39;a&#39;</code> </p>
+<p>首先要保证<code>and</code> 的前半部分要有数据返回</p>
+<p>其次，只有后面这个字符正确才会返回，然后一个一个字符查询……</p>
+<p>太慢了怎么办？</p>
+<ul>
+<li>数字是可以进行比较的（可以用二分法来进行判断）</li>
+<li>字母无法比较=&gt;转化成ascii码<code>ascii(substr(database(),3,1))&gt;110</code> 然后用二分法判断</li>
+<li>用burp直接跑数据（如果要更快则跑双包等）</li>
+</ul>
+<p>查表：</p>
+<p><code>length((select table_name from information_schema.tables where table_schema=database() limit 0,1))&gt;1</code></p>
+<p>sql也可以跑盲注</p>
+<h3 id="时间型盲注"><a href="#时间型盲注" class="headerlink" title="时间型盲注"></a>时间型盲注</h3><p><code>A条件 and b条件(sleep())</code> 要保证A条件成立，如果不成立则不会执行b条件</p>
+<p>select*from news where id=1 or sleep(10);<br>1   不延时<br>2    10秒<br>3    10秒<br>4    10秒 =&gt; 30秒<br>延时说明：他有注入 =&gt;（库名、表名、字段名）?</p>
+<p>if(expr1,expr2,expr3) 判断语句 如果第一个语句正确就执行第二个语句如果错误执行第三个语句</p>
+<p><code>select if(length(database())&gt;3,sleep(3),1)</code> </p>
+<p>也可用sqlmap来跑</p>
 ]]></content>
       <categories>
         <category>渗透测试</category>
       </categories>
       <tags>
         <tag>渗透测试</tag>
-        <tag>前端</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>解决Github无法访问的问题</title>
-    <url>/Debug/%E8%A7%A3%E5%86%B3Github%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>通过手动配置DNS来加速国内Github的访问。</p>
-<span id="more"></span>
-<h3 id="解决Github无法访问问题"><a href="#解决Github无法访问问题" class="headerlink" title="解决Github无法访问问题"></a>解决Github无法访问问题</h3><p>国内Github访问速度较慢，原因可能是被墙了，DNS解析不出来，这时我们可以手动添加DNS解析：</p>
-<ul>
-<li><p>在<code>C:\Windows\System32\drivers\etc</code>找到hosts文件</p>
-</li>
-<li><p>将hosts文件拖到桌面</p>
-</li>
-<li><p>在<a href="https://www.ipaddress.com/">IP Adress</a>查找对应域名的ip地址（如果查找到多个，可以多个都写，更加稳定）</p>
-<figure class="highlight accesslog"><table><tr><td class="code"><pre><span class="line"><span class="number">140.82.114.4</span> github.com</span><br><span class="line"><span class="number">140.82.113.3</span> gist.GitHub.com</span><br><span class="line"><span class="number">185.199.108.153</span> assets-cdn.github.com</span><br><span class="line"><span class="number">185.199.109.153</span> assets-cdn.github.com</span><br><span class="line"><span class="number">185.199.110.153</span> assets-cdn.github.com</span><br><span class="line"><span class="number">185.199.111.153</span> assets-cdn.github.com</span><br><span class="line"><span class="number">185.199.108.153</span> raw.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> raw.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> raw.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> raw.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> gist.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> gist.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> gist.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> gist.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> cloud.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> cloud.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> cloud.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> cloud.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> camo.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> camo.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> camo.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> camo.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> avatars0.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> avatars0.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> avatars0.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> avatars0.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> avatars1.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> avatars1.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> avatars1.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> avatars1.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> avatars2.githubusercontent.com </span><br><span class="line"><span class="number">185.199.109.153</span> avatars2.githubusercontent.com </span><br><span class="line"><span class="number">185.199.110.153</span> avatars2.githubusercontent.com </span><br><span class="line"><span class="number">185.199.111.153</span> avatars2.githubusercontent.com </span><br><span class="line"><span class="number">185.199.108.153</span> avatars3.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> avatars3.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> avatars3.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> avatars3.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> avatars4.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> avatars4.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> avatars4.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> avatars4.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> avatars5.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> avatars5.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> avatars5.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> avatars5.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> avatars6.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> avatars6.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> avatars6.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> avatars6.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> avatars7.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> avatars7.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> avatars7.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> avatars7.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> avatars8.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> avatars8.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> avatars8.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> avatars8.githubusercontent.com</span><br><span class="line"><span class="number">199.232.69.194</span> github.global.ssl.fastly.net</span><br><span class="line"><span class="number">140.82.114.6</span> api.github.com</span><br><span class="line"><span class="number">140.82.113.4</span> www.github.com</span><br></pre></td></tr></table></figure>
-<p><strong>注意：</strong>这些ip地址可能经常会变，如果有一天进不去了可能需要重新去查ip地址然后更新！！</p>
-</li>
-<li><p>将这些DNS加到hosts文件最后面并保存，然后拖到刚刚的<code>etc</code>文件夹中</p>
-</li>
-<li><p><code>win+R</code>打开<code>cmd</code>，输入<code>ipconfig/flushdns</code>刷新DNS缓存，再重新进入Github可以很快地访问了</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>Debug</category>
-      </categories>
-      <tags>
-        <tag>Tools</tag>
-        <tag>Git</tag>
-        <tag>Debug</tag>
+        <tag>SQL注入</tag>
       </tags>
   </entry>
   <entry>
@@ -2197,6 +2162,83 @@ IV =\sum_{i=1}^k(dispos_i - disneg_i)*log(dispos_i/disneg_i)</script></li>
       <tags>
         <tag>隐私计算</tag>
         <tag>联邦学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>简单网站查询成绩</title>
+    <url>/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/%E7%AE%80%E5%8D%95%E7%BD%91%E7%AB%99%E6%9F%A5%E8%AF%A2%E6%88%90%E7%BB%A9/</url>
+    <content><![CDATA[<p>有注册和登录功能的简单成绩查询网站。</p>
+<span id="more"></span>
+<h3 id="写一个简单网站查询成绩"><a href="#写一个简单网站查询成绩" class="headerlink" title="写一个简单网站查询成绩"></a>写一个简单网站查询成绩</h3><p><code>&lt;meta setchar=&#39;UTF-8&#39; /&gt;</code> 可以强制用utf-8编码</p>
+<p>编写一个网站可以查询及格的人，要有后台登录功能</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">后台管理</span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&#x27;houtai.php&#x27;</span> <span class="attr">method</span>=<span class="string">&#x27;POST&#x27;</span>&gt;</span></span><br><span class="line">帐号	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;txt&#x27;</span> <span class="attr">name</span>=<span class="string">&#x27;username&#x27;</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">密码	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;password&#x27;</span> <span class="attr">name</span>=<span class="string">&#x27;password&#x27;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;submit&#x27;</span> <span class="attr">value</span>=<span class="string">&#x27;提交&#x27;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$username</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;username&#x27;</span>];</span><br><span class="line"><span class="variable">$password</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>];</span><br><span class="line"><span class="variable">$conn</span>=<span class="title function_ invoke__">mysqli_connect</span>(<span class="string">&#x27;localhost&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;t&#x27;</span>);</span><br><span class="line"><span class="variable">$sql</span>=<span class="string">&quot;select * from admin where username= &#x27;admin&#x27; and password=&#x27;admin&#x27;&quot;</span>;</span><br><span class="line"><span class="variable">$result</span> =<span class="title function_ invoke__">mysqli_query</span>(<span class="variable">$conn</span>,<span class="variable">$sql</span>);</span><br><span class="line"><span class="variable">$a</span> = <span class="title function_ invoke__">mysqli_fetch_array</span>(<span class="variable">$result</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$a</span>[<span class="string">&#x27;username&#x27;</span>] == <span class="variable">$username</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&#x27;登陆成功!&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&#x27;登陆失败！&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">登记分数</span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&#x27;fenshu.php&#x27;</span> <span class="attr">method</span>=<span class="string">&#x27;POST&#x27;</span>&gt;</span></span><br><span class="line">姓名<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;txt&#x27;</span> <span class="attr">name</span>=<span class="string">&#x27;name&#x27;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">分数<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;txt&#x27;</span> <span class="attr">name</span>=<span class="string">&#x27;fenshu&#x27;</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&#x27;submit&#x27;</span> <span class="attr">value</span>=<span class="string">&quot;提交&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$name</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;name&#x27;</span>];</span><br><span class="line"><span class="variable">$fenshu</span>=(<span class="keyword">int</span>)<span class="variable">$_POST</span>[<span class="string">&#x27;fenshu&#x27;</span>];</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$fenshu</span>&lt;<span class="number">60</span>)&#123;</span><br><span class="line">	<span class="variable">$i</span>=<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&#x27;NO&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="variable">$i</span>=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&#x27;YES&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$conn</span>=<span class="title function_ invoke__">mysqli_connect</span>(<span class="string">&#x27;localhost&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;t&#x27;</span>);</span><br><span class="line"><span class="variable">$sql</span>=<span class="string">&quot;insert into fenshu value(&#x27;<span class="subst">$name</span>&#x27;,<span class="subst">$fenshu</span>,<span class="subst">$i</span>)&quot;</span>;</span><br><span class="line"><span class="variable">$result</span> =<span class="title function_ invoke__">mysqli_query</span>(<span class="variable">$conn</span>,<span class="variable">$sql</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$conn</span>=<span class="title function_ invoke__">mysqli_connect</span>(<span class="string">&#x27;localhost&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;root&#x27;</span>,<span class="string">&#x27;t&#x27;</span>);</span><br><span class="line"><span class="variable">$sql</span>=<span class="string">&quot;select*from fenshu where jg=1&quot;</span>;</span><br><span class="line"><span class="variable">$result</span> =<span class="title function_ invoke__">mysqli_query</span>(<span class="variable">$conn</span>,<span class="variable">$sql</span>);</span><br><span class="line"><span class="keyword">while</span>(<span class="variable">$a</span> =<span class="title function_ invoke__">mysqli_fetch_array</span>(<span class="variable">$result</span>))&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="variable">$a</span>[<span class="string">&#x27;name&#x27;</span>].<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">	<span class="keyword">echo</span> <span class="variable">$a</span>[<span class="string">&#x27;fs&#x27;</span>].<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">	<span class="keyword">if</span>(<span class="variable">$a</span>[<span class="string">&#x27;jg&#x27;</span>] ==<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&#x27;Yes &lt;br/&gt;&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&#x27;No &lt;br/&gt;&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>编程基础</category>
+      </categories>
+      <tags>
+        <tag>编程基础</tag>
+        <tag>渗透测试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决Github无法访问的问题</title>
+    <url>/Debug/%E8%A7%A3%E5%86%B3Github%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>通过手动配置DNS来加速国内Github的访问。</p>
+<span id="more"></span>
+<h3 id="解决Github无法访问问题"><a href="#解决Github无法访问问题" class="headerlink" title="解决Github无法访问问题"></a>解决Github无法访问问题</h3><p>国内Github访问速度较慢，原因可能是被墙了，DNS解析不出来，这时我们可以手动添加DNS解析：</p>
+<ul>
+<li><p>在<code>C:\Windows\System32\drivers\etc</code>找到hosts文件</p>
+</li>
+<li><p>将hosts文件拖到桌面</p>
+</li>
+<li><p>在<a href="https://www.ipaddress.com/">IP Adress</a>查找对应域名的ip地址（如果查找到多个，可以多个都写，更加稳定）</p>
+<figure class="highlight accesslog"><table><tr><td class="code"><pre><span class="line"><span class="number">140.82.114.4</span> github.com</span><br><span class="line"><span class="number">140.82.113.3</span> gist.GitHub.com</span><br><span class="line"><span class="number">185.199.108.153</span> assets-cdn.github.com</span><br><span class="line"><span class="number">185.199.109.153</span> assets-cdn.github.com</span><br><span class="line"><span class="number">185.199.110.153</span> assets-cdn.github.com</span><br><span class="line"><span class="number">185.199.111.153</span> assets-cdn.github.com</span><br><span class="line"><span class="number">185.199.108.153</span> raw.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> raw.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> raw.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> raw.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> gist.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> gist.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> gist.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> gist.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> cloud.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> cloud.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> cloud.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> cloud.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> camo.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> camo.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> camo.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> camo.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> avatars0.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> avatars0.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> avatars0.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> avatars0.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> avatars1.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> avatars1.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> avatars1.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> avatars1.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> avatars2.githubusercontent.com </span><br><span class="line"><span class="number">185.199.109.153</span> avatars2.githubusercontent.com </span><br><span class="line"><span class="number">185.199.110.153</span> avatars2.githubusercontent.com </span><br><span class="line"><span class="number">185.199.111.153</span> avatars2.githubusercontent.com </span><br><span class="line"><span class="number">185.199.108.153</span> avatars3.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> avatars3.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> avatars3.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> avatars3.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> avatars4.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> avatars4.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> avatars4.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> avatars4.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> avatars5.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> avatars5.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> avatars5.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> avatars5.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> avatars6.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> avatars6.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> avatars6.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> avatars6.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> avatars7.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> avatars7.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> avatars7.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> avatars7.githubusercontent.com</span><br><span class="line"><span class="number">185.199.108.153</span> avatars8.githubusercontent.com</span><br><span class="line"><span class="number">185.199.109.153</span> avatars8.githubusercontent.com</span><br><span class="line"><span class="number">185.199.110.153</span> avatars8.githubusercontent.com</span><br><span class="line"><span class="number">185.199.111.153</span> avatars8.githubusercontent.com</span><br><span class="line"><span class="number">199.232.69.194</span> github.global.ssl.fastly.net</span><br><span class="line"><span class="number">140.82.114.6</span> api.github.com</span><br><span class="line"><span class="number">140.82.113.4</span> www.github.com</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>这些ip地址可能经常会变，如果有一天进不去了可能需要重新去查ip地址然后更新！！</p>
+</li>
+<li><p>将这些DNS加到hosts文件最后面并保存，然后拖到刚刚的<code>etc</code>文件夹中</p>
+</li>
+<li><p><code>win+R</code>打开<code>cmd</code>，输入<code>ipconfig/flushdns</code>刷新DNS缓存，再重新进入Github可以很快地访问了</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Debug</category>
+      </categories>
+      <tags>
+        <tag>Tools</tag>
+        <tag>Git</tag>
+        <tag>Debug</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>表单验证</title>
+    <url>/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E8%A1%A8%E5%8D%95%E9%AA%8C%E8%AF%81/</url>
+    <content><![CDATA[<p>表单在网页中主要负责数据采集功能（类似于问卷调查），出现的各种可以选择/输入的框就是表单。</p>
+<span id="more"></span>
+<h1 id="表单验证"><a href="#表单验证" class="headerlink" title="表单验证"></a>表单验证</h1><h2 id="什么是表单"><a href="#什么是表单" class="headerlink" title="什么是表单"></a>什么是表单</h2><p>表单在网页中主要负责数据采集功能（类似于问卷调查），出现的各种可以选择/输入的框就是表单。</p>
+<p>一个表单有三个基本组成部分：</p>
+<p><strong>表单标签 </strong>：这里面包含了处理表单数据所用动态脚本的URL以及数据提交到服务器的方法。（应该把数据给谁，怎么给）</p>
+<p><strong>表单域</strong>：包含了文本框、密码框、隐藏域、多行文本框、复选框、单选框、下拉选择框和文件上传框等。</p>
+<p><strong>表单按钮</strong>：包括提交按钮、复位按钮和一般按钮；用于将数据传送到服务器上的动态脚本或者取消输入，还可以用表单按钮来控制其他定义了处理脚本的处理工作。</p>
+<p>GET/POST是HTTP协议常见的提交方式</p>
+<p>GET：在URL栏显示出来，只能少量提交（在url栏看到<code>?</code>说明是GET传参）</p>
+<p>POST：不会显示，可以传递文件并提交数据</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span> <span class="keyword">PUBLIC</span> <span class="string">&quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;</span> <span class="string">&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/1999/xhtml&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Content-Type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;text/html; charset=utf-8&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>无标题文档<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;1.html&quot;</span> <span class="attr">method</span>=<span class="string">&quot;get&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> /&gt;</span>普通文本框<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> /&gt;</span>密码文本框<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> /&gt;</span>数字文本框<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> /&gt;</span>上传框<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;dx&quot;</span><span class="attr">value</span>=<span class="string">&quot;单选&quot;</span>/&gt;</span>单选框<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">value</span>=<span class="string">&quot;多选&quot;</span>/&gt;</span>多选<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> /&gt;</span>按钮<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> /&gt;</span>提交<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;image&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=640471028,4203642916&amp;fm=26&amp;gp=0.jpg&quot;</span>/&gt;</span>图片提交按钮<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span> /&gt;</span>重置<span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;月&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">1</span>&gt;</span>1月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">2</span>&gt;</span>2月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">3</span>&gt;</span>3月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">4</span>&gt;</span>4月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">5</span>&gt;</span>5月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">6</span>&gt;</span>6月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">7</span>&gt;</span>7月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">8</span>&gt;</span>8月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">9</span>&gt;</span>9月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">10</span>&gt;</span>10月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">11</span>&gt;</span>11月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">12</span>&gt;</span>12月<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">select</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">textarea</span>&gt;</span>留言板<span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>所有类型的表单</p>
+<p>单引号不可以解析变量，双引号可以</p>
+]]></content>
+      <categories>
+        <category>渗透测试</category>
+      </categories>
+      <tags>
+        <tag>渗透测试</tag>
+        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
