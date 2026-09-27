@@ -28,7 +28,7 @@ Please feel free to contact me at [kwzhong23@m.fudan.edu.cn](mailto:kwzhong23@m.
 # Publications
 
 [NDSS'27] **Protocol Confusion in LLM Coding Agents: Uncovering Model-Agent Inconsistency in Tool Invocation** [To be appeared]  
-**Kangwei Zhong**, Zhemin Yang, Ying Yang, Jiapeng Lin.  
+**Kangwei Zhong**, Zhemin Yang, Haoyu Wu, Jiapeng Lin.  
 *Proceedings of the 34th Network and Distributed System Security Symposium (NDSS), 2027.* 
 
 [NDSS'27] **Inviting the Wolf In: Uncovering the Hidden Risks of Cross-App File Import in Android** [To be appeared]  
