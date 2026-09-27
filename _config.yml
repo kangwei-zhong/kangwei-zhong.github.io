@@ -6,7 +6,7 @@
 # `jekyll serve`. If you change this file, please restart the server process.
 
 # Site Settings
-title                    : "Kangwei Zhong"
+title                    : "Kangwei Zhong (钟康维)"
 description              :
 repository               : "kangwei-zhong/kangwei-zhong.github.io"
 google_scholar_stats_use_cdn : false
