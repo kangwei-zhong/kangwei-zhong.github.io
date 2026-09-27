@@ -11,7 +11,9 @@
 </script>
 
 <!-- For all browsers -->
-<link rel="stylesheet" href="assets/css/main.css">
+<!-- Change the version whenever the stylesheet is updated so browsers do not
+     keep serving an older cached copy. -->
+<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v=20260928-1">
 
 <meta http-equiv="cleartype" content="on">
 <head>
