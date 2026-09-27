@@ -7,7 +7,7 @@
 
 # Site Settings
 title                    : "Kangwei Zhong"
-description              : "Kangwei Zhong is a Ph.D. student at Fudan University working on agent security and mobile security."
+description              :
 repository               : "kangwei-zhong/kangwei-zhong.github.io"
 google_scholar_stats_use_cdn : false
 
@@ -23,7 +23,7 @@ baidu_site_verification  :  # get baidu_site_verification from https://ziyuan.ba
 author:
   name             : "Kangwei Zhong"
   avatar           : "images/kangwei.jpg"
-  bio              : "Ph.D. Student at Fudan University"
+  bio              : "College of Computer Science and Artificial Intelligence"
   location         : "Shanghai, China"
   employer         : "Fudan University"
   pubmed           : 
