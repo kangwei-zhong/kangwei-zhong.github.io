@@ -22,8 +22,8 @@ Please feel free to contact me at [kwzhong23@m.fudan.edu.cn](mailto:kwzhong23@m.
 
 - **[Sep. 2026]** 🎉 Our paper on tool invocation security in LLM coding agents has been accepted by **NDSS 2027**!
 - **[July 2026]** 🎉 Our paper on cross-app file import security in Android has been accepted by **NDSS 2027**! Huge respect to Yinglu!
-- **[Apr. 2026]** Our team won Runner-up in the Agent Social Platform Track at the inaugural Tencent Cloud “Zero Boundary” Hackathon!
-- **[Nov. 2025]** Yinglu Zhang and I received the Special Contribution Award from the Huawei Security Reward Program!
+- **[Apr. 2026]** 🥈 Our team won Runner-up in the Agent Social Platform Track at the inaugural Tencent Cloud “Zero Boundary” Hackathon!
+- **[Nov. 2025]** 🏆 Yinglu Zhang and I received the Special Contribution Award from the Huawei Security Reward Program!
 - **[Aug. 2025]** 🎉 Our paper on insecure resource management in app-in-app cloud services has been accepted by **NDSS 2026**! Huge respect to Dr. Yizhe!
 - **[Aug. 2024]** 🎉 Our paper on credential leakage in mini-apps has been accepted by **NDSS 2025**! Huge respect to Dr. Yizhe!
 
@@ -47,7 +47,7 @@ Yizhe Shi, Zhemin Yang, **Kangwei Zhong**, Guangliang Yang, Yifan Yang, Xiaohan 
 
 # Honors and Awards
 
-- **[Apr. 2026]** Runner-up, Agent Social Platform Track, the inaugural Tencent Cloud “Zero Boundary” Hackathon. Team members: **Kangwei Zhong**, Yinglu Zhang, Jiapeng Lin, and Dingyi Liu.
-- **[Nov. 2025]** Special Contribution Award, Huawei Security Reward Program, with Yinglu Zhang.
+- **[Apr. 2026]** 🥈 Runner-up, Agent Social Platform Track, the inaugural Tencent Cloud “Zero Boundary” Hackathon. Team members: **Kangwei Zhong**, Yinglu Zhang, Jiapeng Lin, and Dingyi Liu.
+- **[Nov. 2025]** 🏆 Special Contribution Award, Huawei Security Reward Program, with Yinglu Zhang.
 
 <!-- Sections such as Education, Services, and Internships can be enabled once the corresponding information is available. -->
