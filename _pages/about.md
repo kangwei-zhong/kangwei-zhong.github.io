@@ -47,7 +47,7 @@ Yizhe Shi, Zhemin Yang, **Kangwei Zhong**, Guangliang Yang, Yifan Yang, Xiaohan 
 
 # Honors and Awards
 
-- **[Apr. 2026]** 🥈 Runner-up, Agent Social Platform Track, the inaugural Tencent Cloud “Zero Boundary” Hackathon. Team members: **Kangwei Zhong**, Yinglu Zhang, Jiapeng Lin, and Dingyi Liu.
+- **[Apr. 2026]** 🥈 Runner-up, Agent Social Platform Track, the inaugural Tencent Cloud “Zero Boundary” Hackathon, with Yinglu Zhang, Jiapeng Lin, and Dingyi Liu.
 - **[Nov. 2025]** 🏆 Special Contribution Award, Huawei Security Reward Program, with Yinglu Zhang.
 
 <!-- Sections such as Education, Services, and Internships can be enabled once the corresponding information is available. -->
