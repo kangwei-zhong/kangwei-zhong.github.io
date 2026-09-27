@@ -27,20 +27,36 @@ Please feel free to contact me at [kwzhong23@m.fudan.edu.cn](mailto:kwzhong23@m.
 
 # Publications
 
-[NDSS'27] **Protocol Confusion in LLM Coding Agents: Uncovering Model-Agent Inconsistency in Tool Invocation** [To be appeared]  
+<div class="publication-item" markdown="1">
+
+<span class="venue-badge">NDSS'27</span> **Protocol Confusion in LLM Coding Agents: Uncovering Model-Agent Inconsistency in Tool Invocation** <span class="paper-status">To appear</span>  
 **Kangwei Zhong**, Zhemin Yang, Haoyu Wu, Jiapeng Lin.  
 *Proceedings of the 34th Network and Distributed System Security Symposium (NDSS), 2027.* 
 
-[NDSS'27] **Inviting the Wolf In: Uncovering the Hidden Risks of Cross-App File Import in Android** [To be appeared]  
+</div>
+
+<div class="publication-item" markdown="1">
+
+<span class="venue-badge">NDSS'27</span> **Inviting the Wolf In: Uncovering the Hidden Risks of Cross-App File Import in Android** <span class="paper-status">To appear</span>  
 Yinglu Zhang, Zhemin Yang, **Kangwei Zhong**, Ying Yang, Jiapeng Lin.  
 *Proceedings of the 34th Network and Distributed System Security Symposium (NDSS), 2027.* 
 
-[NDSS'26] **Better Safe than Sorry: Uncovering the Insecure Resource Management in App-in-App Cloud Services** [[Paper](https://www.ndss-symposium.org/wp-content/uploads/2026-s194-paper.pdf)]  
+</div>
+
+<div class="publication-item" markdown="1">
+
+<span class="venue-badge">NDSS'26</span> **Better Safe than Sorry: Uncovering the Insecure Resource Management in App-in-App Cloud Services** [[Paper](https://www.ndss-symposium.org/wp-content/uploads/2026-s194-paper.pdf)]  
 Yizhe Shi, Zhemin Yang, Dingyi Liu, **Kangwei Zhong**, Jiarun Dai, and Min Yang.  
 *Proceedings of the 33rd Network and Distributed System Security Symposium (NDSS), 2026.* 
 
-[NDSS'25] **The Skeleton Keys: A Large Scale Analysis of Credential Leakage in Mini-apps** [[Paper](https://www.ndss-symposium.org/wp-content/uploads/2025-273-paper.pdf)]  
+</div>
+
+<div class="publication-item" markdown="1">
+
+<span class="venue-badge">NDSS'25</span> **The Skeleton Keys: A Large Scale Analysis of Credential Leakage in Mini-apps** [[Paper](https://www.ndss-symposium.org/wp-content/uploads/2025-273-paper.pdf)]  
 Yizhe Shi, Zhemin Yang, **Kangwei Zhong**, Guangliang Yang, Yifan Yang, Xiaohan Zhang, and Min Yang.  
 *Proceedings of the 32nd Network and Distributed System Security Symposium (NDSS), 2025.*  
+
+</div>
 
 <!-- Sections such as Education, Awards, Services, and Internships can be enabled once the corresponding information is available. -->
