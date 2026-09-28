@@ -16,7 +16,7 @@ Hello! I am **Kangwei Zhong (钟康维)**, a Ph.D. student in the [System Softwa
 
 My research interests include **agent security** and **mobile security**. I am broadly interested in understanding and mitigating security risks in LLM-based agents, mobile applications, and app-in-app ecosystems.
 
-Please feel free to contact me at [kwzhong23@m.fudan.edu.cn](mailto:kwzhong23@m.fudan.edu.cn).
+Please feel free to contact me at kwzhong23 [at] m.fudan.edu.cn.
 
 # News
 
@@ -29,11 +29,11 @@ Please feel free to contact me at [kwzhong23@m.fudan.edu.cn](mailto:kwzhong23@m.
 
 # Publications
 
-<span class="venue-badge">NDSS'27</span> **Protocol Confusion in LLM Coding Agents: Uncovering Model-Agent Inconsistency in Tool Invocation**  
+<span class="venue-badge">NDSS'27</span> **Protocol Confusion in LLM Coding Agents: Uncovering Model-Agent Inconsistency in Tool Invocation** [To be appeared]  
 **Kangwei Zhong**, Zhemin Yang, Haoyu Wu, Jiapeng Lin.  
 *Proceedings of the 34th Network and Distributed System Security Symposium (NDSS), 2027.* <span class="ccf-rank">(CCF-A)</span>
 
-<span class="venue-badge">NDSS'27</span> **Inviting the Wolf In: Uncovering the Hidden Risks of Cross-App File Import in Android**  
+<span class="venue-badge">NDSS'27</span> **Inviting the Wolf In: Uncovering the Hidden Risks of Cross-App File Import in Android** [To be appeared]  
 Yinglu Zhang, Zhemin Yang, **Kangwei Zhong**, Ying Yang, Jiapeng Lin.  
 *Proceedings of the 34th Network and Distributed System Security Symposium (NDSS), 2027.* <span class="ccf-rank">(CCF-A)</span>
 
